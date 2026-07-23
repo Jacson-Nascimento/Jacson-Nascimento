@@ -1,17 +1,13 @@
 name: Estruturar documentação do Modelo Axion
 
-# Retry after completing all bootstrap parts.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'lotofacil_axion/scripts/bootstrap_documentation.py'
-      - '.github/workflows/bootstrap-lotofacil-docs.yml'
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: bootstrap-lotofacil-docs
@@ -19,6 +15,7 @@ concurrency:
 
 jobs:
   organize:
+    if: github.event_name != 'issues' || github.event.issue.title == 'RUN: publicar documentação Lotofácil Axion'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -78,3 +75,9 @@ jobs:
             lotofacil_axion/PROJECT_STATUS.md
           if-no-files-found: error
           retention-days: 90
+
+      - name: Close trigger issue
+        if: success() && github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue close "${{ github.event.issue.number }}" --comment "Documentação estruturada e artigos publicados em PDF."

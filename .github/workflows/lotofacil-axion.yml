@@ -1,0 +1,82 @@
+name: Lotofacil Axion
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'lotofacil_axion/**'
+      - '.github/workflows/lotofacil-axion.yml'
+  schedule:
+    - cron: '30 20 * * 1-6'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lotofacil-axion
+  cancel-in-progress: false
+
+jobs:
+  full-cycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: lotofacil_axion/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r lotofacil_axion/requirements.txt
+
+      - name: Run full-history nested validation
+        working-directory: lotofacil_axion
+        run: python run_full_cycle.py
+
+      - name: Verify prospective manifest
+        working-directory: lotofacil_axion
+        run: |
+          test -n "$(find results -name 'prediction_*_manifest.json' -print -quit)"
+          python - <<'PY'
+          import glob, json
+          paths = sorted(glob.glob('results/prediction_*_manifest.json'))
+          with open(paths[-1], encoding='utf-8') as f:
+              m = json.load(f)
+          assert m['next_contest'] == m['last_observed_contest'] + 1
+          assert len(m['top_game']) == 15
+          assert len(set(m['top_game'])) == 15
+          assert all(1 <= x <= 25 for x in m['top_game'])
+          print(json.dumps(m, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Commit immutable results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add lotofacil_axion/data lotofacil_axion/results
+          if git diff --cached --quiet; then
+            echo 'No new result to commit.'
+          else
+            contest=$(python - <<'PY'
+          import glob, json
+          p=sorted(glob.glob('lotofacil_axion/results/prediction_*_manifest.json'))[-1]
+          print(json.load(open(p))['next_contest'])
+          PY
+          )
+            git commit -m "Register Lotofacil prediction ${contest}"
+            git push
+          fi
+
+      - name: Upload complete outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: lotofacil-axion-results
+          path: |
+            lotofacil_axion/data
+            lotofacil_axion/results
+          retention-days: 90

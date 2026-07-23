@@ -1,5 +1,6 @@
 name: Estruturar documentação do Modelo Axion
 
+# Retry after completing all bootstrap parts.
 on:
   workflow_dispatch:
   push:

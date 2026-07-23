@@ -1,96 +1,24 @@
-name: Publicar relatórios técnicos do Modelo Axion
+name: Publicação manual dos relatórios técnicos do Modelo Axion
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
 
 permissions:
-  contents: write
-
-concurrency:
-  group: publish-axion-technical-reports
-  cancel-in-progress: true
+  contents: read
 
 jobs:
-  publish:
+  verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.11'
-
-      - name: Install document converters
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pandoc libreoffice-writer
-
-      - name: Materialize technical report sources
-        run: python lotofacil_axion/scripts/publish_technical_reports.py
-
-      - name: Build DOCX and PDF editions
+      - uses: actions/checkout@v5
+      - name: Verify permanent report files
         shell: bash
         run: |
           set -euo pipefail
-          reports_dir='lotofacil_axion/docs/technical-reports'
-          for md in "$reports_dir"/relatorio_tecnico_*.md; do
-            docx="${md%.md}.docx"
-            pandoc "$md" --from=gfm --standalone --output="$docx"
-            libreoffice --headless --convert-to pdf --outdir "$reports_dir" "$docx"
-          done
-
-      - name: Generate and verify checksums
-        shell: bash
-        run: |
-          set -euo pipefail
-          reports_dir='lotofacil_axion/docs/technical-reports'
+          reports_dir='lotofacil_axion/docs/reports'
+          test -s "$reports_dir/relatorio_tecnico_01_robustez_mineracao_parametros.pdf"
+          test -s "$reports_dir/relatorio_tecnico_02_otimizacao_multiobjetivo_carteiras.pdf"
+          test -s "$reports_dir/relatorio_tecnico_03_limites_exatos_11_12_13.pdf"
+          test -s "$reports_dir/relatorio_tecnico_04_fronteira_orcamento_eficiencia_marginal.pdf"
           cd "$reports_dir"
-          count=$(find . -maxdepth 1 -name 'relatorio_tecnico_*.pdf' -type f -size +0c | wc -l)
-          test "$count" -eq 4
-          sha256sum relatorio_tecnico_*.pdf > CHECKSUMS.sha256
-          for pdf in relatorio_tecnico_*.pdf; do
-            sha256sum "$pdf" > "$pdf.sha256"
-          done
-          test -s CHECKSUMS.sha256
-          ls -lh relatorio_tecnico_* CHECKSUMS.sha256
-
-      - name: Remove one-time publication infrastructure
-        run: |
-          rm -rf lotofacil_axion/scripts/bootstrap_parts
-          rm -f lotofacil_axion/scripts/bootstrap_documentation.py
-          rm -f lotofacil_axion/scripts/publish_technical_reports.py
-          rm -f .github/lotofacil-docs-trigger.txt
-          rm -f .github/workflows/bootstrap-lotofacil-docs.yml
-
-      - name: Commit permanent reports
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          if git diff --cached --quiet; then
-            echo 'No documentation changes to publish.'
-          else
-            git commit -m 'docs: publish four Axion technical reports [skip ci]'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
-
-      - name: Upload report package
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: axion-technical-reports-v1.0
-          path: lotofacil_axion/docs/technical-reports
-          if-no-files-found: error
-          retention-days: 90
+          sha256sum --check CHECKSUMS.sha256

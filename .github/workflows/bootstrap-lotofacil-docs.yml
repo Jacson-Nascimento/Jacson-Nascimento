@@ -2,6 +2,11 @@ name: Estruturar documentação do Modelo Axion
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/lotofacil-docs-trigger.txt'
+      - '.github/workflows/bootstrap-lotofacil-docs.yml'
   pull_request_target:
     types: [opened]
 
@@ -51,6 +56,7 @@ jobs:
           rm -rf lotofacil_axion/scripts/bootstrap_parts
           rm -f lotofacil_axion/scripts/bootstrap_documentation.py
           rm -f .github/workflows/bootstrap-lotofacil-docs.yml
+          rm -f .github/lotofacil-docs-trigger.txt
 
       - name: Commit organized documentation
         run: |

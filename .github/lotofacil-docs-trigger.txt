@@ -1,0 +1,1 @@
+Trigger controlado para publicar a documentação estruturada do Modelo Axion Lotofácil e os dois artigos em PDF.

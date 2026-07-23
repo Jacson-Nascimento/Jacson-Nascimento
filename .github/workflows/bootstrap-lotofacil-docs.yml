@@ -1,92 +1,96 @@
-name: Estruturar documentação do Modelo Axion
+name: Publicar relatórios técnicos do Modelo Axion
 
 on:
   workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
-  push:
-    branches: [main]
-    paths:
-      - '.github/lotofacil-docs-trigger.txt'
-      - '.github/workflows/bootstrap-lotofacil-docs.yml'
-  pull_request_target:
-    types: [opened]
 
 permissions:
   contents: write
-  pull-requests: write
 
 concurrency:
-  group: bootstrap-lotofacil-docs
+  group: publish-axion-technical-reports
   cancel-in-progress: true
 
 jobs:
-  organize:
-    if: github.event_name != 'pull_request_target' || github.event.pull_request.title == 'RUN: publicar documentação Lotofácil Axion'
+  publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout repository
+        uses: actions/checkout@v5
         with:
           ref: main
           fetch-depth: 0
 
-      - uses: actions/setup-python@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
-      - name: Materialize project structure
-        run: python lotofacil_axion/scripts/bootstrap_documentation.py --root .
-
-      - name: Install document dependencies
+      - name: Install document converters
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r lotofacil_axion/docs/papers/requirements-docs.txt
+          sudo apt-get update
+          sudo apt-get install -y pandoc libreoffice-writer
 
-      - name: Build the two PDF articles
-        run: python lotofacil_axion/scripts/build_papers.py
+      - name: Materialize technical report sources
+        run: python lotofacil_axion/scripts/publish_technical_reports.py
 
-      - name: Validate generated documentation
+      - name: Build DOCX and PDF editions
+        shell: bash
         run: |
-          test -s lotofacil_axion/docs/papers/artigo_01_resultados_intermediarios.pdf
-          test -s lotofacil_axion/docs/papers/artigo_02_otimizacao_combinatoria_exata.pdf
-          python -m py_compile lotofacil_axion/run_full_cycle.py
-          python -m py_compile lotofacil_axion/scripts/build_papers.py
-          find lotofacil_axion/docs -maxdepth 3 -type f | sort
+          set -euo pipefail
+          reports_dir='lotofacil_axion/docs/technical-reports'
+          for md in "$reports_dir"/relatorio_tecnico_*.md; do
+            docx="${md%.md}.docx"
+            pandoc "$md" --from=gfm --standalone --output="$docx"
+            libreoffice --headless --convert-to pdf --outdir "$reports_dir" "$docx"
+          done
 
-      - name: Remove one-time bootstrap files
+      - name: Generate and verify checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          reports_dir='lotofacil_axion/docs/technical-reports'
+          cd "$reports_dir"
+          count=$(find . -maxdepth 1 -name 'relatorio_tecnico_*.pdf' -type f -size +0c | wc -l)
+          test "$count" -eq 4
+          sha256sum relatorio_tecnico_*.pdf > CHECKSUMS.sha256
+          for pdf in relatorio_tecnico_*.pdf; do
+            sha256sum "$pdf" > "$pdf.sha256"
+          done
+          test -s CHECKSUMS.sha256
+          ls -lh relatorio_tecnico_* CHECKSUMS.sha256
+
+      - name: Remove one-time publication infrastructure
         run: |
           rm -rf lotofacil_axion/scripts/bootstrap_parts
           rm -f lotofacil_axion/scripts/bootstrap_documentation.py
-          rm -f .github/workflows/bootstrap-lotofacil-docs.yml
+          rm -f lotofacil_axion/scripts/publish_technical_reports.py
           rm -f .github/lotofacil-docs-trigger.txt
+          rm -f .github/workflows/bootstrap-lotofacil-docs.yml
 
-      - name: Commit organized documentation
+      - name: Commit permanent reports
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           if git diff --cached --quiet; then
-            echo 'Documentation is already current.'
+            echo 'No documentation changes to publish.'
           else
-            git commit -m 'docs: organize Modelo Axion and publish papers [skip ci]'
+            git commit -m 'docs: publish four Axion technical reports [skip ci]'
             git pull --rebase origin main
             git push origin HEAD:main
           fi
 
-      - name: Upload documentation artifact
+      - name: Upload report package
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lotofacil-axion-documentation
-          path: |
-            lotofacil_axion/docs
-            lotofacil_axion/README.md
-            lotofacil_axion/PROJECT_STATUS.md
+          name: axion-technical-reports-v1.0
+          path: lotofacil_axion/docs/technical-reports
           if-no-files-found: error
           retention-days: 90
-
-      - name: Close trigger pull request
-        if: success() && github.event_name == 'pull_request_target'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh pr close "${{ github.event.pull_request.number }}" --comment "Documentação estruturada e artigos publicados em PDF no branch main."

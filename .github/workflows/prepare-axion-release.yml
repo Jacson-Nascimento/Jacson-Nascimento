@@ -13,37 +13,74 @@ jobs:
 
     steps:
       - name: Obter repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: Validar relatórios permanentes
+      - name: Validar PDFs e atualizar checksums
         shell: bash
         run: |
           set -euo pipefail
           reports="lotofacil_axion/docs/reports"
-          test -s "$reports/relatorio_tecnico_01_robustez_mineracao_parametros.pdf"
-          test -s "$reports/relatorio_tecnico_02_otimizacao_multiobjetivo_carteiras.pdf"
-          test -s "$reports/relatorio_tecnico_03_limites_exatos_11_12_13.pdf"
-          test -s "$reports/relatorio_tecnico_04_fronteira_orcamento_eficiencia_marginal.pdf"
+          files=(
+            "relatorio_tecnico_01_robustez_mineracao_parametros.pdf"
+            "relatorio_tecnico_02_otimizacao_multiobjetivo_carteiras.pdf"
+            "relatorio_tecnico_03_limites_exatos_11_12_13.pdf"
+            "relatorio_tecnico_04_fronteira_orcamento_eficiencia_marginal.pdf"
+          )
+
+          for file in "${files[@]}"; do
+            test -f "$reports/$file"
+            test -s "$reports/$file"
+            echo "OK: $file ($(stat -c%s "$reports/$file") bytes)"
+          done
+
           cd "$reports"
+          sha256sum "${files[@]}" > CHECKSUMS.sha256
+          for file in "${files[@]}"; do
+            sha256sum "$file" > "$file.sha256"
+          done
+
           sha256sum --check CHECKSUMS.sha256
+          echo "Manifesto atualizado:"
+          cat CHECKSUMS.sha256
+
+      - name: Registrar checksums atualizados
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lotofacil_axion/docs/reports/CHECKSUMS.sha256
+          git add lotofacil_axion/docs/reports/*.pdf.sha256
+
+          if git diff --cached --quiet; then
+            echo "Os checksums já estavam atualizados."
+          else
+            git commit -m "docs: refresh Axion report checksums [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
 
       - name: Montar pacote de preservação
         shell: bash
         run: |
           set -euo pipefail
           package="axion-relatorios-v1.0"
-          rm -rf "$package" "$package.zip" "$package.zip.sha256"
+          reports="lotofacil_axion/docs/reports"
+          rm -rf "$package" "$package.zip" "$package.zip.sha256" CHECKSUMS.sha256
           mkdir -p "$package"
-          cp lotofacil_axion/docs/reports/*.pdf "$package/"
-          cp lotofacil_axion/docs/reports/*.sha256 "$package/"
-          cp lotofacil_axion/docs/reports/README.md "$package/README.md"
+
+          cp "$reports"/*.pdf "$package/"
+          cp "$reports"/*.pdf.sha256 "$package/"
+          cp "$reports/CHECKSUMS.sha256" "$package/CHECKSUMS.sha256"
+          cp "$reports/README.md" "$package/README.md"
           cp CITATION.cff "$package/CITATION.cff"
           cp .zenodo.json "$package/.zenodo.json"
+
           zip -9 -r "$package.zip" "$package"
           sha256sum "$package.zip" > "$package.zip.sha256"
-          cp lotofacil_axion/docs/reports/CHECKSUMS.sha256 ./CHECKSUMS.sha256
+          cp "$reports/CHECKSUMS.sha256" ./CHECKSUMS.sha256
 
       - name: Criar tag e rascunho da Release
         env:

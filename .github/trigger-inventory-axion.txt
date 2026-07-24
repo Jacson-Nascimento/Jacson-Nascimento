@@ -1,1 +1,0 @@
-Executar inventário temporário dos arquivos do projeto Axion.

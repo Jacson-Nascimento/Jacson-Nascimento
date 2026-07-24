@@ -1,0 +1,1 @@
+Trigger controlado para preparar a tag e o rascunho da Release axion-relatorios-v1.0.

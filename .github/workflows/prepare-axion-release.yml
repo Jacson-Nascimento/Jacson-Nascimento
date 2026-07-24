@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
+  pull_request_target:
+    types: [opened]
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: prepare-axion-release-v1
@@ -14,10 +17,12 @@ concurrency:
 
 jobs:
   prepare-release:
+    if: github.event_name != 'pull_request_target' || github.event.pull_request.title == 'RUN: preparar Release Axion v1.0'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Validate permanent reports
@@ -38,7 +43,7 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          if git rev-parse 'refs/tags/axion-relatorios-v1.0' >/dev/null 2>&1; then
+          if git ls-remote --exit-code --tags origin 'refs/tags/axion-relatorios-v1.0' >/dev/null 2>&1; then
             echo 'Tag already exists.'
           else
             git tag -a 'axion-relatorios-v1.0' -m 'Modelo Axion Lotofácil — relatórios técnicos nº 1–4, versão 1.0'
@@ -113,6 +118,12 @@ jobs:
             git commit -m 'chore: finish preparation of Axion v1.0 draft release [skip ci]'
             git push origin HEAD:main
           fi
+
+      - name: Close trigger pull request
+        if: success() && github.event_name == 'pull_request_target'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr close "${{ github.event.pull_request.number }}" --comment "Tag e rascunho da Release Axion v1.0 preparados com os anexos de preservação."
 
       - name: Upload local preservation artifact
         if: always()

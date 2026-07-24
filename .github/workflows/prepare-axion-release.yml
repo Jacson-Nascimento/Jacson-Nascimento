@@ -1,0 +1,127 @@
+name: Preparar Release Axion v1.0
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prepare-axion-release-v1
+  cancel-in-progress: false
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Validate permanent reports
+        shell: bash
+        run: |
+          set -euo pipefail
+          reports='lotofacil_axion/docs/reports'
+          test -s "$reports/relatorio_tecnico_01_robustez_mineracao_parametros.pdf"
+          test -s "$reports/relatorio_tecnico_02_otimizacao_multiobjetivo_carteiras.pdf"
+          test -s "$reports/relatorio_tecnico_03_limites_exatos_11_12_13.pdf"
+          test -s "$reports/relatorio_tecnico_04_fronteira_orcamento_eficiencia_marginal.pdf"
+          cd "$reports"
+          sha256sum --check CHECKSUMS.sha256
+
+      - name: Create and push annotated tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if git rev-parse 'refs/tags/axion-relatorios-v1.0' >/dev/null 2>&1; then
+            echo 'Tag already exists.'
+          else
+            git tag -a 'axion-relatorios-v1.0' -m 'Modelo Axion Lotofácil — relatórios técnicos nº 1–4, versão 1.0'
+            git push origin 'refs/tags/axion-relatorios-v1.0'
+          fi
+
+      - name: Build preservation package
+        shell: bash
+        run: |
+          set -euo pipefail
+          package='axion-relatorios-v1.0'
+          mkdir -p "$package"
+          cp lotofacil_axion/docs/reports/*.pdf "$package/"
+          cp lotofacil_axion/docs/reports/*.sha256 "$package/"
+          cp lotofacil_axion/docs/reports/README.md "$package/README.md"
+          cp CITATION.cff "$package/CITATION.cff"
+          cp .zenodo.json "$package/.zenodo.json"
+          zip -9 -r "${package}.zip" "$package"
+          sha256sum "${package}.zip" > "${package}.zip.sha256"
+          cp lotofacil_axion/docs/reports/CHECKSUMS.sha256 ./CHECKSUMS.sha256
+
+      - name: Create draft GitHub Release and attach assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          notes=$(cat <<'EOF'
+          # Modelo Axion Lotofácil — série de relatórios técnicos nº 1–4
+
+          **Versão:** 1.0  
+          **Data de emissão:** 23 de julho de 2026  
+          **Autor:** Jacson Cruz do Nascimento  
+          **Local:** Brasília — DF
+
+          Esta edição reúne quatro relatórios técnicos não submetidos à revisão por pares:
+
+          1. Testes de robustez e mineração de parâmetros;
+          2. Otimização multiobjetivo de carteiras;
+          3. Limites exatos para 11+, 12+ e 13+;
+          4. Fronteira de orçamento e eficiência marginal.
+
+          Os anexos incluem o pacote integral, o manifesto SHA-256 dos PDFs e o checksum do próprio pacote. Os documentos não constituem recomendação financeira nem garantia de premiação.
+
+          **Preservação:** esta Release foi preparada como rascunho para publicação após a autorização do repositório na integração GitHub–Zenodo.
+          EOF
+          )
+          if gh release view 'axion-relatorios-v1.0' >/dev/null 2>&1; then
+            gh release upload 'axion-relatorios-v1.0' \
+              axion-relatorios-v1.0.zip \
+              axion-relatorios-v1.0.zip.sha256 \
+              CHECKSUMS.sha256 --clobber
+          else
+            gh release create 'axion-relatorios-v1.0' \
+              --draft \
+              --title 'Modelo Axion Lotofácil — Relatórios técnicos nº 1–4, v1.0' \
+              --notes "$notes" \
+              axion-relatorios-v1.0.zip \
+              axion-relatorios-v1.0.zip.sha256 \
+              CHECKSUMS.sha256
+          fi
+
+      - name: Remove one-time scheduler
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f .github/workflows/prepare-axion-release.yml
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: finish preparation of Axion v1.0 draft release [skip ci]'
+            git push origin HEAD:main
+          fi
+
+      - name: Upload local preservation artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: axion-relatorios-v1.0-preservation
+          path: |
+            axion-relatorios-v1.0.zip
+            axion-relatorios-v1.0.zip.sha256
+            CHECKSUMS.sha256
+          if-no-files-found: error
+          retention-days: 90

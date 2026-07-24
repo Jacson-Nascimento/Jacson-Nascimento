@@ -1,0 +1,61 @@
+name: Publicar revisões DOI do Modelo Axion
+
+"on":
+  push:
+    branches: [main]
+    paths:
+      - '.github/trigger-publish-axion-doi-revisions.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Gerar e publicar PDFs revisados
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter repositório
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Preparar Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências documentais
+        run: python -m pip install --upgrade markdown weasyprint pypdf reportlab
+
+      - name: Gerar artigos e relatórios com DOI
+        run: python lotofacil_axion/scripts/publish_doi_revisions.py
+
+      - name: Validar arquivos produzidos
+        shell: bash
+        run: |
+          set -euo pipefail
+          papers='lotofacil_axion/docs/papers'
+          reports='lotofacil_axion/docs/reports'
+          test -s "$papers/artigo_01_resultados_intermediarios_v1.0.1.pdf"
+          test -s "$papers/artigo_02_otimizacao_combinatoria_exata_v2.0.1.pdf"
+          test -s "$reports/relatorio_tecnico_01_robustez_mineracao_parametros_v1.0.1.pdf"
+          test -s "$reports/relatorio_tecnico_02_otimizacao_multiobjetivo_carteiras_v1.0.1.pdf"
+          test -s "$reports/relatorio_tecnico_03_limites_exatos_11_12_13_v1.0.1.pdf"
+          test -s "$reports/relatorio_tecnico_04_fronteira_orcamento_eficiencia_marginal_v1.0.1.pdf"
+          (cd "$papers" && sha256sum --check CHECKSUMS_DOI_REVISIONS.sha256)
+          (cd "$reports" && sha256sum --check CHECKSUMS_v1.0.1.sha256)
+
+      - name: Publicar revisão editorial
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -rf lotofacil_axion/docs/papers/source_payloads
+          rm -f .github/trigger-publish-axion-doi-revisions.txt
+          rm -f .github/workflows/publish-axion-doi-revisions.yml
+          git add -A
+          git commit -m 'docs: publish DOI-identified Axion papers and report revisions [skip ci]'
+          git pull --rebase origin main
+          git push origin HEAD:main

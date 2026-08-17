@@ -1,0 +1,8 @@
+metric,value
+mean_fraction_correct,0.840246666667
+minimum_fraction_correct,0.633333333333
+wrong_seed_count,1729
+wrong_seed_probability,0.172900000000
+executive_stationary_weight,0.526477382521
+top6_stationary_weight,0.956359480167
+effective_number_sources,3.140783586954

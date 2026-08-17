@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "Dinâmica de Manada Organizacional: um arcabouço teórico-computacional para hierarquia, influência social, silêncio e independência informacional"
+message: "Se utilizar este material, cite o preprint e o repositório de replicação. Atualize o DOI após o depósito definitivo no Zenodo."
+type: software
+authors:
+  - family-names: "Nascimento"
+    given-names: "Jacson Cruz do"
+repository-code: "https://github.com/Jacson-Nascimento/Jacson-Nascimento/tree/main/research/dinamica-manada-organizacional"
+date-released: "2026-08-17"
+version: "1.0"
+keywords:
+  - opinion dynamics
+  - herd behavior
+  - auditing
+  - social influence
+  - hierarchy
+  - organizational silence
+  - Monte Carlo
+  - reproducibility
+preferred-citation:
+  type: article
+  title: "Dinâmica de Manada Organizacional: um arcabouço teórico-computacional para hierarquia, influência social, silêncio e independência informacional"
+  authors:
+    - family-names: "Nascimento"
+      given-names: "Jacson Cruz do"
+  year: 2026
+  notes: "Preprint v1.0. DOI Zenodo a ser inserido após depósito definitivo."

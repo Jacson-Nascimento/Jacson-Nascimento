@@ -1,0 +1,101 @@
+name: Reproduce herd dynamics baseline
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'research/dinamica-manada-organizacional/**'
+      - '.github/workflows/reproduce-herd-dynamics.yml'
+  pull_request:
+    paths:
+      - 'research/dinamica-manada-organizacional/**'
+      - '.github/workflows/reproduce-herd-dynamics.yml'
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: research/dinamica-manada-organizacional
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install reference generator dependencies
+        run: pip install -r environment/python-requirements.txt
+
+      - name: Generate exact reference data
+        run: python tools/generate_reference_data.py
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+
+      - name: Run R reproducibility pipeline
+        run: Rscript run_all.R
+
+      - name: Validate baseline controls
+        run: |
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+
+          expected = {}
+          with open('outputs/expected_baseline_summary.csv', newline='') as f:
+              for row in csv.DictReader(f):
+                  expected[row['metric']] = float(row['value'])
+
+          actual = {}
+          with open('outputs/generated/reproduced_baseline_summary_R.csv', newline='') as f:
+              for row in csv.DictReader(f):
+                  actual[row['metric']] = float(row['value'])
+
+          tolerances = {
+              'wrong_seed_count': 0.0,
+              'mean_fraction_correct': 1e-10,
+              'minimum_fraction_correct': 1e-10,
+              'wrong_seed_probability': 1e-10,
+              'executive_stationary_weight': 1e-10,
+              'top6_stationary_weight': 1e-10,
+              'effective_number_sources': 1e-9,
+          }
+
+          for key, tol in tolerances.items():
+              diff = abs(actual[key] - expected[key])
+              if diff > tol:
+                  raise SystemExit(f'{key}: expected {expected[key]}, got {actual[key]}, diff={diff}')
+          print('Baseline controls reproduced successfully.')
+          PY
+
+      - name: Validate Table 5 integer counts
+        run: |
+          python - <<'PY'
+          import csv
+
+          with open('outputs/generated/reproduced_table5_R.csv', newline='') as f:
+              rows = list(csv.DictReader(f))
+
+          expected_counts = [0, 0, 1085, 1575]
+          expected_conditional_n = 1729
+          for row, count in zip(rows, expected_counts):
+              if int(float(row['conditional_n_seed_wrong'])) != expected_conditional_n:
+                  raise SystemExit('Unexpected conditional sample size.')
+              if int(float(row['herd_count_given_seed_wrong'])) != count:
+                  raise SystemExit(f"Unexpected herd count for beta={row['beta']}, c={row['c']}")
+          print('Table 5 counts reproduced successfully.')
+          PY
+
+      - name: Upload generated outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: herd-dynamics-reproduction
+          path: |
+            research/dinamica-manada-organizacional/outputs/generated
+            research/dinamica-manada-organizacional/figures/generated

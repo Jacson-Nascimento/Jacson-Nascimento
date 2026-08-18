@@ -46,7 +46,8 @@ jobs:
             echo 'No validated analysis changes.'
           else
             git commit -m 'Reanalisa acumulado até março com Strength global [skip ci]'
-            git push origin HEAD:${{ github.head_ref || 'research/pncp-marco-2025' }}
+            git pull --rebase origin research/pncp-marco-2025
+            git push origin HEAD:research/pncp-marco-2025
           fi
 
       - name: Upload validated analysis

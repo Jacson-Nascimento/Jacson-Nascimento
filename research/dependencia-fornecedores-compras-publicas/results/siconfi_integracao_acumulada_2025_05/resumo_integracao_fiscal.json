@@ -1,0 +1,58 @@
+{
+  "mes_final_publicacao": "2025-05",
+  "especificacao_metricas": "global",
+  "compradores_integracao_principal": 1209,
+  "compradores_com_despesa_empenhada": 1199,
+  "cobertura_despesa_empenhada_pct": 99.17287014061208,
+  "municipios_fiscais_com_total_despesa": 674,
+  "registros_siconfi_antes_dedup": 299773,
+  "registros_siconfi_consolidados": 299773,
+  "duplicidades_siconfi_removidas": 0,
+  "fontes_coleta_e_registros": {
+    "results/siconfi_integracao_jan_fev_2025/coleta/siconfi_dca_2025.csv.gz": 175184,
+    "results/siconfi_integracao_acumulada_2025_03/coleta_delta/siconfi_dca_2025.csv.gz": 44955,
+    "results/siconfi_integracao_acumulada_2025_04/coleta_delta/siconfi_dca_2025.csv.gz": 48640,
+    "results/siconfi_integracao_acumulada_2025_05/coleta_delta/siconfi_dca_2025.csv.gz": 30994
+  },
+  "procurement_intensity_parcial_mediana": 0.004306243951040161,
+  "procurement_intensity_parcial_p95": 0.05262421604506026,
+  "procurement_intensity_parcial_max": 1.1408604428115825,
+  "correlacoes_spearman": {
+    "hhi_norm_vs_log_despesa": {
+      "rho": 0.21887891314615865,
+      "p": 1.7989245068907424e-14,
+      "n": 1199
+    },
+    "hhi_norm_vs_log_populacao": {
+      "rho": 0.2220146147773937,
+      "p": 7.435774647254737e-15,
+      "n": 1199
+    },
+    "hhi_norm_vs_log_despesa_per_capita": {
+      "rho": -0.08233701307736162,
+      "p": 0.004331944824400305,
+      "n": 1199
+    },
+    "hhi_norm_vs_procurement_intensity_parcial": {
+      "rho": 0.006121893453225489,
+      "p": 0.8322934094299974,
+      "n": 1199
+    },
+    "exposicao_strength_vs_log_despesa": {
+      "rho": 0.1655827426398076,
+      "p": 8.048486438549713e-09,
+      "n": 1199
+    },
+    "exposicao_strength_vs_log_populacao": {
+      "rho": 0.17308619700355884,
+      "p": 1.6122324861493157e-09,
+      "n": 1199
+    },
+    "exposicao_strength_vs_log_despesa_per_capita": {
+      "rho": -0.08287896392403864,
+      "p": 0.004081883936851407,
+      "n": 1199
+    }
+  },
+  "nota": "ProcurementIntensity parcial usa instrumentos assinados em 2025 e publicados até o mês de corte; é diagnóstico de escala e não medida de execução orçamentária. Associações não são causais."
+}

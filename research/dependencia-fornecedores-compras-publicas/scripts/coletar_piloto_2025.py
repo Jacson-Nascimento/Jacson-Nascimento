@@ -2,8 +2,14 @@
 """Coleta piloto sentinela do PNCP para 2025.
 
 Amostra uma quarta-feira de cada mês, baixa todas as páginas de contratos
-publicados naquela data, mede qualidade/cobertura e calcula métricas
-exploratórias. Os resultados NÃO representam estimativas anuais.
+publicados naquela data, mede qualidade e calcula métricas exploratórias.
+
+Privacidade:
+- diagnósticos agregados usam todos os tipos de fornecedor;
+- arquivos públicos com identificador de fornecedor usam somente PJ;
+- PF e PE não são republicados no repositório público.
+
+Os resultados NÃO representam estimativas anuais.
 """
 
 from __future__ import annotations
@@ -110,7 +116,6 @@ def main():
     df["data_consulta"] = pd.to_datetime(df["_data_consulta"], format="%Y%m%d")
     df["mes_consulta"] = df["data_consulta"].dt.month
 
-    # Base municipal executiva de despesa para o diagnóstico principal.
     muni = df[
         df["esfera"].str.upper().eq("M")
         & df["poder"].str.upper().eq("E")
@@ -122,21 +127,22 @@ def main():
         & df["receita"].fillna(False).eq(False)
     ].copy()
 
-    # Preserva apenas colunas analíticas para manter o arquivo enxuto.
-    cols = [
+    # Base pública com identificadores somente de pessoas jurídicas.
+    muni_pj = muni[muni["tipo_pessoa"].astype("string").str.upper().eq("PJ")].copy()
+
+    cols_publicos = [
         "data_consulta", "mes_consulta", "id_contrato", "id_compra",
         "esfera", "poder", "municipio_ibge", "municipio", "uf",
-        "fornecedor_id_limpo", "fornecedor_nome", "tipo_pessoa",
-        "categoria", "tipo_contrato", "valorInicial", "valorGlobal",
-        "valorAcumulado", "data_assinatura", "data_publicacao",
-        "lag_publicacao_dias", "ano_assinatura",
+        "fornecedor_id_limpo", "tipo_pessoa", "categoria", "tipo_contrato",
+        "valorInicial", "valorGlobal", "valorAcumulado", "data_assinatura",
+        "data_publicacao", "lag_publicacao_dias", "ano_assinatura",
     ]
-    muni[cols].to_csv(
-        OUT_DATA / "pncp_piloto_2025_sentinela.csv.gz",
+    muni_pj[cols_publicos].to_csv(
+        OUT_DATA / "pncp_piloto_2025_sentinela_publica_pj.csv.gz",
         index=False, compression="gzip", encoding="utf-8"
     )
 
-    # Diagnóstico por data sentinela.
+    # Diagnóstico agregado por data sentinela, sem identificadores pessoais.
     date_rows = []
     for date, g in df.groupby("data_consulta"):
         gm = muni[muni["data_consulta"].eq(date)]
@@ -144,6 +150,9 @@ def main():
             "data": date.date().isoformat(),
             "registros_total": len(g),
             "registros_municipais_validos": len(gm),
+            "registros_pj": int(gm["tipo_pessoa"].astype("string").str.upper().eq("PJ").sum()),
+            "registros_pf": int(gm["tipo_pessoa"].astype("string").str.upper().eq("PF").sum()),
+            "registros_pe": int(gm["tipo_pessoa"].astype("string").str.upper().eq("PE").sum()),
             "municipios": gm["municipio_ibge"].nunique(),
             "ufs": gm["uf"].nunique(),
             "fornecedores": gm["fornecedor_id_limpo"].nunique(),
@@ -157,8 +166,7 @@ def main():
         })
     pd.DataFrame(date_rows).to_csv(OUT_RESULTS / "piloto2025_resumo_datas.csv", index=False)
 
-    # Presença do município nas 12 datas sentinela.
-    cobertura = (
+    presenca = (
         muni.groupby(["municipio_ibge", "municipio", "uf"], dropna=False)
         .agg(
             datas_sentinela=("data_consulta", "nunique"),
@@ -169,8 +177,8 @@ def main():
         )
         .reset_index()
     )
-    cobertura["coverage_sentinela"] = cobertura["datas_sentinela"] / len(DATES)
-    cobertura.to_csv(OUT_RESULTS / "piloto2025_cobertura_municipal.csv", index=False)
+    presenca["presenca_sentinela"] = presenca["datas_sentinela"] / len(DATES)
+    presenca.to_csv(OUT_RESULTS / "piloto2025_presenca_municipal.csv", index=False)
 
     uf = (
         muni.groupby("uf", dropna=False)
@@ -185,7 +193,6 @@ def main():
     )
     uf.to_csv(OUT_RESULTS / "piloto2025_cobertura_uf.csv", index=False)
 
-    # Multiplicidade de instrumentos por compra.
     compras = (
         muni.dropna(subset=["id_compra"])
         .groupby("id_compra")
@@ -198,33 +205,43 @@ def main():
     )
     compras.to_csv(OUT_RESULTS / "piloto2025_instrumentos_por_compra.csv", index=False)
 
-    # Métricas exploratórias na amostra sentinela, não anuais.
+    # Métricas com todos os fornecedores somente em nível agregado, sem IDs.
     if len(muni):
-        rel, markets, suppliers = calculate(muni)
-        markets = markets.merge(
+        _, markets_all, _ = calculate(muni)
+        markets_all = markets_all.merge(
             muni.groupby(["municipio_ibge", "categoria", "ano_assinatura"])
             .agg(n_instrumentos=("id_contrato", "nunique"), datas_sentinela=("data_consulta", "nunique"))
             .reset_index(),
             on=["municipio_ibge", "categoria", "ano_assinatura"], how="left"
         )
-        markets["interpretavel_piloto"] = (
-            markets["n_fornecedores"].ge(3)
-            & markets["n_instrumentos"].ge(5)
-            & markets["datas_sentinela"].ge(2)
+        markets_all["interpretavel_piloto"] = (
+            markets_all["n_fornecedores"].ge(3)
+            & markets_all["n_instrumentos"].ge(5)
+            & markets_all["datas_sentinela"].ge(2)
         )
-        markets.to_csv(OUT_RESULTS / "piloto2025_metricas_exploratorias.csv", index=False)
-        suppliers.to_csv(OUT_RESULTS / "piloto2025_metricas_fornecedor.csv", index=False)
-        rel.to_csv(OUT_RESULTS / "piloto2025_relacoes.csv.gz", index=False, compression="gzip")
+        markets_all.to_csv(OUT_RESULTS / "piloto2025_metricas_exploratorias_agregadas.csv", index=False)
 
+    # Arquivos com identificadores de fornecedor são restritos a PJ.
+    if len(muni_pj):
+        rel_pj, markets_pj, suppliers_pj = calculate(muni_pj)
+        markets_pj.to_csv(OUT_RESULTS / "piloto2025_metricas_mercado_pj.csv", index=False)
+        suppliers_pj.to_csv(OUT_RESULTS / "piloto2025_metricas_fornecedor_pj.csv", index=False)
+        rel_pj.to_csv(OUT_RESULTS / "piloto2025_relacoes_pj.csv.gz", index=False, compression="gzip")
+
+    tipos = muni["tipo_pessoa"].astype("string").str.upper().value_counts().to_dict()
     summary = {
         "datas_sentinela": DATES,
         "registros_total": int(len(df)),
         "registros_municipais_validos": int(len(muni)),
+        "registros_pj": int(tipos.get("PJ", 0)),
+        "registros_pf": int(tipos.get("PF", 0)),
+        "registros_pe": int(tipos.get("PE", 0)),
         "municipios_unicos": int(muni["municipio_ibge"].nunique()),
         "ufs_unicas": int(muni["uf"].nunique()),
         "fornecedores_unicos": int(muni["fornecedor_id_limpo"].nunique()),
         "contratos_unicos": int(muni["id_contrato"].nunique()),
         "compras_unicas": int(muni["id_compra"].nunique()),
+        "politica_publicacao": "GitHub: identificadores somente de fornecedores PJ. PF e PE ficam fora das bases identificadas públicas.",
         "observacao": "Amostra sentinela de 12 dias. Não interpretar HHI como concentração anual.",
     }
     (OUT_RESULTS / "piloto2025_resumo.json").write_text(

@@ -1,0 +1,41 @@
+{
+  "elegiveis_mai": 1210,
+  "elegiveis_jun": 1347,
+  "comuns": 1210,
+  "novos_elegiveis_junho": 137,
+  "saidas_da_elegibilidade": 0,
+  "crescimento_elegiveis_pct": 11.322314049586769,
+  "hhi_agregado_mediana_mai": 0.2420309117766051,
+  "hhi_agregado_mediana_jun": 0.2364654624362808,
+  "hhi_comuns_mediana_mai": 0.2420309117766051,
+  "hhi_comuns_mediana_jun": 0.22332581496576304,
+  "hhi_novos_mediana_jun": 0.3606199271551786,
+  "hhi_norm_novos_mediana_jun": 0.2332417232792078,
+  "n_fornecedores_novos_mediana_jun": 6.0,
+  "n_instrumentos_novos_mediana_jun": 6.0,
+  "delta_mediano_dentro_comuns": {
+    "portfolio_hhi": -0.0082825949259182,
+    "portfolio_hhi_norm": -0.0025346914287083556,
+    "portfolio_cr1": -0.00945297666572717,
+    "portfolio_cr4": -0.01116949447921381,
+    "count_hhi": -0.0029562230768773005,
+    "count_hhi_norm": 0.0,
+    "n_fornecedores": 2.0,
+    "n_instrumentos": 3.0,
+    "exposicao_strength_global": -0.0025327133895164944,
+    "exposicao_degree_global": 0.00043517853867897083
+  },
+  "gap_mediana_novos_vs_comuns_junho": {
+    "portfolio_hhi": 0.13729411218941556,
+    "portfolio_hhi_norm": 0.08292891788120316,
+    "portfolio_cr1": 0.14822674768902833,
+    "portfolio_cr4": 0.19455910994688863,
+    "count_hhi": 0.12857142857142861,
+    "count_hhi_norm": -0.006948644063978566,
+    "n_fornecedores": -10.0,
+    "n_instrumentos": -13.0,
+    "exposicao_strength_global": -0.0713546760572834,
+    "exposicao_degree_global": -0.07133433322246985
+  },
+  "interpretacao": "A diferença entre a evolução da mediana agregada e a evolução dentro dos compradores comuns é tratada como efeito de composição descritivo. Novos elegíveis não são contrafactual nem grupo causal."
+}

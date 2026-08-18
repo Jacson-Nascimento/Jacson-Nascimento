@@ -1,0 +1,50 @@
+name: Decomposicao HHI jan-mar 2025
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/decomposicao-hhi-jan-mar-2025.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/decompor_hhi_entrada_fornecedores_jan_mar_2025.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  decomposition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/decomposicao-hhi-jan-mar-2025' }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Run decomposition
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/decompor_hhi_entrada_fornecedores_jan_mar_2025.py
+      - name: Show summary
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: cat results/decomposicao_hhi_jan_mar_2025/resumo_decomposicao.json
+      - name: Commit outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/results/decomposicao_hhi_jan_mar_2025
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Adiciona decomposicao HHI jan-mar [skip ci]'
+            BRANCH="${GITHUB_HEAD_REF:-research/decomposicao-hhi-jan-mar-2025}"
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: decomposicao-hhi-jan-mar-2025
+          path: research/dependencia-fornecedores-compras-publicas/results/decomposicao_hhi_jan_mar_2025

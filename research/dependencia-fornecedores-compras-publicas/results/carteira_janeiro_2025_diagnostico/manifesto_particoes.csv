@@ -1,0 +1,5 @@
+﻿particao,arquivo,linhas_pj,sha256
+2025-01-d01-d08,data/processed/pncp_mensal/pncp_2025-01-d01-d08_municipal_pj.csv.gz,1504,bf82dc6afacd56b11a751626d5a6b8ab8678e5091451afb09ba50f282d90f0c2
+2025-01-d09-d16,data/processed/pncp_mensal/pncp_2025-01-d09-d16_municipal_pj.csv.gz,3768,e02c07df3ffaa8f3a502dd411113b4892779aa068597a00223803671539b560e
+2025-01-d17-d24,data/processed/pncp_mensal/pncp_2025-01-d17-d24_municipal_pj.csv.gz,4206,8bd226e536320c630832e9b234046658dd571bf7d05d76c64a1165a97616c617
+2025-01-d25-d31,data/processed/pncp_mensal/pncp_2025-01-d25-d31_municipal_pj.csv.gz,3860,6345302ae41588864d6631358b3af022cf3a6b02fffaad39f3989396339490f9

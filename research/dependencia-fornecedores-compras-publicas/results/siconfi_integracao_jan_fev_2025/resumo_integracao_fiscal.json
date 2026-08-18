@@ -1,0 +1,37 @@
+{
+  "compradores_integracao_principal": 569,
+  "compradores_com_despesa_empenhada": 562,
+  "cobertura_despesa_empenhada_pct": 98.76977152899823,
+  "municipios_fiscais_com_total_despesa": 392,
+  "procurement_intensity_parcial_mediana": 0.002186503666617368,
+  "procurement_intensity_parcial_p95": 0.035942476055691716,
+  "procurement_intensity_parcial_max": 1.061352560962855,
+  "correlacoes_spearman": {
+    "hhi_vs_log_despesa": {
+      "rho": 0.18597539035433913,
+      "p": 9.088756965216468e-06,
+      "n": 562
+    },
+    "hhi_vs_log_populacao": {
+      "rho": 0.20272600575914126,
+      "p": 1.2620687916996417e-06,
+      "n": 562
+    },
+    "hhi_vs_procurement_intensity_parcial": {
+      "rho": 0.025458119442797397,
+      "p": 0.5469892409094763,
+      "n": 562
+    },
+    "exposicao_strength_vs_log_despesa": {
+      "rho": 0.11177155413706218,
+      "p": 0.007998526445896778,
+      "n": 562
+    },
+    "exposicao_strength_vs_procurement_intensity_parcial": {
+      "rho": 0.5568671821869966,
+      "p": 4.3664847249683013e-47,
+      "n": 562
+    }
+  },
+  "nota": "ProcurementIntensity parcial usa somente contratos assinados em 2025 e publicados até fevereiro; serve para diagnóstico de escala, não execução orçamentária."
+}

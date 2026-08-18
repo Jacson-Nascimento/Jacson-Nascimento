@@ -1,0 +1,114 @@
+{
+  "escopo": "Diagnóstico da coorte parcial: contratos assinados em 2025 e publicados em janeiro de 2025; fornecedores PJ; comprador institucional por CNPJ.",
+  "advertencia": "Não interpretar como resultado anual. A rede e os HHI são parciais e serão recalculados após a coleta completa de 2025.",
+  "quadrantes": {
+    "q75_portfolio_hhi": 0.40028078218094243,
+    "q75_exposicao_strength": 0.9025070924298949,
+    "n_elegiveis": 240,
+    "hhi_baixo_exposicao_alta_n": 33,
+    "hhi_alto_exposicao_alta_n": 27
+  },
+  "divergencia_valor_frequencia": {
+    "portfolio_hhi_maior_count_hhi_n": 238,
+    "portfolio_hhi_maior_count_hhi_pct": 99.16666666666667,
+    "portfolio_hhi_menor_count_hhi_n": 1,
+    "portfolio_hhi_igual_count_hhi_n": 1,
+    "mediana_gap_hhi": 0.12185970528104781,
+    "mediana_razao_neff_valor_frequencia": 0.4289496850612313
+  },
+  "qualidade_lag": {
+    "lags_negativos_n": 4,
+    "lag_negativo_min": -356.0,
+    "lag_negativo_max": -1.0
+  },
+  "estrutura": {
+    "compradores_total_metricas": 697,
+    "compradores_multi_municipio_total_n": 0,
+    "compradores_multi_municipio_total_pct": 0.0,
+    "compradores_elegiveis": 240,
+    "compradores_multi_municipio_elegiveis_n": 0,
+    "compradores_multi_municipio_elegiveis_pct": 0.0,
+    "compradores_elegiveis_uma_categoria_n": 137,
+    "compradores_elegiveis_uma_categoria_pct": 57.08333333333333,
+    "fornecedores_rede_elegivel": 1724,
+    "relacoes_comprador_fornecedor_rede_elegivel": 5328,
+    "top_1pct_fornecedores_strength_share": 0.43748621280032457,
+    "top_5pct_fornecedores_strength_share": 0.741276644455781,
+    "top_10pct_fornecedores_strength_share": 0.8565750917509518,
+    "top_1pct_degree_edge_coverage": 0.23948948948948948,
+    "top_5pct_degree_edge_coverage": 0.5426051051051051,
+    "top_10pct_degree_edge_coverage": 0.6557807807807807,
+    "degree_mediana_rede_elegivel": 1.0,
+    "degree_p95_rede_elegivel": 12.0,
+    "degree_max_rede_elegivel": 95,
+    "valor_total_relacoes_rede_elegivel": 415282835.51400006
+  },
+  "simulacao": {
+    "random_draws": 1000,
+    "seed": 20260818,
+    "fornecedores_candidatos_simulacao": 1724,
+    "compradores_elegiveis_simulacao": 240
+  },
+  "simulacoes_limiar_50pct": [
+    {
+      "estrategia_direcionada": "degree",
+      "pct_fornecedores_removidos": 0.01,
+      "k_fornecedores_removidos": 18,
+      "share_compradores_severos_direcionado": 0.22916666666666666,
+      "share_compradores_severos_aleatorio_media": 0.0033,
+      "excesso_vulnerabilidade": 0.22586666666666666,
+      "perda_media_direcionada": 0.22872316636986295,
+      "perda_media_aleatoria_media": 0.010104765344766125
+    },
+    {
+      "estrategia_direcionada": "strength",
+      "pct_fornecedores_removidos": 0.01,
+      "k_fornecedores_removidos": 18,
+      "share_compradores_severos_direcionado": 0.05416666666666667,
+      "share_compradores_severos_aleatorio_media": 0.0033,
+      "excesso_vulnerabilidade": 0.05086666666666667,
+      "perda_media_direcionada": 0.0508929995105953,
+      "perda_media_aleatoria_media": 0.010104765344766125
+    },
+    {
+      "estrategia_direcionada": "degree",
+      "pct_fornecedores_removidos": 0.05,
+      "k_fornecedores_removidos": 87,
+      "share_compradores_severos_direcionado": 0.375,
+      "share_compradores_severos_aleatorio_media": 0.018283333333333335,
+      "excesso_vulnerabilidade": 0.3567166666666667,
+      "perda_media_direcionada": 0.360593490679502,
+      "perda_media_aleatoria_media": 0.05160142111887664
+    },
+    {
+      "estrategia_direcionada": "strength",
+      "pct_fornecedores_removidos": 0.05,
+      "k_fornecedores_removidos": 87,
+      "share_compradores_severos_direcionado": 0.2125,
+      "share_compradores_severos_aleatorio_media": 0.018283333333333335,
+      "excesso_vulnerabilidade": 0.19421666666666665,
+      "perda_media_direcionada": 0.26989813848009186,
+      "perda_media_aleatoria_media": 0.05160142111887664
+    },
+    {
+      "estrategia_direcionada": "degree",
+      "pct_fornecedores_removidos": 0.1,
+      "k_fornecedores_removidos": 173,
+      "share_compradores_severos_direcionado": 0.4041666666666667,
+      "share_compradores_severos_aleatorio_media": 0.04125416666666666,
+      "excesso_vulnerabilidade": 0.3629125,
+      "perda_media_direcionada": 0.41453685602383106,
+      "perda_media_aleatoria_media": 0.10106164078048947
+    },
+    {
+      "estrategia_direcionada": "strength",
+      "pct_fornecedores_removidos": 0.1,
+      "k_fornecedores_removidos": 173,
+      "share_compradores_severos_direcionado": 0.5208333333333334,
+      "share_compradores_severos_aleatorio_media": 0.04125416666666666,
+      "excesso_vulnerabilidade": 0.4795791666666667,
+      "perda_media_direcionada": 0.4520733171076731,
+      "perda_media_aleatoria_media": 0.10106164078048947
+    }
+  ]
+}

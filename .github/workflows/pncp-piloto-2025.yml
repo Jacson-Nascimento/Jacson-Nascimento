@@ -5,6 +5,10 @@ on:
   push:
     paths:
       - '.github/workflows/pncp-piloto-2025.yml'
+  pull_request:
+    paths:
+      - 'research/dependencia-fornecedores-compras-publicas/**'
+      - '.github/workflows/pncp-piloto-2025.yml'
 
 permissions:
   contents: write
@@ -39,6 +43,7 @@ jobs:
           head -20 results/piloto2025_resumo_datas.csv
 
       - name: Commit generated research outputs
+        if: github.event_name != 'pull_request'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

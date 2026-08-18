@@ -2,16 +2,9 @@ name: PNCP piloto sentinela 2025
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/pncp-piloto-2025.yml'
-  pull_request:
-    paths:
-      - 'research/dependencia-fornecedores-compras-publicas/**'
-      - '.github/workflows/pncp-piloto-2025.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   collect:
@@ -41,20 +34,6 @@ jobs:
           cat results/piloto2025_resumo.json
           echo '---'
           head -20 results/piloto2025_resumo_datas.csv
-
-      - name: Commit generated research outputs
-        if: github.event_name != 'pull_request'
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add research/dependencia-fornecedores-compras-publicas/data/processed \
-                  research/dependencia-fornecedores-compras-publicas/results
-          if git diff --cached --quiet; then
-            echo 'No generated changes to commit.'
-          else
-            git commit -m 'Atualiza piloto PNCP 2025 [skip ci]'
-            git push
-          fi
 
       - name: Upload pilot outputs
         uses: actions/upload-artifact@v4

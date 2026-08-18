@@ -1,9 +1,6 @@
 name: PNCP janeiro 2025 particionado
 
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/pncp-janeiro-2025-particionado.yml'
   workflow_dispatch:
 
 permissions:
@@ -32,10 +29,10 @@ jobs:
             end: '20250131'
 
     steps:
-      - name: Checkout branch under test
+      - name: Checkout branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref_name }}
+          ref: ${{ github.ref_name }}
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
@@ -58,16 +55,20 @@ jobs:
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: cat results/pncp_mensal/${{ matrix.label }}_resumo.json
 
-      - name: Commit partition to technical branch
+      - name: Commit partition
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git pull --rebase origin "${{ github.head_ref }}"
+          git pull --rebase origin "${{ github.ref_name }}"
           git add research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_${{ matrix.label }}_municipal_pj.csv.gz
           git add research/dependencia-fornecedores-compras-publicas/results/pncp_mensal/${{ matrix.label }}_*.csv
           git add research/dependencia-fornecedores-compras-publicas/results/pncp_mensal/${{ matrix.label }}_resumo.json
-          git commit -m "Adiciona PNCP ${{ matrix.label }} [skip ci]"
-          git push origin HEAD:${{ github.head_ref }}
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m "Adiciona PNCP ${{ matrix.label }} [skip ci]"
+            git push
+          fi
 
       - name: Upload partition artifact
         uses: actions/upload-artifact@v4

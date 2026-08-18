@@ -1,0 +1,60 @@
+{
+  "compradores_comuns": 569,
+  "identidade_max_erro_abs": 1.1102230246251565e-16,
+  "compradores_com_novos_fornecedores": 467,
+  "compradores_com_novos_fornecedores_pct": 82.0738137082601,
+  "n_entrantes_mediana": 4.0,
+  "share_valor_entrantes_acumulado_mediana": 0.10953958795649874,
+  "share_valor_entrantes_marco_mediana": 0.9401642830429098,
+  "delta_hhi_mediana": -0.02337735147143602,
+  "delta_hhi_norm_mediana": -0.010269160199169123,
+  "efeito_reponderacao_mediana": 0.0,
+  "efeito_entrada_mediana": -0.018224796110970283,
+  "entrada_reduz_hhi_pct": 74.86818980667839,
+  "reponderacao_reduz_hhi_pct": 43.23374340949033,
+  "correlacoes": {
+    "share_entrantes_acumulado_vs_delta_hhi": {
+      "rho": -0.3826311689672989,
+      "p": 2.802240835944989e-21,
+      "n": 569
+    },
+    "share_entrantes_marco_vs_delta_hhi": {
+      "rho": -0.16462048480957564,
+      "p": 0.0003145928750292356,
+      "n": 475
+    },
+    "n_entrantes_vs_delta_hhi_norm": {
+      "rho": -0.35286326469870394,
+      "p": 3.981097609487226e-18,
+      "n": 569
+    },
+    "share_entrantes_vs_efeito_entrada": {
+      "rho": -0.4291780879824774,
+      "p": 6.66672213787716e-27,
+      "n": 569
+    }
+  },
+  "grupos": [
+    {
+      "tem_entrante": false,
+      "n": 102,
+      "delta_hhi_mediana": 0.0,
+      "delta_hhi_norm_mediana": 0.0,
+      "efeito_reponderacao_mediana": 0.0,
+      "efeito_entrada_mediana": 0.0,
+      "share_entrantes_acumulado_mediana": 0.0,
+      "share_entrantes_marco_mediana": 0.0
+    },
+    {
+      "tem_entrante": true,
+      "n": 467,
+      "delta_hhi_mediana": -0.03498739693571107,
+      "delta_hhi_norm_mediana": -0.020172408874523998,
+      "efeito_reponderacao_mediana": -5.551115123125783e-17,
+      "efeito_entrada_mediana": -0.027031845746398164,
+      "share_entrantes_acumulado_mediana": 0.1720238213151537,
+      "share_entrantes_marco_mediana": 0.9490563588388291
+    }
+  ],
+  "interpretacao": "Decomposição sequencial descritiva: primeiro repondera fornecedores antigos; depois adiciona entrantes. A soma dos componentes reproduz exatamente o delta do HHI bruto, mas os componentes não têm interpretação causal."
+}

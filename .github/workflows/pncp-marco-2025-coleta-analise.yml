@@ -1,15 +1,13 @@
 name: PNCP março 2025 coleta e análise acumulada
 
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/pncp-marco-2025-coleta-analise.yml'
-      - 'research/dependencia-fornecedores-compras-publicas/scripts/consolidar_analisar_acumulado_2025.py'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+# Março já foi coletado e validado. Este workflow fica manual para impedir
+# recoletas automáticas em atualizações posteriores da PR.
 jobs:
   collect-consolidate-analyze:
     runs-on: ubuntu-latest
@@ -18,7 +16,7 @@ jobs:
       - name: Checkout technical branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || 'research/pncp-marco-2025' }}
+          ref: research/pncp-marco-2025
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
@@ -41,14 +39,7 @@ jobs:
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: python scripts/consolidar_analisar_acumulado_2025.py --month 3
 
-      - name: Show summaries
-        working-directory: research/dependencia-fornecedores-compras-publicas
-        run: |
-          cat results/carteira_2025_03_diagnostico/resumo_mes.json
-          echo '--- ACUMULADO ---'
-          cat results/carteira_acumulada_2025_03_diagnostico/resumo_acumulado.json
-
-      - name: Commit March inputs and outputs
+      - name: Commit outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -57,18 +48,5 @@ jobs:
           git add research/dependencia-fornecedores-compras-publicas/results/pncp_mensal/2025-03-*
           git add research/dependencia-fornecedores-compras-publicas/results/carteira_2025_03_diagnostico
           git add research/dependencia-fornecedores-compras-publicas/results/carteira_acumulada_2025_03_diagnostico
-          if git diff --cached --quiet; then
-            echo 'No generated changes.'
-          else
-            git commit -m 'Coleta março e recalcula acumulado até 2025-03 [skip ci]'
-            git push origin HEAD:${{ github.head_ref || 'research/pncp-marco-2025' }}
-          fi
-
-      - name: Upload outputs
-        uses: actions/upload-artifact@v4
-        with:
-          name: pncp-marco-2025-acumulado
-          path: |
-            research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_2025-03_publicacoes_municipal_pj.csv.gz
-            research/dependencia-fornecedores-compras-publicas/results/carteira_2025_03_diagnostico
-            research/dependencia-fornecedores-compras-publicas/results/carteira_acumulada_2025_03_diagnostico
+          git commit -m 'Atualiza coleta março [skip ci]' || exit 0
+          git push origin HEAD:research/pncp-marco-2025

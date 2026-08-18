@@ -1,0 +1,59 @@
+{
+  "status": "Resultado final auditado; substitui a interpretação preliminar que sugeria diferença material entre valorInicial e valorGlobal.",
+  "escopo": "Instrumentos PJ assinados em 2025 e publicados entre janeiro e março de 2025.",
+  "cobertura": {
+    "instrumentos_assinados_2025": 43185,
+    "valorInicial_positivo": 43185,
+    "valorGlobal_positivo": 43140,
+    "ambos_positivos": 43140,
+    "cobertura_comum_pct": 99.895796,
+    "lags_negativos_no_baseline_assinado_2025": 14
+  },
+  "valorGlobal_vs_valorInicial": {
+    "instrumentos_comuns": 43140,
+    "iguais_ate_1_centavo_n": 42999,
+    "iguais_pct": 99.67315716272601,
+    "valorGlobal_maior_n": 124,
+    "valorGlobal_maior_pct": 0.28743625405656004,
+    "valorGlobal_menor_n": 17,
+    "valorGlobal_menor_pct": 0.039406583217431616,
+    "mediana_razao_global_inicial": 1.0,
+    "p99_razao_global_inicial": 1.0,
+    "max_razao_global_inicial": 71.158524,
+    "soma_valorInicial": 3509005623.8501,
+    "soma_valorGlobal": 3541203002.5993996,
+    "razao_das_somas": 1.0091756418201383
+  },
+  "lags_negativos": {
+    "compradores_amostra_comum": 779,
+    "hhi_mediana_baseline": 0.2451394860118811,
+    "hhi_mediana_sem_lags_negativos": 0.2451394860118811,
+    "hhi_norm_baseline": 0.1501888237522006,
+    "hhi_norm_sem_lags_negativos": 0.15078192176336624,
+    "hidden_exposure_pct_baseline": 13.478818998716303,
+    "hidden_exposure_pct_sem_lags_negativos": 13.478818998716303
+  },
+  "valor_na_amostra_comum": {
+    "compradores": 779,
+    "valorInicial_hhi_mediana": 0.24620268056851732,
+    "valorGlobal_hhi_mediana": 0.24497439547011274,
+    "valorInicial_hhi_norm_mediana": 0.15078192176336624,
+    "valorGlobal_hhi_norm_mediana": 0.15078192176336624,
+    "valorInicial_hidden_exposure_pct": 13.478818998716303,
+    "valorGlobal_hidden_exposure_pct": 13.222079589216944
+  },
+  "choque_strength_perda_50pct": {
+    "valorInicial": {
+      "1pct": 0.07060333761232349,
+      "5pct": 0.32349165596919127,
+      "10pct": 0.4711168164313222
+    },
+    "valorGlobal": {
+      "1pct": 0.07060333761232349,
+      "5pct": 0.32605905006418484,
+      "10pct": 0.4711168164313222
+    }
+  },
+  "decisao_metodologica": "valorInicial permanece a especificação principal por representar o valor no momento da celebração. valorGlobal é robustez e, na versão auditada da base, produz resultados praticamente idênticos. Instrumentos com lag negativo serão mantidos no principal e excluídos em robustez, pois sua retirada não altera materialmente os resultados.",
+  "advertencia": "Os resultados permanecem condicionados à coorte de publicações até março e não equivalem ao ano completo de 2025."
+}

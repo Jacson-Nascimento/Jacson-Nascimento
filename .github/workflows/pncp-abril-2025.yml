@@ -1,0 +1,122 @@
+name: PNCP abril 2025 coleta e análise global
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/pncp-abril-2025.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect-consolidate-analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout April branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/pncp-abril-2025' }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+
+      - name: Configure git
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: Collect April partitions with immediate persistence
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          set -euo pipefail
+          BRANCH='research/pncp-abril-2025'
+
+          collect_one() {
+            START="$1"; END="$2"; LABEL="$3"
+            DATA="data/processed/pncp_mensal/pncp_${LABEL}_municipal_pj.csv.gz"
+            SUMMARY="results/pncp_mensal/${LABEL}_resumo.json"
+
+            if [ -f "$DATA" ] && [ -f "$SUMMARY" ]; then
+              echo "$LABEL already present; skipping collection."
+              return 0
+            fi
+
+            ok=0
+            for attempt in 1 2; do
+              echo "Collecting $LABEL (attempt $attempt/2)"
+              if python scripts/coletar_pncp_periodo.py --start "$START" --end "$END" --label "$LABEL"; then
+                ok=1
+                break
+              fi
+              echo "$LABEL failed on attempt $attempt"
+              sleep 60
+            done
+            if [ "$ok" -ne 1 ]; then
+              echo "Collection failed after two attempts: $LABEL"
+              exit 1
+            fi
+
+            cd ../..
+            git add research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_${LABEL}_municipal_pj.csv.gz
+            git add research/dependencia-fornecedores-compras-publicas/results/pncp_mensal/${LABEL}_*
+            if ! git diff --cached --quiet; then
+              git commit -m "Coleta PNCP ${LABEL} [skip ci]"
+              git pull --rebase origin "$BRANCH"
+              git push origin HEAD:"$BRANCH"
+            fi
+            cd research/dependencia-fornecedores-compras-publicas
+          }
+
+          collect_one 20250401 20250404 2025-04-d01-d04
+          collect_one 20250405 20250408 2025-04-d05-d08
+          collect_one 20250409 20250412 2025-04-d09-d12
+          collect_one 20250413 20250416 2025-04-d13-d16
+          collect_one 20250417 20250420 2025-04-d17-d20
+          collect_one 20250421 20250424 2025-04-d21-d24
+          collect_one 20250425 20250427 2025-04-d25-d27
+          collect_one 20250428 20250430 2025-04-d28-d30
+
+      - name: Consolidate April
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/consolidar_mes_pncp_2025.py --month 4
+
+      - name: Analyze accumulated Jan-Apr with global network
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/analisar_acumulado_2025_global.py --month 4
+
+      - name: Show summaries
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          cat results/pncp_2025_04_consolidacao/resumo_consolidacao.json
+          echo '--- ACUMULADO GLOBAL ---'
+          cat results/carteira_acumulada_2025_04_global/resumo.json
+
+      - name: Commit April consolidated data and validated outputs
+        run: |
+          git add research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_2025-04_publicacoes_municipal_pj.csv.gz
+          git add research/dependencia-fornecedores-compras-publicas/results/pncp_2025_04_consolidacao
+          git add research/dependencia-fornecedores-compras-publicas/results/carteira_acumulada_2025_04_global
+          if git diff --cached --quiet; then
+            echo 'No consolidated changes.'
+          else
+            git commit -m 'Consolida abril e recalcula acumulado global até 2025-04 [skip ci]'
+            git pull --rebase origin research/pncp-abril-2025
+            git push origin HEAD:research/pncp-abril-2025
+          fi
+
+      - name: Upload April artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pncp-abril-2025-global
+          path: |
+            research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_2025-04_publicacoes_municipal_pj.csv.gz
+            research/dependencia-fornecedores-compras-publicas/results/pncp_2025_04_consolidacao
+            research/dependencia-fornecedores-compras-publicas/results/carteira_acumulada_2025_04_global

@@ -1,0 +1,54 @@
+{
+  "mes_final_publicacao": "2025-03",
+  "compradores_elegiveis": 780,
+  "fornecedores_rede_global": 9583,
+  "fornecedores_criticos_ao_menos_um_comprador_50pct": 224,
+  "fornecedores_criticos_ao_menos_cinco_compradores_50pct": 2,
+  "max_compradores_afetados_por_um_fornecedor": {
+    "perda_25pct": 11,
+    "perda_50pct": 7,
+    "perda_75pct": 4,
+    "share_50pct": 0.008974358974358974
+  },
+  "choque_fornecedor_unico_distribuicao": {
+    "share_severos_50_mediana": 0.0,
+    "share_severos_50_p95": 0.0,
+    "share_severos_50_p99": 0.001282051282051282,
+    "perda_media_mediana": 1.533313500941319e-05,
+    "perda_media_p99": 0.0011545160644490665
+  },
+  "top_1pct_strength": {
+    "n": 96,
+    "compradores_perda_50_soma_nao_unicos": 48,
+    "mediana_compradores_perda_50": 0.0,
+    "max_compradores_perda_50": 7
+  },
+  "top_1pct_degree": {
+    "n": 96,
+    "mediana_compradores_perda_50": 0.0,
+    "max_compradores_perda_50": 3
+  },
+  "correlacoes": {
+    "degree_vs_compradores_perda_50": {
+      "rho": 0.039162812763880936,
+      "p": 0.00012570318799564397,
+      "n": 9583
+    },
+    "strength_vs_compradores_perda_50": {
+      "rho": 0.20411625775001335,
+      "p": 1.1549013557387662e-90,
+      "n": 9583
+    },
+    "degree_vs_perda_media": {
+      "rho": 0.2553452468615576,
+      "p": 1.6933181572488604e-142,
+      "n": 9583
+    },
+    "strength_vs_perda_media": {
+      "rho": 0.4857378077623601,
+      "p": 0.0,
+      "n": 9583
+    }
+  },
+  "interpretacao": "Remoção de um único fornecedor é choque estrutural mecânico. Não implica probabilidade de falha, irregularidade ou risco de crédito do fornecedor. IDs detalhados são preservados apenas para replicação e triagem técnica."
+}

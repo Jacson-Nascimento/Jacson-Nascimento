@@ -1,0 +1,59 @@
+name: PNCP janeiro 2025 consolidar
+
+on:
+  pull_request:
+    paths:
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/consolidar_pncp_janeiro_2025.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  consolidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout branch under test
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+
+      - name: Consolidate January partitions and calculate diagnostics
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/consolidar_pncp_janeiro_2025.py
+
+      - name: Show diagnostic summary
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: cat results/carteira_janeiro_2025_diagnostico/resumo_diagnostico.json
+
+      - name: Commit consolidated public-safe outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git pull --rebase origin "${{ github.head_ref }}"
+          git add research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_2025-01_publicacoes_municipal_pj.csv.gz
+          git add research/dependencia-fornecedores-compras-publicas/results/carteira_janeiro_2025_diagnostico
+          if git diff --cached --quiet; then
+            echo 'No consolidated changes.'
+          else
+            git commit -m 'Consolida PNCP janeiro 2025 e calcula diagnóstico [skip ci]'
+            git push origin HEAD:${{ github.head_ref }}
+          fi
+
+      - name: Upload diagnostic artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pncp-janeiro-2025-consolidado-diagnostico
+          path: |
+            research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_2025-01_publicacoes_municipal_pj.csv.gz
+            research/dependencia-fornecedores-compras-publicas/results/carteira_janeiro_2025_diagnostico

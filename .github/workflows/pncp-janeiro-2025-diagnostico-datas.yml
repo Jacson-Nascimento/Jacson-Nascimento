@@ -1,0 +1,40 @@
+name: PNCP janeiro 2025 diagnostico datas
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/pncp-janeiro-2025-diagnostico-datas.yml'
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout branch under test
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install project dependencies
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Show pandas version
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python -c "import pandas as pd; print(pd.__version__)"
+      - name: Diagnose partition dates
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/diagnosticar_datas_particoes_janeiro_2025.py
+      - name: Show result
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          cat results/diagnostico_datas_janeiro_2025/resumo_por_particao.csv
+          echo '--- MONTHS ---'
+          cat results/diagnostico_datas_janeiro_2025/distribuicao_ano_mes.csv
+      - name: Upload aggregate diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: pncp-janeiro-2025-diagnostico-datas
+          path: research/dependencia-fornecedores-compras-publicas/results/diagnostico_datas_janeiro_2025

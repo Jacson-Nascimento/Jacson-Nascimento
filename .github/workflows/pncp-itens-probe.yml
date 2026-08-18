@@ -19,6 +19,9 @@ jobs:
       - name: Install
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: pip install -r requirements.txt
+      - name: Limit probe load
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: sed -i 's/MAX_ITEMS_RESULTS = 50/MAX_ITEMS_RESULTS = 10/' scripts/probe_pncp_itens_resultados.py
       - name: Run item/result probe
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: python scripts/probe_pncp_itens_resultados.py

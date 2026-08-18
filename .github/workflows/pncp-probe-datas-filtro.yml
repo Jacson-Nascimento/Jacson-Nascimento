@@ -1,7 +1,7 @@
 name: PNCP probe campos de data
 
 on:
-  push:
+  pull_request:
     paths:
       - '.github/workflows/pncp-probe-datas-filtro.yml'
   workflow_dispatch:

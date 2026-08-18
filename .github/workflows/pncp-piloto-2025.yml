@@ -44,23 +44,37 @@ jobs:
           echo '---'
           head -20 results/piloto2025_resumo_datas.csv
 
-      - name: Commit generated research outputs to technical branch
+      - name: Remove non-public legacy outputs if present
+        run: |
+          rm -f research/dependencia-fornecedores-compras-publicas/data/processed/pncp_piloto_2025_sentinela.csv.gz
+          rm -f research/dependencia-fornecedores-compras-publicas/results/piloto2025_metricas_fornecedor.csv
+          rm -f research/dependencia-fornecedores-compras-publicas/results/piloto2025_relacoes.csv.gz
+
+      - name: Commit minimized research outputs to technical branch
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add research/dependencia-fornecedores-compras-publicas/data/processed \
-                  research/dependencia-fornecedores-compras-publicas/results
+          git add research/dependencia-fornecedores-compras-publicas/data/processed/pncp_piloto_2025_sentinela_publica_pj.csv.gz
+          git add research/dependencia-fornecedores-compras-publicas/results/piloto2025_resumo.json
+          git add research/dependencia-fornecedores-compras-publicas/results/piloto2025_resumo_datas.csv
+          git add research/dependencia-fornecedores-compras-publicas/results/piloto2025_presenca_municipal.csv
+          git add research/dependencia-fornecedores-compras-publicas/results/piloto2025_cobertura_uf.csv
+          git add research/dependencia-fornecedores-compras-publicas/results/piloto2025_instrumentos_por_compra.csv
+          git add research/dependencia-fornecedores-compras-publicas/results/piloto2025_metricas_exploratorias_agregadas.csv
+          git add research/dependencia-fornecedores-compras-publicas/results/piloto2025_metricas_mercado_pj.csv
+          git add research/dependencia-fornecedores-compras-publicas/results/piloto2025_metricas_fornecedor_pj.csv
+          git add research/dependencia-fornecedores-compras-publicas/results/piloto2025_relacoes_pj.csv.gz
           if git diff --cached --quiet; then
             echo 'No generated changes to commit.'
           else
-            git commit -m 'Persiste piloto PNCP 2025 [skip ci]'
+            git commit -m 'Persiste piloto PNCP 2025 com minimização de dados [skip ci]'
             git push
           fi
 
-      - name: Upload pilot outputs
+      - name: Upload minimized pilot outputs
         uses: actions/upload-artifact@v4
         with:
-          name: pncp-piloto-2025
+          name: pncp-piloto-2025-publico
           path: |
-            research/dependencia-fornecedores-compras-publicas/data/processed
+            research/dependencia-fornecedores-compras-publicas/data/processed/pncp_piloto_2025_sentinela_publica_pj.csv.gz
             research/dependencia-fornecedores-compras-publicas/results/piloto2025_*

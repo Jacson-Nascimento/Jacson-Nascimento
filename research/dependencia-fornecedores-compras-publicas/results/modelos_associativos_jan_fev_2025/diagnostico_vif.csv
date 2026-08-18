@@ -1,5 +1,9 @@
-﻿variavel,vif,n
-log_despesa_empenhada,31.48337335925109,562
-log_populacao_siconfi,31.580923315021643,562
-log_n_instrumentos,13.959180865383242,562
-log_n_fornecedores,13.892766434340862,562
+﻿parametrizacao,variavel,vif,n
+original,log_despesa_empenhada,31.48341944222805,562
+original,log_populacao_siconfi,31.58094685735564,562
+original,log_n_instrumentos,14.80707616496075,562
+original,log_n_fornecedores,14.738032727628223,562
+reparametrizada,log_populacao_siconfi,1.1762772014034442,562
+reparametrizada,log_despesa_pc,1.171111241367031,562
+reparametrizada,log_n_fornecedores,1.510390082420469,562
+reparametrizada,log_instrumentos_por_fornecedor,1.5219955452535257,562

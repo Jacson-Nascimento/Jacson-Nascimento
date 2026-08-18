@@ -1,202 +1,200 @@
 {
   "natureza": "Modelos associativos diagnósticos; sem interpretação causal.",
   "escopo": "Contratos assinados em 2025 e publicados até fevereiro; compradores >=3 fornecedores e >=5 instrumentos; cobertura fiscal válida.",
-  "n_modelos_principais": 562,
-  "outcomes": [
-    "portfolio_hhi_norm",
-    "count_hhi_norm",
-    "hhi_norm_gap_value_count",
-    "exposicao_strength"
-  ],
-  "nao_utilizado_como_explicativa_principal": "procurement_intensity_parcial, porque o numerador PNCP é incompleto na coorte jan-fev e compartilha componente de valor com medidas de rede.",
-  "M1": {
-    "log_despesa": {
-      "coef": -0.007859383466772462,
-      "se_HC3": 0.039239877131708845,
-      "p": 0.8412532154195991,
-      "ci95": [
-        -0.08476812940269868,
-        0.06904936246915375
-      ]
-    },
-    "log_populacao": {
-      "coef": 0.026158363299617696,
-      "se_HC3": 0.03683682351220559,
-      "p": 0.4776331219686988,
-      "ci95": [
-        -0.046040484089163516,
-        0.09835721068839891
-      ]
-    }
+  "n": 562,
+  "clusters_municipio": 392,
+  "parametrizacao_principal": {
+    "tamanho": "log_populacao_siconfi",
+    "intensidade_fiscal": "log_despesa_pc",
+    "amplitude_carteira": "log_n_fornecedores",
+    "recorrencia": "log_instrumentos_por_fornecedor"
   },
-  "M3": {
-    "log_despesa": {
-      "coef": 0.0014407504857540296,
-      "se_HC3": 0.03883625058050861,
-      "p": 0.9704067997357787,
-      "ci95": [
-        -0.07467690194661561,
-        0.07755840291812366
-      ]
-    },
-    "log_populacao": {
-      "coef": 0.018205982845010526,
-      "se_HC3": 0.036383615893844236,
-      "p": 0.6168007779442537,
-      "ci95": [
-        -0.053104593934263256,
-        0.08951655962428431
-      ]
-    },
-    "log_n_instrumentos": {
-      "coef": 0.011681820900771678,
-      "se_HC3": 0.026607988399101425,
-      "p": 0.6606366466630835,
-      "ci95": [
-        -0.04046887806252668,
-        0.06383251986407004
-      ]
-    },
-    "log_n_fornecedores": {
-      "coef": -0.08023337463507392,
-      "se_HC3": 0.034609137875890414,
-      "p": 0.020434575550435787,
-      "ci95": [
-        -0.1480660384078002,
-        -0.012400710862347647
-      ]
-    }
-  },
-  "M5_gap": {
-    "log_despesa": {
-      "coef": 0.001035895898988576,
-      "se_HC3": 0.03881423841571543,
-      "p": 0.9787081424449553,
-      "ci95": [
-        -0.07503861348316468,
-        0.07711040528114183
-      ]
-    },
-    "log_populacao": {
-      "coef": 0.017396414943841844,
-      "se_HC3": 0.03632858834349536,
-      "p": 0.6320361308357603,
-      "ci95": [
-        -0.053806309818590685,
-        0.08859913970627437
-      ]
-    },
-    "log_n_instrumentos": {
-      "coef": -0.05733437370730766,
-      "se_HC3": 0.03137799618463922,
-      "p": 0.0676673133359815,
-      "ci95": [
-        -0.11883411613623576,
-        0.00416536872162044
-      ]
-    },
-    "log_n_fornecedores": {
-      "coef": 0.003227325394000052,
-      "se_HC3": 0.040060886599073295,
-      "p": 0.9357914737592403,
-      "ci95": [
-        -0.07529056952892689,
-        0.081745220316927
-      ]
-    }
-  },
-  "vif": [
+  "motivo_reparametrizacao": "A parametrização original apresentou VIFs elevados (~31 para despesa/população e ~14 para instrumentos/fornecedores).",
+  "vif_original": [
     {
+      "parametrizacao": "original",
       "variavel": "log_despesa_empenhada",
-      "vif": 31.48337335925109,
+      "vif": 31.48341944222805,
       "n": 562
     },
     {
+      "parametrizacao": "original",
       "variavel": "log_populacao_siconfi",
-      "vif": 31.580923315021643,
+      "vif": 31.58094685735564,
       "n": 562
     },
     {
+      "parametrizacao": "original",
       "variavel": "log_n_instrumentos",
-      "vif": 13.959180865383242,
+      "vif": 14.80707616496075,
       "n": 562
     },
     {
+      "parametrizacao": "original",
       "variavel": "log_n_fornecedores",
-      "vif": 13.892766434340862,
+      "vif": 14.738032727628223,
       "n": 562
     }
   ],
-  "ajuste": [
+  "vif_reparametrizada": [
     {
-      "modelo": "M1_HHI_norm_escala_externa",
-      "formula": "portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi",
-      "n": 562,
-      "r2": 0.019733719312357345,
-      "r2_ajustado": 0.016226505427965,
-      "aic": -87.6066432739085,
-      "bic": -74.61213772422744,
-      "covariancia": "HC3"
+      "parametrizacao": "reparametrizada",
+      "variavel": "log_populacao_siconfi",
+      "vif": 1.1762772014034442,
+      "n": 562
     },
     {
-      "modelo": "M2_HHI_norm_escala_carteira",
-      "formula": "portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores",
-      "n": 562,
-      "r2": 0.08715483303696403,
-      "r2_ajustado": 0.08059939198157429,
-      "aic": -123.65362277740428,
-      "bic": -101.99611352793582,
-      "covariancia": "HC3"
+      "parametrizacao": "reparametrizada",
+      "variavel": "log_despesa_pc",
+      "vif": 1.171111241367031,
+      "n": 562
     },
     {
-      "modelo": "M3_HHI_norm_UF_FE",
-      "formula": "portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf)",
-      "n": 562,
-      "r2": 0.16034162747484404,
-      "r2_ajustado": 0.12444545169774635,
-      "aic": -132.62061995742215,
-      "bic": -28.66457555997357,
-      "covariancia": "HC3"
+      "parametrizacao": "reparametrizada",
+      "variavel": "log_n_fornecedores",
+      "vif": 1.510390082420469,
+      "n": 562
     },
     {
-      "modelo": "M4_CountHHI_norm",
-      "formula": "count_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf)",
-      "n": 562,
-      "r2": 0.43345426667752673,
-      "r2_ajustado": 0.40923391004849907,
-      "aic": -2491.733361940221,
-      "bic": -2387.7773175427724,
-      "covariancia": "HC3"
-    },
-    {
-      "modelo": "M5_Gap_valor_frequencia",
-      "formula": "hhi_norm_gap_value_count ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf)",
-      "n": 562,
-      "r2": 0.15474192111287643,
-      "r2_ajustado": 0.1186063526846165,
-      "aic": -129.41846806679814,
-      "bic": -25.462423669349562,
-      "covariancia": "HC3"
-    },
-    {
-      "modelo": "M6_Exposicao_strength",
-      "formula": "exposicao_strength ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf)",
-      "n": 562,
-      "r2": 0.22800873571438285,
-      "r2_ajustado": 0.19500539170217246,
-      "aic": -434.90652932065814,
-      "bic": -330.95048492320956,
-      "covariancia": "HC3"
-    },
-    {
-      "modelo": "R1_HHI_norm_log_valor",
-      "formula": "portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_valor_total + log_n_fornecedores",
-      "n": 562,
-      "r2": 0.15870597713248502,
-      "r2_ajustado": 0.15266436835067165,
-      "aic": -169.52691167032935,
-      "bic": -147.8694024208609,
-      "covariancia": "HC3"
+      "parametrizacao": "reparametrizada",
+      "variavel": "log_instrumentos_por_fornecedor",
+      "vif": 1.5219955452535257,
+      "n": 562
     }
-  ]
+  ],
+  "P1_HHI_externo": {
+    "log_populacao": {
+      "coef": 0.018298979832845206,
+      "se": 0.007047175511130252,
+      "p": 0.009414045461401607,
+      "ci95": [
+        0.0044867696382972656,
+        0.03211119002739315
+      ]
+    },
+    "log_despesa_pc": {
+      "coef": -0.0078593834667725,
+      "se": 0.03940766015066262,
+      "p": 0.8419201667351113,
+      "ci95": [
+        -0.08509697807706551,
+        0.06937821114352052
+      ]
+    }
+  },
+  "P3_HHI_UF_FE": {
+    "log_populacao": {
+      "coef": 0.019688910871855148,
+      "se": 0.0078858724904844,
+      "p": 0.012534361659418139,
+      "ci95": [
+        0.004232884803830543,
+        0.03514493693987975
+      ]
+    },
+    "log_despesa_pc": {
+      "coef": 0.0015739441919208645,
+      "se": 0.037595305782787546,
+      "p": 0.9666059634384134,
+      "ci95": [
+        -0.07211150113011315,
+        0.07525938951395487
+      ]
+    },
+    "log_n_fornecedores": {
+      "coef": -0.06970734210030849,
+      "se": 0.012960881055047679,
+      "p": 7.519774772495295e-08,
+      "ci95": [
+        -0.09511020217610944,
+        -0.04430448202450754
+      ]
+    },
+    "log_instr_por_forn": {
+      "coef": 0.013979171733586362,
+      "se": 0.025450037922613862,
+      "p": 0.5828139871072019,
+      "ci95": [
+        -0.035901985999915384,
+        0.06386032946708811
+      ]
+    }
+  },
+  "P5_Gap": {
+    "log_populacao": {
+      "coef": 0.018416557467348008,
+      "se": 0.007863308267505881,
+      "p": 0.019176209012201555,
+      "ci95": [
+        0.0030047564637004313,
+        0.033828358470995586
+      ]
+    },
+    "log_despesa_pc": {
+      "coef": 0.0010556699056870375,
+      "se": 0.03773762353445751,
+      "p": 0.977682938219829,
+      "ci95": [
+        -0.07290871308398082,
+        0.07502005289535489
+      ]
+    },
+    "log_n_fornecedores": {
+      "coef": -0.05103670996398866,
+      "se": 0.013621788797604317,
+      "p": 0.0001791785738937829,
+      "ci95": [
+        -0.07773492541230428,
+        -0.02433849451567303
+      ]
+    },
+    "log_instr_por_forn": {
+      "coef": -0.05620005924749188,
+      "se": 0.029305018674919935,
+      "p": 0.05514116142975883,
+      "ci95": [
+        -0.11363684041660865,
+        0.0012367219216248906
+      ]
+    }
+  },
+  "P6_Exposicao": {
+    "log_populacao": {
+      "coef": 0.01421121743107511,
+      "se": 0.004767857449196953,
+      "p": 0.002876564139738811,
+      "ci95": [
+        0.004866388547228071,
+        0.023556046314922148
+      ]
+    },
+    "log_despesa_pc": {
+      "coef": -0.004115321595849457,
+      "se": 0.029361556061881667,
+      "p": 0.8885334165332904,
+      "ci95": [
+        -0.061662914007191226,
+        0.05343227081549231
+      ]
+    },
+    "log_n_fornecedores": {
+      "coef": 0.03633143909096381,
+      "se": 0.01077376670807341,
+      "p": 0.0007456668245401806,
+      "ci95": [
+        0.015215244365303273,
+        0.05744763381662435
+      ]
+    },
+    "log_instr_por_forn": {
+      "coef": 0.06734927203912977,
+      "se": 0.024098302634368064,
+      "p": 0.005193625915322851,
+      "ci95": [
+        0.020117466787221656,
+        0.11458107729103789
+      ]
+    }
+  },
+  "nao_usado": "ProcurementIntensity parcial continua fora dos modelos principais por incompletude do numerador e possível correlação mecânica com medidas de valor."
 }

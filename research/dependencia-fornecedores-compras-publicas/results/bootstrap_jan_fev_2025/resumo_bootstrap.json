@@ -1,0 +1,99 @@
+{
+  "escopo": "Compradores jan-fev 2025 com >=3 fornecedores e >=5 instrumentos.",
+  "n_compradores": 569,
+  "replicacoes": 5000,
+  "seed": 20260818,
+  "natureza_intervalos": "Condicionais à amostra PNCP observada; não corrigem cobertura/seleção.",
+  "intervalos": [
+    {
+      "metrica": "hhi_mediana",
+      "estimativa_pontual": 0.237419986456335,
+      "bootstrap_media": 0.23981137663658014,
+      "bootstrap_desvio": 0.009031424587053324,
+      "ci95_p025": 0.2247684359530889,
+      "ci95_p975": 0.2598561204325467,
+      "B": 5000,
+      "n_compradores": 569
+    },
+    {
+      "metrica": "hhi_norm_mediana",
+      "estimativa_pontual": 0.14732398497701138,
+      "bootstrap_media": 0.14632402851687057,
+      "bootstrap_desvio": 0.006933344509137032,
+      "ci95_p025": 0.12956759703525758,
+      "ci95_p975": 0.16276774253791657,
+      "B": 5000,
+      "n_compradores": 569
+    },
+    {
+      "metrica": "count_hhi_mediana",
+      "estimativa_pontual": 0.0946930280957336,
+      "bootstrap_media": 0.09431689430576594,
+      "bootstrap_desvio": 0.004807856888566769,
+      "ci95_p025": 0.0833333333333333,
+      "ci95_p975": 0.1005917159763313,
+      "B": 5000,
+      "n_compradores": 569
+    },
+    {
+      "metrica": "neff_mediana",
+      "estimativa_pontual": 4.211945316507356,
+      "bootstrap_media": 4.175789183834375,
+      "bootstrap_desvio": 0.15539386410100936,
+      "ci95_p025": 3.8482834205922782,
+      "ci95_p975": 4.449023261472124,
+      "B": 5000,
+      "n_compradores": 569
+    },
+    {
+      "metrica": "cr1_mediana",
+      "estimativa_pontual": 0.3822952117701211,
+      "bootstrap_media": 0.38265856836834955,
+      "bootstrap_desvio": 0.011634262372888162,
+      "ci95_p025": 0.35657420888281,
+      "ci95_p975": 0.4042404218541452,
+      "B": 5000,
+      "n_compradores": 569
+    },
+    {
+      "metrica": "cr4_mediana",
+      "estimativa_pontual": 0.8360546274646532,
+      "bootstrap_media": 0.8368940802780951,
+      "bootstrap_desvio": 0.0117816366685159,
+      "ci95_p025": 0.8113135686917052,
+      "ci95_p975": 0.8586595482322742,
+      "B": 5000,
+      "n_compradores": 569
+    },
+    {
+      "metrica": "share_hhi_maior_count",
+      "estimativa_pontual": 0.9771528998242531,
+      "bootstrap_media": 0.977108963093146,
+      "bootstrap_desvio": 0.006312558283990419,
+      "ci95_p025": 0.9648506151142355,
+      "ci95_p975": 0.9894551845342706,
+      "B": 5000,
+      "n_compradores": 569
+    },
+    {
+      "metrica": "share_exposicao_oculta",
+      "estimativa_pontual": 0.1265377855887522,
+      "bootstrap_media": 0.12814797891036905,
+      "bootstrap_desvio": 0.010190821804322356,
+      "ci95_p025": 0.10896309314586995,
+      "ci95_p975": 0.14938488576449913,
+      "B": 5000,
+      "n_compradores": 569
+    },
+    {
+      "metrica": "share_hhi_alto_exposicao_alta",
+      "estimativa_pontual": 0.12478031634446397,
+      "bootstrap_media": 0.12404358523725835,
+      "bootstrap_desvio": 0.010132617173973279,
+      "ci95_p025": 0.10369068541300527,
+      "ci95_p975": 0.14411247803163443,
+      "B": 5000,
+      "n_compradores": 569
+    }
+  ]
+}

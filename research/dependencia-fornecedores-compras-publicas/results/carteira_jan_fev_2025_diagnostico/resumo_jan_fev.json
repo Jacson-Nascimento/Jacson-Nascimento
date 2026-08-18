@@ -1,0 +1,35 @@
+{
+  "escopo": "Publicações PNCP janeiro-fevereiro de 2025; métricas sobre instrumentos assinados em 2025; fornecedores PJ.",
+  "advertencia": "Coorte parcial de publicação. Não interpretar como resultado anual de 2025.",
+  "registros_pj_jan_fev": 31648,
+  "instrumentos_unicos": 31648,
+  "duplicidades": 0,
+  "assinados_2025": 27071,
+  "compradores_metricas": 1325,
+  "compradores_elegiveis": 569,
+  "fornecedores_rede_total": 6304,
+  "portfolio_hhi_mediana_elegiveis": 0.237419986456335,
+  "count_hhi_mediana_elegiveis": 0.09469302809573361,
+  "portfolio_neff_mediana_elegiveis": 4.2119453165073555,
+  "portfolio_cr1_mediana_elegiveis": 0.3822952117701211,
+  "portfolio_cr4_mediana_elegiveis": 0.8360546274646532,
+  "spearman_portfolio_count": {
+    "rho": 0.5685318884433702,
+    "p": 4.999671314848104e-50
+  },
+  "spearman_portfolio_exposicao_strength": {
+    "rho": 0.2088645076035055,
+    "p": 4.987720520595167e-07
+  },
+  "q75_portfolio_hhi": 0.4067663178442704,
+  "q75_exposicao_strength": 0.9146925646087366,
+  "hhi_baixo_exposicao_alta_n": 72,
+  "hhi_alto_exposicao_alta_n": 71,
+  "portfolio_hhi_maior_count_hhi_n": 556,
+  "portfolio_hhi_maior_count_hhi_pct": 97.71528998242532,
+  "lag_negativo_n_jan_fev": 11,
+  "random_draws_por_cenario": 1000,
+  "seed": 20260818,
+  "sha256_janeiro": "8094658c795b747610494447e019a0399939671fd6c8314fa5df52ca69c81ab1",
+  "sha256_fevereiro": "a2422b0c153ba68bceead2ff560c4e13f5f5128a64fa36da1ac4208cc02c18a1"
+}

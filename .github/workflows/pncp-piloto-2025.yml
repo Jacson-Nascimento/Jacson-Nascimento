@@ -19,8 +19,10 @@ jobs:
     timeout-minutes: 45
 
     steps:
-      - name: Checkout
+      - name: Checkout branch under test
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -42,8 +44,7 @@ jobs:
           echo '---'
           head -20 results/piloto2025_resumo_datas.csv
 
-      - name: Commit generated research outputs
-        if: github.event_name != 'pull_request'
+      - name: Commit generated research outputs to technical branch
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -52,7 +53,7 @@ jobs:
           if git diff --cached --quiet; then
             echo 'No generated changes to commit.'
           else
-            git commit -m 'Atualiza piloto PNCP 2025 [skip ci]'
+            git commit -m 'Persiste piloto PNCP 2025 [skip ci]'
             git push
           fi
 

@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'research/dependencia-fornecedores-compras-publicas/scripts/probe_pncp_itens_resultados.py'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/probe_pncp_itens_2025.py'
       - '.github/workflows/pncp-itens-probe.yml'
   workflow_dispatch:
 
@@ -19,22 +20,23 @@ jobs:
       - name: Install
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: pip install -r requirements.txt
-      - name: Limit probe load
-        working-directory: research/dependencia-fornecedores-compras-publicas
-        run: sed -i 's/MAX_ITEMS_RESULTS = 50/MAX_ITEMS_RESULTS = 10/' scripts/probe_pncp_itens_resultados.py
-      - name: Run item/result probe
-        working-directory: research/dependencia-fornecedores-compras-publicas
-        run: python scripts/probe_pncp_itens_resultados.py
-      - name: Show summaries
+      - name: Historical item/result probe
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: |
-          cat results/pncp_itens_probe/resumo.json
-          echo '--- ITEM COVERAGE ---'
-          cat results/pncp_itens_probe/resumo_cobertura_itens.csv
-          echo '--- RESULTS ---'
-          cat results/pncp_itens_probe/resumo_resultados.csv
-      - name: Upload probe
+          sed -i 's/MAX_ITEMS_RESULTS = 50/MAX_ITEMS_RESULTS = 10/' scripts/probe_pncp_itens_resultados.py
+          python scripts/probe_pncp_itens_resultados.py
+      - name: 2025 classification probe
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/probe_pncp_itens_2025.py
+      - name: Show 2025 coverage
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          cat results/pncp_itens_2025_probe/resumo.json
+          cat results/pncp_itens_2025_probe/resumo_cobertura.csv
+      - name: Upload probes
         uses: actions/upload-artifact@v4
         with:
           name: pncp-itens-probe
-          path: research/dependencia-fornecedores-compras-publicas/results/pncp_itens_probe
+          path: |
+            research/dependencia-fornecedores-compras-publicas/results/pncp_itens_probe
+            research/dependencia-fornecedores-compras-publicas/results/pncp_itens_2025_probe

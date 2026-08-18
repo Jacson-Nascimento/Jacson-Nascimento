@@ -1,0 +1,250 @@
+{
+  "n": 562,
+  "clusters_municipio": 392,
+  "regioes": [
+    {
+      "regiao": "Centro-Oeste",
+      "n_compradores": 126,
+      "n_municipios": 74
+    },
+    {
+      "regiao": "Nordeste",
+      "n_compradores": 57,
+      "n_municipios": 42
+    },
+    {
+      "regiao": "Norte",
+      "n_compradores": 11,
+      "n_municipios": 8
+    },
+    {
+      "regiao": "Sudeste",
+      "n_compradores": 123,
+      "n_municipios": 95
+    },
+    {
+      "regiao": "Sul",
+      "n_compradores": 245,
+      "n_municipios": 173
+    }
+  ],
+  "ufs_com_ate_5_compradores": [
+    {
+      "uf": "PI",
+      "n_compradores": 1,
+      "n_municipios": 1
+    },
+    {
+      "uf": "MT",
+      "n_compradores": 1,
+      "n_municipios": 1
+    },
+    {
+      "uf": "AL",
+      "n_compradores": 2,
+      "n_municipios": 2
+    },
+    {
+      "uf": "MA",
+      "n_compradores": 2,
+      "n_municipios": 2
+    },
+    {
+      "uf": "PA",
+      "n_compradores": 4,
+      "n_municipios": 3
+    },
+    {
+      "uf": "PB",
+      "n_compradores": 4,
+      "n_municipios": 4
+    },
+    {
+      "uf": "CE",
+      "n_compradores": 4,
+      "n_municipios": 4
+    }
+  ],
+  "ufs_com_ate_10_compradores": [
+    {
+      "uf": "PI",
+      "n_compradores": 1,
+      "n_municipios": 1
+    },
+    {
+      "uf": "MT",
+      "n_compradores": 1,
+      "n_municipios": 1
+    },
+    {
+      "uf": "AL",
+      "n_compradores": 2,
+      "n_municipios": 2
+    },
+    {
+      "uf": "MA",
+      "n_compradores": 2,
+      "n_municipios": 2
+    },
+    {
+      "uf": "PA",
+      "n_compradores": 4,
+      "n_municipios": 3
+    },
+    {
+      "uf": "PB",
+      "n_compradores": 4,
+      "n_municipios": 4
+    },
+    {
+      "uf": "CE",
+      "n_compradores": 4,
+      "n_municipios": 4
+    },
+    {
+      "uf": "MS",
+      "n_compradores": 6,
+      "n_municipios": 6
+    },
+    {
+      "uf": "TO",
+      "n_compradores": 7,
+      "n_municipios": 5
+    },
+    {
+      "uf": "RJ",
+      "n_compradores": 8,
+      "n_municipios": 8
+    }
+  ],
+  "fractional_logit": "GLM Binomial para resposta fracionária; erros agrupados por município.",
+  "O1": {
+    "populacao": {
+      "coef": 0.018298979832845216,
+      "se": 0.007047175511130104,
+      "p": 0.009414045461400077,
+      "ci95": [
+        0.004486769638297566,
+        0.032111190027392864
+      ],
+      "ame": null
+    },
+    "despesa_pc": {
+      "coef": -0.007859383466772427,
+      "se": 0.03940766015066355,
+      "p": 0.8419201667351164,
+      "ci95": [
+        -0.08509697807706726,
+        0.06937821114352241
+      ],
+      "ame": null
+    }
+  },
+  "O2": {
+    "populacao": {
+      "coef": 0.01546069170403175,
+      "se": 0.0077064547967732495,
+      "p": 0.044834884949186124,
+      "ci95": [
+        0.0003563178538702385,
+        0.030565065554193263
+      ],
+      "ame": null
+    },
+    "despesa_pc": {
+      "coef": -0.013042853567686948,
+      "se": 0.04152892463380305,
+      "p": 0.7534703574395589,
+      "ci95": [
+        -0.09443805016661917,
+        0.06835234303124528
+      ],
+      "ame": null
+    },
+    "n_fornecedores": {
+      "coef": -0.07954960447598135,
+      "se": 0.012818197480003174,
+      "p": 5.435365894630416e-10,
+      "ci95": [
+        -0.10467280988350965,
+        -0.05442639906845305
+      ],
+      "ame": null
+    },
+    "recorrencia": {
+      "coef": 0.018744050933184295,
+      "se": 0.02442806815723114,
+      "p": 0.4428935753334995,
+      "ci95": [
+        -0.02913408286687846,
+        0.06662218473324705
+      ],
+      "ame": null
+    }
+  },
+  "F1": {
+    "populacao": {
+      "coef": 0.09931341385687012,
+      "se": 0.03718911069023194,
+      "p": 0.007573901606849636,
+      "ci95": [
+        0.026424096286942006,
+        0.17220273142679823
+      ],
+      "ame": 0.017602311275817156
+    },
+    "despesa_pc": {
+      "coef": -0.06361788091182184,
+      "se": 0.22276786377619384,
+      "p": 0.7752003929847042,
+      "ci95": [
+        -0.5002348708260866,
+        0.372999109002443
+      ],
+      "ame": -0.011275634368300286
+    }
+  },
+  "F2": {
+    "populacao": {
+      "coef": 0.08256923012678906,
+      "se": 0.04139568663502872,
+      "p": 0.04608284914522106,
+      "ci95": [
+        0.0014351752068267054,
+        0.1637032850467514
+      ],
+      "ame": 0.014268769828786554
+    },
+    "despesa_pc": {
+      "coef": -0.09473516157902497,
+      "se": 0.2336715979402594,
+      "p": 0.685168741957365,
+      "ci95": [
+        -0.5527230777518573,
+        0.36325275459380735
+      ],
+      "ame": -0.016371161668678833
+    },
+    "n_fornecedores": {
+      "coef": -0.45831858016170457,
+      "se": 0.07453025423790231,
+      "p": 7.776190353792267e-10,
+      "ci95": [
+        -0.6043951942266068,
+        -0.3122419660968023
+      ],
+      "ame": -0.07920192932090664
+    },
+    "recorrencia": {
+      "coef": 0.07716276629867048,
+      "se": 0.13696842262645295,
+      "p": 0.5731885974130124,
+      "ci95": [
+        -0.19129040906843836,
+        0.3456159416657793
+      ],
+      "ame": 0.013334480047561437
+    }
+  },
+  "decision_rule": "Se sinais e conclusões sobre as covariáveis principais persistirem em OLS-região e fractional logit, a evidência não depende criticamente da forma linear nem de FE de UF esparsos."
+}

@@ -1,0 +1,12 @@
+metrica,valor
+registros,12
+contratos_unicos,12
+compras_unicas,7
+compras_com_mais_de_um_instrumento,3
+pct_compras_com_mais_de_um_instrumento,42.85714286
+max_instrumentos_mesma_compra,4
+fornecedores_unicos,11
+municipios_unicos,6
+lag_publicacao_mediana_dias,3
+lag_publicacao_p90_dias,3
+valor_total_microamostra,1337728.76

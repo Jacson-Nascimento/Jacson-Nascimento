@@ -1,0 +1,72 @@
+name: SICONFI acumulado jan-abr 2025
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/siconfi-acumulado-jan-abr-2025.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/preparar_amostra_siconfi_incremental_2025.py'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/extrair_integrar_siconfi_incremental_2025.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/siconfi-acumulado-jan-abr-2025' }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Prepare global accumulated municipal sample and cumulative cache
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/preparar_amostra_siconfi_incremental_2025.py --month 4
+      - name: Collect only municipalities not previously successful
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          DELTA='results/siconfi_integracao_acumulada_2025_04/municipios_siconfi_delta.csv'
+          N=$(tail -n +2 "$DELTA" | sed '/^$/d' | wc -l)
+          echo "New municipalities: $N"
+          if [ "$N" -gt 0 ]; then
+            python scripts/coletar_siconfi_dca.py "$DELTA" --year 2025 --out results/siconfi_integracao_acumulada_2025_04/coleta_delta
+          else
+            echo 'No new SICONFI municipality to collect.'
+          fi
+      - name: Integrate base plus all cumulative deltas
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/extrair_integrar_siconfi_incremental_2025.py --month 4
+      - name: Show summaries
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          cat results/siconfi_integracao_acumulada_2025_04/resumo_mapeamento.json
+          echo '--- DELTA ---'
+          if [ -f results/siconfi_integracao_acumulada_2025_04/coleta_delta/siconfi_dca_2025_resumo.json ]; then
+            cat results/siconfi_integracao_acumulada_2025_04/coleta_delta/siconfi_dca_2025_resumo.json
+          fi
+          echo '--- FISCAL ---'
+          cat results/siconfi_integracao_acumulada_2025_04/resumo_integracao_fiscal.json
+      - name: Commit validated outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/results/siconfi_integracao_acumulada_2025_04
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Integra SICONFI acumulado até abril de 2025 [skip ci]'
+            BRANCH="${GITHUB_HEAD_REF:-research/siconfi-acumulado-jan-abr-2025}"
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: siconfi-acumulado-jan-abr-2025
+          path: research/dependencia-fornecedores-compras-publicas/results/siconfi_integracao_acumulada_2025_04

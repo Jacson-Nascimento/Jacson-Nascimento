@@ -1,0 +1,57 @@
+{
+  "mes_final_publicacao": "2025-04",
+  "especificacao_metricas": "global",
+  "compradores_integracao_principal": 1012,
+  "compradores_com_despesa_empenhada": 1002,
+  "cobertura_despesa_empenhada_pct": 99.01185770750988,
+  "municipios_fiscais_com_total_despesa": 600,
+  "registros_siconfi_antes_dedup": 268779,
+  "registros_siconfi_consolidados": 268779,
+  "duplicidades_siconfi_removidas": 0,
+  "fontes_coleta_e_registros": {
+    "results/siconfi_integracao_jan_fev_2025/coleta/siconfi_dca_2025.csv.gz": 175184,
+    "results/siconfi_integracao_acumulada_2025_03/coleta_delta/siconfi_dca_2025.csv.gz": 44955,
+    "results/siconfi_integracao_acumulada_2025_04/coleta_delta/siconfi_dca_2025.csv.gz": 48640
+  },
+  "procurement_intensity_parcial_mediana": 0.0036342892127408707,
+  "procurement_intensity_parcial_p95": 0.047268376525049095,
+  "procurement_intensity_parcial_max": 1.1406589685183846,
+  "correlacoes_spearman": {
+    "hhi_norm_vs_log_despesa": {
+      "rho": 0.21077876113302235,
+      "p": 1.5882344761089812e-11,
+      "n": 1002
+    },
+    "hhi_norm_vs_log_populacao": {
+      "rho": 0.21282875598232565,
+      "p": 9.987455393344833e-12,
+      "n": 1002
+    },
+    "hhi_norm_vs_log_despesa_per_capita": {
+      "rho": -0.08217223913720449,
+      "p": 0.009260980980867771,
+      "n": 1002
+    },
+    "hhi_norm_vs_procurement_intensity_parcial": {
+      "rho": 0.013407974584325766,
+      "p": 0.6716311202128181,
+      "n": 1002
+    },
+    "exposicao_strength_vs_log_despesa": {
+      "rho": 0.13680578238717225,
+      "p": 1.3893110085073262e-05,
+      "n": 1002
+    },
+    "exposicao_strength_vs_log_populacao": {
+      "rho": 0.14254920953657596,
+      "p": 5.903210112070792e-06,
+      "n": 1002
+    },
+    "exposicao_strength_vs_log_despesa_per_capita": {
+      "rho": -0.04309228281206419,
+      "p": 0.17288561619891293,
+      "n": 1002
+    }
+  },
+  "nota": "ProcurementIntensity parcial usa instrumentos assinados em 2025 e publicados até o mês de corte; é diagnóstico de escala e não medida de execução orçamentária. Associações não são causais."
+}

@@ -1,22 +1,22 @@
 # Dependência de Fornecedores e Compras Públicas
 
-Projeto de pesquisa sobre concentração econômica, persistência das relações comprador-fornecedor e vulnerabilidade estrutural nas compras públicas brasileiras.
+Projeto de pesquisa quantitativa sobre concentração da carteira de fornecedores, recorrência contratual e vulnerabilidade estrutural nas redes brasileiras de contratação pública.
 
 ## Pergunta central
 
-Em que medida as compras públicas municipais apresentam concentração e dependência estrutural de fornecedores, e quanto a análise de redes acrescenta aos indicadores convencionais de concentração?
+Em que medida compradores públicos concentram valor e frequência de contratação em poucos fornecedores, e quanto a estrutura da rede comprador-fornecedor revela exposições que não aparecem nas medidas locais de concentração da carteira?
 
 ## Fontes principais
 
-- PNCP: contratos, fornecedores, órgãos, categorias, valores e datas.
-- SICONFI/FINBRA: controles fiscais e contábeis municipais.
+- PNCP: instrumentos, fornecedores, órgãos, unidades, valores, datas e contratações de origem.
+- SICONFI/DCA: controles fiscais e contábeis municipais.
 - IBGE: população e características econômicas municipais.
-- Receita Federal/CNPJ: características cadastrais dos fornecedores, como enriquecimento.
+- Receita Federal/CNPJ: características cadastrais de fornecedores pessoa jurídica, como enriquecimento posterior.
 
 ## Estrutura
 
-- `data/raw/`: amostras e bases brutas coletadas.
-- `data/processed/`: bases tratadas para análise.
+- `data/raw/`: amostras e arquivos de referência permitidos para publicação.
+- `data/processed/`: bases analíticas minimizadas.
 - `scripts/`: coleta, limpeza, diagnóstico e cálculos.
 - `docs/`: metodologia, dicionário de variáveis e registros técnicos.
 - `results/`: tabelas, métricas e saídas analíticas.
@@ -24,25 +24,38 @@ Em que medida as compras públicas municipais apresentam concentração e depend
 
 ## Unidade principal de análise
 
-`município × categoria de contratação × ano`
+`comprador institucional (CNPJ) × fornecedor × ano`
 
-A rede é bipartida entre compradores e fornecedores, com peso igual ao valor agregado contratado em cada relação.
+O município é dimensão territorial e fonte de controles. Categorias administrativas do PNCP são usadas para composição e análises secundárias, não presumidas como mercados econômicos.
 
-## Métricas previstas
+## Resultados principais
 
-- HHI
-- CR1 e CR4
-- Número efetivo de fornecedores
-- Entropia
-- Persistência/Jaccard
-- Degree, Strength e Reach dos fornecedores
-- Exposição a fornecedores centrais
-- Simulações de remoção direcionada e aleatória
+- `PortfolioHHI`: concentração do valor anual da carteira de fornecedores.
+- `PortfolioCR1` e `PortfolioCR4`.
+- número efetivo de fornecedores.
+- `CountHHI`: concentração da frequência de instrumentos por fornecedor.
+- divergência entre concentração monetária e recorrência contratual.
+- persistência/Jaccard.
+- Degree, Strength e Reach dos fornecedores.
+- exposição dos compradores a fornecedores centrais.
+- simulações de remoção direcionada e aleatória.
+
+## Compras compartilhadas
+
+O projeto distingue o CNPJ do órgão/entidade do instrumento do CNPJ da contratação de origem. A participação de instrumentos originados por outra entidade será medida por `SharedProcurementShare`, sem presunção de irregularidade.
+
+## Mercado relevante
+
+Os probes de itens do PNCP não forneceram, na amostra testada, taxonomia suficientemente granular para tratar a categoria geral `Compras` como mercado econômico. Por isso, o resultado principal é concentração da **carteira de fornecedores**, não concentração antitruste de mercado. Análises setoriais só serão realizadas quando houver classificação econômica defensável.
+
+## Privacidade
+
+O repositório é público. Bases identificadas publicadas contêm somente fornecedores pessoa jurídica. Registros de pessoa física não terão CPF ou nome republicados. Cópias integrais de pesquisa permanecem em armazenamento privado.
 
 ## Regra de interpretação
 
-As métricas de concentração e rede são sinais para priorização de análise. Não constituem, isoladamente, evidência de fraude, favorecimento ou interrupção efetiva de serviços.
+Concentração, recorrência, persistência e centralidade descrevem dependência e exposição estrutural. Não constituem, isoladamente, evidência de fraude, favorecimento, poder de mercado ou interrupção efetiva de serviços.
 
 ## Estado atual
 
-Fase de diagnóstico das bases e validação do pipeline de coleta do PNCP.
+PNCP e SICONFI foram empiricamente validados. A coleta contínua por mês foi iniciada para 2025, antes da construção do painel anual e dos resultados substantivos do artigo.

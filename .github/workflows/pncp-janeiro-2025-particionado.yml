@@ -1,0 +1,78 @@
+name: PNCP janeiro 2025 particionado
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/pncp-janeiro-2025-particionado.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - label: 2025-01-d01-d08
+            start: '20250101'
+            end: '20250108'
+          - label: 2025-01-d09-d16
+            start: '20250109'
+            end: '20250116'
+          - label: 2025-01-d17-d24
+            start: '20250117'
+            end: '20250124'
+          - label: 2025-01-d25-d31
+            start: '20250125'
+            end: '20250131'
+
+    steps:
+      - name: Checkout branch under test
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+
+      - name: Collect partition
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          python scripts/coletar_pncp_periodo.py \
+            --start ${{ matrix.start }} \
+            --end ${{ matrix.end }} \
+            --label ${{ matrix.label }}
+
+      - name: Show summary
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: cat results/pncp_mensal/${{ matrix.label }}_resumo.json
+
+      - name: Commit partition to technical branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git pull --rebase origin "${{ github.head_ref }}"
+          git add research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_${{ matrix.label }}_municipal_pj.csv.gz
+          git add research/dependencia-fornecedores-compras-publicas/results/pncp_mensal/${{ matrix.label }}_*.csv
+          git add research/dependencia-fornecedores-compras-publicas/results/pncp_mensal/${{ matrix.label }}_resumo.json
+          git commit -m "Adiciona PNCP ${{ matrix.label }} [skip ci]"
+          git push origin HEAD:${{ github.head_ref }}
+
+      - name: Upload partition artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pncp-${{ matrix.label }}
+          path: |
+            research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_${{ matrix.label }}_municipal_pj.csv.gz
+            research/dependencia-fornecedores-compras-publicas/results/pncp_mensal/${{ matrix.label }}_*

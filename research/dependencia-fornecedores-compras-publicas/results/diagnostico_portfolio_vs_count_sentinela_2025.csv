@@ -1,0 +1,5 @@
+amostra_diagnostica,n_compradores,portfolio_hhi_media,portfolio_hhi_mediana,count_hhi_media,count_hhi_mediana,spearman_portfolio_count,portfolio_maior_count_pct,cr1_valor_mediana,neff_valor_mediana,shared_share_mediana
+todos_fornecedores,1256,0.664183,0.680022,0.547022,0.500000,0.930579,58.678344,0.804274,1.470555,0.000000
+todos_min3forn_min5inst,437,0.316116,0.261862,0.127806,0.111111,0.568898,97.711670,0.404211,3.818803,0.008421
+pj,1221,0.671545,0.708289,0.553438,0.500000,0.929751,58.067158,0.829876,1.411854,0.000000
+pj_min3forn_min5inst,416,0.323325,0.269279,0.129590,0.120000,0.563227,97.596154,0.409824,3.713623,0.032888

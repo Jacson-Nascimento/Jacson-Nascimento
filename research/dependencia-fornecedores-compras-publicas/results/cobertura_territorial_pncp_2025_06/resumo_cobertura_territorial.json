@@ -1,16 +1,21 @@
 {
   "mes_final_publicacao": "2025-06",
-  "universo_ibge_municipios": 5571,
+  "registros_endpoint_localidades_ibge": 5571,
+  "unidades_estatisticas_excluidas": [
+    "5300108 - Distrito Federal",
+    "2605459 - Distrito Estadual de Fernando de Noronha"
+  ],
+  "universo_ibge_municipios_estritos": 5569,
   "municipios_observados_ao_menos_1_mes": 1031,
-  "presenca_universo_ao_menos_1_mes_pct": 18.506551786034823,
+  "presenca_universo_ao_menos_1_mes_pct": 18.513198060693124,
   "municipios_observados_ao_menos_metade_meses": 708,
   "municipios_observados_todos_meses": 300,
-  "pct_observados_todos_meses_universo": 5.385029617662897,
+  "pct_observados_todos_meses_universo": 5.386963548213323,
   "mediana_meses_observados_entre_municipios_presentes": 4.0,
-  "municipios_pncp_fora_universo_ibge": [],
-  "n_municipios_pncp_fora_universo_ibge": 0,
+  "codigos_pncp_fora_universo_municipal_estrito": [],
+  "n_codigos_pncp_fora_universo_municipal_estrito": 0,
   "instrumentos_pj_assinados_2025_acumulados": 98438,
   "compradores_institucionais_acumulados": 2349,
-  "nota_metodologica": "Presença mensal no PNCP não equivale a completude de reporte. Município sem instrumento em um mês pode simplesmente não ter contratação publicada. O indicador é uma medida de presença/continuidade observacional e um limite inferior para avaliação de cobertura.",
+  "nota_metodologica": "Presença mensal no PNCP não equivale a completude de reporte. Município sem instrumento em um mês pode simplesmente não ter contratação publicada. O indicador mede presença/continuidade observacional.",
   "fonte_universo": "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
 }

@@ -1,7 +1,6 @@
 name: Bootstrap jan-fev
 
 on:
-  pull_request:
   workflow_dispatch:
 
 permissions:

@@ -1,0 +1,96 @@
+{
+  "natureza": "Diagnóstico descritivo de trajetória de coeficientes; não altera especificação nem produz inferência causal adicional.",
+  "janelas_hhi": [
+    "jan_fev",
+    "jan_mar",
+    "jan_abr",
+    "jan_mai"
+  ],
+  "janelas_exposicao_gap": [
+    "jan_mar",
+    "jan_abr",
+    "jan_mai"
+  ],
+  "hhi_ols_populacao": {
+    "coef_primeira": 0.0154606917040317,
+    "coef_ultima": 0.0218359081043004,
+    "delta_ultima_vs_penultima": 0.0013011362087885989,
+    "razao_abs_ultima_penultima": 1.0633625839823906,
+    "mudancas_sinal": 0,
+    "n_significativo_5pct": 4,
+    "n_janelas": 4
+  },
+  "hhi_ols_n_fornecedores": {
+    "coef_primeira": -0.0795496044759813,
+    "coef_ultima": -0.0664866019971229,
+    "delta_ultima_vs_penultima": 0.00024050269740509556,
+    "razao_abs_ultima_penultima": 0.9963957270661435,
+    "mudancas_sinal": 0,
+    "n_significativo_5pct": 4,
+    "n_janelas": 4
+  },
+  "hhi_ols_despesa_pc": {
+    "coef_primeira": -0.0130428535676869,
+    "coef_ultima": 0.0155293854771025,
+    "delta_ultima_vs_penultima": -0.004957236749779999,
+    "razao_abs_ultima_penultima": 0.7580256669508395,
+    "mudancas_sinal": 1,
+    "n_significativo_5pct": 0,
+    "n_janelas": 4
+  },
+  "hhi_ols_recorrencia": {
+    "coef_primeira": 0.0187440509331842,
+    "coef_ultima": 0.0063732164846236,
+    "delta_ultima_vs_penultima": 0.0016436673261878004,
+    "razao_abs_ultima_penultima": 1.3475315027133388,
+    "mudancas_sinal": 0,
+    "n_significativo_5pct": 0,
+    "n_janelas": 4
+  },
+  "hhi_fractional_populacao": {
+    "coef_primeira": 0.082569230126789,
+    "coef_ultima": 0.1175343645717278,
+    "delta_ultima_vs_penultima": 0.007485690531856312,
+    "razao_abs_ultima_penultima": 1.068021633128848,
+    "mudancas_sinal": 0,
+    "n_significativo_5pct": 4,
+    "n_janelas": 4
+  },
+  "hhi_fractional_n_fornecedores": {
+    "coef_primeira": -0.4583185801617045,
+    "coef_ultima": -0.3932284513218573,
+    "delta_ultima_vs_penultima": 0.003097641664878803,
+    "razao_abs_ultima_penultima": 0.9921841086930845,
+    "mudancas_sinal": 0,
+    "n_significativo_5pct": 4,
+    "n_janelas": 4
+  },
+  "exposicao_recorrencia": {
+    "coef_primeira": 0.0828815969236088,
+    "coef_ultima": 0.0464694076953807,
+    "delta_ultima_vs_penultima": -0.015661711414436397,
+    "razao_abs_ultima_penultima": 0.7479248460541289,
+    "mudancas_sinal": 0,
+    "n_significativo_5pct": 3,
+    "n_janelas": 3
+  },
+  "exposicao_n_fornecedores": {
+    "coef_primeira": 0.0240553185366056,
+    "coef_ultima": 0.0274692927317358,
+    "delta_ultima_vs_penultima": 0.0033570957248270986,
+    "razao_abs_ultima_penultima": 1.1392281144627847,
+    "mudancas_sinal": 0,
+    "n_significativo_5pct": 3,
+    "n_janelas": 3
+  },
+  "gap_recorrencia": {
+    "coef_primeira": -0.0450068142120547,
+    "coef_ultima": -0.0631189510160001,
+    "delta_ultima_vs_penultima": 0.008563507321997205,
+    "razao_abs_ultima_penultima": 0.8805355240243222,
+    "mudancas_sinal": 0,
+    "n_significativo_5pct": 2,
+    "n_janelas": 3
+  },
+  "regra_interpretacao": "Descrever trajetórias, mudanças de sinal, persistência de significância e variação entre janelas; não definir estabilidade por limiar pós-hoc."
+}

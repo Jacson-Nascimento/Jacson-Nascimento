@@ -1,14 +1,13 @@
 name: PNCP fevereiro 2025 particionado
 
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/pncp-fevereiro-2025-particionado.yml'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+# Coleta de recuperação/manual. As quatro partições de fevereiro de 2025 já foram
+# produzidas. Execuções futuras devem ser deliberadas para evitar corridas de push.
 jobs:
   collect:
     runs-on: ubuntu-latest
@@ -35,7 +34,7 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref_name }}
+          ref: research/pncp-fevereiro-2025
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
@@ -62,7 +61,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git pull --rebase origin "${{ github.head_ref }}"
           git add research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_${{ matrix.label }}_municipal_pj.csv.gz
           git add research/dependencia-fornecedores-compras-publicas/results/pncp_mensal/${{ matrix.label }}_*.csv
           git add research/dependencia-fornecedores-compras-publicas/results/pncp_mensal/${{ matrix.label }}_resumo.json
@@ -70,7 +68,11 @@ jobs:
             echo 'No generated changes.'
           else
             git commit -m "Adiciona PNCP ${{ matrix.label }} [skip ci]"
-            git push origin HEAD:${{ github.head_ref }}
+            for attempt in 1 2 3 4; do
+              git pull --rebase origin research/pncp-fevereiro-2025 && \
+              git push origin HEAD:research/pncp-fevereiro-2025 && break
+              sleep $((attempt * 3))
+            done
           fi
 
       - name: Upload partition artifact

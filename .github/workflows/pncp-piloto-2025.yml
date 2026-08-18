@@ -1,0 +1,60 @@
+name: PNCP piloto sentinela 2025
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/pncp-piloto-2025.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+
+      - name: Collect PNCP sentinel sample and calculate diagnostics
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/coletar_piloto_2025.py
+
+      - name: Show summary
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          cat results/piloto2025_resumo.json
+          echo '---'
+          head -20 results/piloto2025_resumo_datas.csv
+
+      - name: Commit generated research outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/data/processed \
+                  research/dependencia-fornecedores-compras-publicas/results
+          if git diff --cached --quiet; then
+            echo 'No generated changes to commit.'
+          else
+            git commit -m 'Atualiza piloto PNCP 2025 [skip ci]'
+            git push
+          fi
+
+      - name: Upload pilot outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: pncp-piloto-2025
+          path: |
+            research/dependencia-fornecedores-compras-publicas/data/processed
+            research/dependencia-fornecedores-compras-publicas/results/piloto2025_*

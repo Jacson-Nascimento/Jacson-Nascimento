@@ -1,5 +1,13 @@
 # Protocolo de replicabilidade
 
+## Registro científico de referência
+
+A versão publicada deste protocolo e dos artefatos associados integra o depósito Zenodo do preprint v1.3:
+
+- Registro: https://zenodo.org/records/21985858
+- DOI: https://doi.org/10.5281/zenodo.21985858
+- Publicação: 17 de agosto de 2026
+
 ## Objetivo
 
 Este protocolo define o procedimento mínimo para reproduzir o experimento-base do preprint e verificar os números publicados sem depender de inferências sobre a implementação.

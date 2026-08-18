@@ -1,0 +1,50 @@
+name: Criticidade fornecedor unico jan-mar 2025
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/criticidade-fornecedor-jan-mar-2025.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/criticidade_fornecedor_jan_mar_2025.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  criticality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/criticidade-fornecedor-jan-mar-2025' }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Run criticality
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/criticidade_fornecedor_jan_mar_2025.py
+      - name: Show summary
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: cat results/criticidade_fornecedor_jan_mar_2025/resumo_criticidade.json
+      - name: Commit outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/results/criticidade_fornecedor_jan_mar_2025
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Adiciona criticidade de fornecedor unico jan-mar [skip ci]'
+            BRANCH="${GITHUB_HEAD_REF:-research/criticidade-fornecedor-jan-mar-2025}"
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: criticidade-fornecedor-jan-mar-2025
+          path: research/dependencia-fornecedores-compras-publicas/results/criticidade_fornecedor_jan_mar_2025

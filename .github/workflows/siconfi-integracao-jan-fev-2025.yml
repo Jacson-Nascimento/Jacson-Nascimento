@@ -1,0 +1,75 @@
+name: SICONFI integração PNCP jan-fev 2025
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/siconfi-integracao-jan-fev-2025.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/preparar_amostra_siconfi_jan_fev_2025.py'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/extrair_integrar_siconfi_jan_fev_2025.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout technical branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/siconfi-integracao-jan-fev-2025' }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+
+      - name: Prepare PNCP territorial sample
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/preparar_amostra_siconfi_jan_fev_2025.py
+
+      - name: Collect SICONFI DCA 2025
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          python scripts/coletar_siconfi_dca.py \
+            results/siconfi_integracao_jan_fev_2025/municipios_siconfi.csv \
+            --year 2025 \
+            --annexes 'DCA-Anexo I-D' 'DCA-Anexo I-E' \
+            --out results/siconfi_integracao_jan_fev_2025/coleta
+
+      - name: Extract fiscal variables and integrate
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/extrair_integrar_siconfi_jan_fev_2025.py
+
+      - name: Show summaries
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          cat results/siconfi_integracao_jan_fev_2025/resumo_mapeamento.json
+          echo '--- SICONFI ---'
+          cat results/siconfi_integracao_jan_fev_2025/coleta/siconfi_dca_2025_resumo.json
+          echo '--- INTEGRAÇÃO ---'
+          cat results/siconfi_integracao_jan_fev_2025/resumo_integracao_fiscal.json
+
+      - name: Commit reproducible fiscal outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/results/siconfi_integracao_jan_fev_2025
+          if git diff --cached --quiet; then
+            echo 'No fiscal changes.'
+          else
+            git commit -m 'Integra SICONFI DCA ao diagnóstico PNCP jan-fev 2025 [skip ci]'
+            git push origin HEAD:${{ github.head_ref || 'research/siconfi-integracao-jan-fev-2025' }}
+          fi
+
+      - name: Upload fiscal integration artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: siconfi-integracao-jan-fev-2025
+          path: research/dependencia-fornecedores-compras-publicas/results/siconfi_integracao_jan_fev_2025

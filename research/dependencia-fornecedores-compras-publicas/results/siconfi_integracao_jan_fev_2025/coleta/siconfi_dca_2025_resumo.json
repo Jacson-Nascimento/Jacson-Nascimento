@@ -1,0 +1,13 @@
+{
+  "exercicio": 2025,
+  "anexos": [
+    "DCA-Anexo I-D",
+    "DCA-Anexo I-E"
+  ],
+  "municipios_solicitados": 394,
+  "consultas": 788,
+  "consultas_ok": 788,
+  "consultas_erro": 0,
+  "consultas_sem_registros": 4,
+  "registros_coletados": 175184
+}

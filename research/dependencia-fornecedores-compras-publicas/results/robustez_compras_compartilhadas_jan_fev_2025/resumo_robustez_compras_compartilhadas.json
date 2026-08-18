@@ -1,0 +1,161 @@
+{
+  "instrumentos_analiticos": 27071,
+  "origem_externa_instrumentos_pct": 68.04698755125412,
+  "origem_externa_valor_pct": 13.602321245382443,
+  "elegiveis_todos": 569,
+  "elegiveis_sem_externa": 361,
+  "amostra_comum": 361,
+  "metricas": [
+    {
+      "rede": "todos",
+      "n": 361,
+      "hhi_mediana": 0.25573441929733226,
+      "hhi_norm_mediana": 0.1515901063628193,
+      "count_hhi_mediana": 0.125,
+      "cr1_mediana": 0.39506413840072957,
+      "cr4_mediana": 0.8699038189236531,
+      "neff_mediana": 3.910306648387989,
+      "hhi_maior_count_pct": 96.95290858725761,
+      "hidden_exposure_pct": 10.80332409972299,
+      "rho_hhi_norm_exposure": 0.499818006003905,
+      "p_rho": 3.26697177296944e-24
+    },
+    {
+      "rede": "sem_origem_externa",
+      "n": 361,
+      "hhi_mediana": 0.2576413430674669,
+      "hhi_norm_mediana": 0.14988298081408932,
+      "count_hhi_mediana": 0.125,
+      "cr1_mediana": 0.39404271901410165,
+      "cr4_mediana": 0.871613003203196,
+      "neff_mediana": 3.8813646447190595,
+      "hhi_maior_count_pct": 96.95290858725761,
+      "hidden_exposure_pct": 10.80332409972299,
+      "rho_hhi_norm_exposure": 0.4784860650245446,
+      "p_rho": 4.695538104062566e-22
+    }
+  ],
+  "simulacoes_limiar_50pct": [
+    {
+      "pct_removed": 0.01,
+      "k": 64,
+      "strategy": "degree",
+      "target_severe": 0.0,
+      "random_mean": 0.003495844875346261,
+      "random_p025": 0.0,
+      "random_p975": 0.0110803324099723,
+      "rede": "todos"
+    },
+    {
+      "pct_removed": 0.01,
+      "k": 64,
+      "strategy": "strength",
+      "target_severe": 0.07479224376731301,
+      "random_mean": 0.003495844875346261,
+      "random_p025": 0.0,
+      "random_p975": 0.0110803324099723,
+      "rede": "todos"
+    },
+    {
+      "pct_removed": 0.05,
+      "k": 316,
+      "strategy": "degree",
+      "target_severe": 0.030470914127423823,
+      "random_mean": 0.019254847645429365,
+      "random_p025": 0.00554016620498615,
+      "random_p975": 0.036011080332409975,
+      "rede": "todos"
+    },
+    {
+      "pct_removed": 0.05,
+      "k": 316,
+      "strategy": "strength",
+      "target_severe": 0.24930747922437674,
+      "random_mean": 0.019254847645429365,
+      "random_p025": 0.00554016620498615,
+      "random_p975": 0.036011080332409975,
+      "rede": "todos"
+    },
+    {
+      "pct_removed": 0.1,
+      "k": 631,
+      "strategy": "degree",
+      "target_severe": 0.11357340720221606,
+      "random_mean": 0.04440443213296399,
+      "random_p025": 0.024930747922437674,
+      "random_p975": 0.0664819944598338,
+      "rede": "todos"
+    },
+    {
+      "pct_removed": 0.1,
+      "k": 631,
+      "strategy": "strength",
+      "target_severe": 0.40443213296398894,
+      "random_mean": 0.04440443213296399,
+      "random_p025": 0.024930747922437674,
+      "random_p975": 0.0664819944598338,
+      "rede": "todos"
+    },
+    {
+      "pct_removed": 0.01,
+      "k": 53,
+      "strategy": "degree",
+      "target_severe": 0.030470914127423823,
+      "random_mean": 0.0034459833795013857,
+      "random_p025": 0.0,
+      "random_p975": 0.0110803324099723,
+      "rede": "sem_origem_externa"
+    },
+    {
+      "pct_removed": 0.01,
+      "k": 53,
+      "strategy": "strength",
+      "target_severe": 0.07479224376731301,
+      "random_mean": 0.0034459833795013857,
+      "random_p025": 0.0,
+      "random_p975": 0.0110803324099723,
+      "rede": "sem_origem_externa"
+    },
+    {
+      "pct_removed": 0.05,
+      "k": 265,
+      "strategy": "degree",
+      "target_severe": 0.09695290858725762,
+      "random_mean": 0.0190803324099723,
+      "random_p025": 0.00554016620498615,
+      "random_p975": 0.036011080332409975,
+      "rede": "sem_origem_externa"
+    },
+    {
+      "pct_removed": 0.05,
+      "k": 265,
+      "strategy": "strength",
+      "target_severe": 0.22437673130193905,
+      "random_mean": 0.0190803324099723,
+      "random_p025": 0.00554016620498615,
+      "random_p975": 0.036011080332409975,
+      "rede": "sem_origem_externa"
+    },
+    {
+      "pct_removed": 0.1,
+      "k": 529,
+      "strategy": "degree",
+      "target_severe": 0.1745152354570637,
+      "random_mean": 0.04282548476454293,
+      "random_p025": 0.0221606648199446,
+      "random_p975": 0.0664819944598338,
+      "rede": "sem_origem_externa"
+    },
+    {
+      "pct_removed": 0.1,
+      "k": 529,
+      "strategy": "strength",
+      "target_severe": 0.3850415512465374,
+      "random_mean": 0.04282548476454293,
+      "random_p025": 0.0221606648199446,
+      "random_p975": 0.0664819944598338,
+      "rede": "sem_origem_externa"
+    }
+  ],
+  "regra": "Se a divergência valor-frequência e a superioridade do choque direcionado persistirem sem origem externa, o resultado não é explicado apenas por compras compartilhadas."
+}

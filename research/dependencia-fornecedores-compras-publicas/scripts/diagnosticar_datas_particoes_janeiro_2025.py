@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Diagnóstico agregado das datas de publicação nas partições PNCP de janeiro de 2025.
 
-Lê somente a base pública PJ já versionada. Não grava identificadores individuais
-no resultado. O objetivo é localizar registros cujo dataPublicacaoPncp não esteja
-no intervalo solicitado a cada partição.
+Lê somente a base pública PJ já versionada. Não grava identificadores individuais.
+Também compara o parsing separado por partição com o parsing da série concatenada,
+para detectar falha de inferência de formatos datetime mistos.
 """
 from __future__ import annotations
 
@@ -31,10 +31,13 @@ def main():
     total_out_jan=0
     total_out_part=0
     total=0
+    raw_parts=[]
 
     for label, start_s, end_s in PARTS:
         path=DATA/f"pncp_{label}_municipal_pj.csv.gz"
         d=pd.read_csv(path, usecols=["data_publicacao"], low_memory=False)
+        d["particao"]=label
+        raw_parts.append(d.copy())
         dt=pd.to_datetime(d["data_publicacao"], errors="coerce")
         start=pd.Timestamp(start_s)
         end=pd.Timestamp(end_s)+pd.Timedelta(days=1)-pd.Timedelta(microseconds=1)
@@ -74,6 +77,20 @@ def main():
         yy.insert(0,"particao",label)
         year_rows.append(yy)
 
+    concat=pd.concat(raw_parts,ignore_index=True)
+    global_default=pd.to_datetime(concat["data_publicacao"],errors="coerce")
+    global_mixed=pd.to_datetime(concat["data_publicacao"],errors="coerce",format="mixed")
+    parse_rows=[]
+    for label,g in concat.assign(_default=global_default,_mixed=global_mixed).groupby("particao"):
+        parse_rows.append({
+            "particao":label,
+            "linhas":len(g),
+            "nat_parsing_global_padrao":int(g["_default"].isna().sum()),
+            "nat_parsing_global_mixed":int(g["_mixed"].isna().sum()),
+        })
+    parse_df=pd.DataFrame(parse_rows)
+    parse_df.to_csv(OUT/"comparacao_parsing_global.csv",index=False,encoding="utf-8-sig")
+
     detail=pd.DataFrame(rows)
     detail.to_csv(OUT/"resumo_por_particao.csv",index=False,encoding="utf-8-sig")
     pd.concat(month_rows,ignore_index=True).to_csv(OUT/"distribuicao_ano_mes.csv",index=False,encoding="utf-8-sig")
@@ -82,11 +99,14 @@ def main():
         "linhas_pj_total":total,
         "fora_intervalo_particao_total":total_out_part,
         "fora_janeiro_total":total_out_jan,
+        "nat_parsing_global_padrao":int(global_default.isna().sum()),
+        "nat_parsing_global_mixed":int(global_mixed.isna().sum()),
         "observacao":"Diagnóstico agregado do campo data_publicacao derivado de dataPublicacaoPncp. Não altera nem exclui registros.",
     }
     (OUT/"resumo.json").write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding="utf-8")
     print(detail.to_string(index=False))
-    print(pd.concat(month_rows,ignore_index=True).to_string(index=False))
+    print('--- PARSING GLOBAL ---')
+    print(parse_df.to_string(index=False))
     print(json.dumps(summary,ensure_ascii=False,indent=2))
 
 if __name__ == "__main__":

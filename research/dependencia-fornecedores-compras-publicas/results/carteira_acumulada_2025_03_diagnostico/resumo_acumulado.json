@@ -1,0 +1,59 @@
+{
+  "mes_final_publicacao": "2025-03",
+  "advertencia": "Coorte parcial de publicação; não interpretar como resultado anual.",
+  "registros_pj_acumulados": 48758,
+  "instrumentos_unicos": 48758,
+  "duplicidades": 0,
+  "assinados_2025": 43185,
+  "compradores_metricas": 1663,
+  "compradores_elegiveis": 780,
+  "fornecedores_rede_total": 9583,
+  "portfolio_hhi_mediana": 0.24505694074099693,
+  "count_hhi_mediana": 0.09090909090909091,
+  "portfolio_neff_mediana": 4.0806847193889855,
+  "portfolio_cr1_mediana": 0.3812120257426427,
+  "portfolio_cr4_mediana": 0.821427029667158,
+  "spearman_portfolio_count": {
+    "rho": 0.5766394648022596,
+    "p": 2.5265692054757992e-70
+  },
+  "spearman_portfolio_exposicao_strength": {
+    "rho": 0.20797308244197538,
+    "p": 4.5380224346282235e-09
+  },
+  "q75_portfolio_hhi": 0.3940933979922532,
+  "q75_exposicao_strength": 0.9199623999389991,
+  "hhi_baixo_exposicao_alta_n": 105,
+  "hhi_alto_exposicao_alta_n": 90,
+  "portfolio_hhi_maior_count_hhi_n": 761,
+  "portfolio_hhi_maior_count_hhi_pct": 97.56410256410255,
+  "lag_negativo_n_acumulado": 21,
+  "random_draws_por_cenario": 1000,
+  "seed": 20260818,
+  "mes_consolidado": {
+    "mes": "2025-03",
+    "particoes_n": 4,
+    "registros_pj": 17110,
+    "instrumentos_unicos": 17110,
+    "duplicidades": 0,
+    "compradores_unicos": 1224,
+    "fornecedores_pj_unicos": 5296,
+    "municipios_unicos": 672,
+    "assinados_2025": 16114,
+    "assinados_antes_2025": 992,
+    "lag_mediana": 2.0,
+    "lag_p90": 41.0,
+    "lag_p95": 104.0,
+    "lag_negativo_n": 10,
+    "janela_publicacao": {
+      "min": "2025-03-01T00:00:22",
+      "max": "2025-03-31T20:04:36"
+    },
+    "sha256_base_pj": "9a6548a096e4c3cc184cad976416af75aaacfc53ff5f359bf1e7098c49465886",
+    "registros_brutos_particoes_soma": 144117,
+    "registros_municipais_validos_todos_tipos_soma": 18170,
+    "registros_pf_soma": 1042,
+    "registros_pe_soma": 18
+  },
+  "sha256_mes_consolidado": "9a6548a096e4c3cc184cad976416af75aaacfc53ff5f359bf1e7098c49465886"
+}

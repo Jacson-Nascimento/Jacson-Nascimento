@@ -1,0 +1,37 @@
+name: Validar pipeline global v2 em março
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/validar-pipeline-global-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/validar-pipeline-global-v2' }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Validate monthly consolidator on existing March partitions
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/consolidar_mes_pncp_2025.py --month 3
+      - name: Validate global accumulator through March
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/analisar_acumulado_2025_global.py --month 3
+      - name: Show checks
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          cat results/pncp_2025_03_consolidacao/resumo_consolidacao.json
+          echo '--- GLOBAL ---'
+          cat results/carteira_acumulada_2025_03_global/resumo.json

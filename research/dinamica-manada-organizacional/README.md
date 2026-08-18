@@ -1,10 +1,19 @@
 # Dinâmica de Manada Organizacional
 
 **Autor:** Jacson Cruz do Nascimento  
-**Preprint:** versão 1.0, 17 de agosto de 2026  
-**Natureza:** proof of concept teórico-computacional, não revisado por pares
+**ORCID:** https://orcid.org/0009-0006-6535-9569  
+**Preprint:** versão 1.3, 17 de agosto de 2026  
+**Natureza:** proof of concept teórico-computacional, não revisado por pares  
+**Zenodo:** https://zenodo.org/records/21985858  
+**DOI:** https://doi.org/10.5281/zenodo.21985858
 
 Este diretório reúne o material computacional necessário para auditar e reproduzir o núcleo do preprint **Dinâmica de Manada Organizacional: um arcabouço teórico-computacional para hierarquia, influência social, silêncio e independência informacional**.
+
+## Citação do preprint
+
+NASCIMENTO, Jacson Cruz do. *Dinâmica de Manada Organizacional: um arcabouço teórico-computacional para hierarquia, influência social, silêncio e independência informacional*. Version 1.3. Zenodo, 2026. DOI: 10.5281/zenodo.21985858.
+
+O registro Zenodo é a referência canônica da versão 1.3 do preprint e do material suplementar depositado em 17 de agosto de 2026.
 
 ## Escopo reproduzido
 
@@ -103,9 +112,12 @@ Essa separação é deliberada e documenta a proveniência do experimento.
 
 ## Dados brutos e Zenodo
 
-A tabela completa das 10.000 replicações deve permanecer arquivada no mesmo depósito Zenodo do preprint como material suplementar. O GitHub mantém o código, a especificação do processo gerador, os valores de controle e a automação de reprodução. Isso evita tratar o GitHub como repositório primário de dados científicos de maior volume.
+A tabela completa das 10.000 replicações, os resultados derivados e o material suplementar estão arquivados no registro Zenodo da versão 1.3:
 
-O DOI do preprint/material suplementar deve ser inserido aqui e em `CITATION.cff` após o depósito definitivo.
+- Registro: https://zenodo.org/records/21985858
+- DOI: https://doi.org/10.5281/zenodo.21985858
+
+O GitHub mantém o código, a especificação do processo gerador, os valores de controle e a automação de reprodução. O Zenodo funciona como registro persistente do preprint e dos artefatos científicos depositados.
 
 ## Limites atuais
 

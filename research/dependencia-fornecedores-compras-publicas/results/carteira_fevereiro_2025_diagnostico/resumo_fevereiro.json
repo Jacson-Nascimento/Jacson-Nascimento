@@ -1,0 +1,24 @@
+{
+  "escopo": "Publicações PNCP de fevereiro de 2025; fornecedores PJ; esfera municipal; Poder Executivo.",
+  "registros_pj": 18310,
+  "instrumentos_unicos": 18310,
+  "duplicidades_id_contrato": 0,
+  "compradores_unicos": 1240,
+  "fornecedores_pj_unicos": 5642,
+  "municipios_unicos": 675,
+  "assinados_2025": 16738,
+  "assinados_antes_2025": 1569,
+  "lag_mediana": 2.0,
+  "lag_p90": 42.0,
+  "lag_p95": 139.0,
+  "lag_negativo_n": 7,
+  "registros_brutos_particoes_soma": 152469,
+  "registros_municipais_validos_todos_tipos_soma": 19820,
+  "registros_pf_soma": 1488,
+  "registros_pe_soma": 22,
+  "janela_publicacao": {
+    "min": "2025-02-01T02:26:13",
+    "max": "2025-02-28T21:11:49"
+  },
+  "sha256_base_pj_consolidada": "a2422b0c153ba68bceead2ff560c4e13f5f5128a64fa36da1ac4208cc02c18a1"
+}

@@ -1,0 +1,28 @@
+{
+  "datas_sentinela": [
+    "20250115",
+    "20250212",
+    "20250312",
+    "20250416",
+    "20250514",
+    "20250611",
+    "20250716",
+    "20250813",
+    "20250910",
+    "20251015",
+    "20251112",
+    "20251210"
+  ],
+  "registros_total": 104141,
+  "registros_municipais_validos": 12799,
+  "registros_pj": 11968,
+  "registros_pf": 818,
+  "registros_pe": 13,
+  "municipios_unicos": 705,
+  "ufs_unicas": 25,
+  "fornecedores_unicos": 5242,
+  "contratos_unicos": 12799,
+  "compras_unicas": 3951,
+  "politica_publicacao": "GitHub: identificadores somente de fornecedores PJ. PF e PE ficam fora das bases identificadas públicas.",
+  "observacao": "Amostra sentinela de 12 dias. Não interpretar HHI como concentração anual."
+}

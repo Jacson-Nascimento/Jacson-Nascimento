@@ -1,0 +1,102 @@
+{
+  "elegiveis_abr": 1013,
+  "elegiveis_mai": 1210,
+  "compradores_comuns": 1013,
+  "retencao_elegiveis_abr_pct": 100.0,
+  "cortes_common_sample": {
+    "abr": {
+      "q75_hhi": 0.4037865221682067,
+      "q75_exposicao_strength_global": 0.9224205338073822
+    },
+    "mai": {
+      "q75_hhi": 0.3798399613979788,
+      "q75_exposicao_strength_global": 0.9238178020566712
+    }
+  },
+  "spearman_estabilidade": {
+    "portfolio_hhi": {
+      "rho": 0.8902922114945079,
+      "p": 0.0,
+      "n": 1013
+    },
+    "portfolio_hhi_norm": {
+      "rho": 0.8719764884506189,
+      "p": 0.0,
+      "n": 1013
+    },
+    "portfolio_cr1": {
+      "rho": 0.8711692336228879,
+      "p": 0.0,
+      "n": 1013
+    },
+    "portfolio_cr4": {
+      "rho": 0.9175053395661625,
+      "p": 0.0,
+      "n": 1013
+    },
+    "count_hhi": {
+      "rho": 0.952265542621017,
+      "p": 0.0,
+      "n": 1013
+    },
+    "count_hhi_norm": {
+      "rho": 0.8972859136738848,
+      "p": 0.0,
+      "n": 1013
+    },
+    "exposicao_strength_global": {
+      "rho": 0.9377932632033994,
+      "p": 0.0,
+      "n": 1013
+    },
+    "exposicao_degree_global": {
+      "rho": 0.8998743311677191,
+      "p": 0.0,
+      "n": 1013
+    }
+  },
+  "sobreposicao_top_quartil": {
+    "portfolio_hhi": {
+      "n_top_abr": 254,
+      "n_top_mai": 254,
+      "n_intersecao": 208,
+      "jaccard": 0.6933333333333334,
+      "retencao_abr_pct": 81.88976377952756
+    },
+    "portfolio_hhi_norm": {
+      "n_top_abr": 254,
+      "n_top_mai": 254,
+      "n_intersecao": 209,
+      "jaccard": 0.6989966555183946,
+      "retencao_abr_pct": 82.28346456692913
+    },
+    "exposicao_strength_global": {
+      "n_top_abr": 254,
+      "n_top_mai": 254,
+      "n_intersecao": 219,
+      "jaccard": 0.7577854671280276,
+      "retencao_abr_pct": 86.22047244094489
+    },
+    "exposicao_degree_global": {
+      "n_top_abr": 254,
+      "n_top_mai": 254,
+      "n_intersecao": 222,
+      "jaccard": 0.7762237762237763,
+      "retencao_abr_pct": 87.4015748031496
+    }
+  },
+  "exposicao_oculta": {
+    "n_abr": 135,
+    "n_mai": 134,
+    "n_persistentes": 112,
+    "jaccard": 0.7133757961783439,
+    "retencao_abr_pct": 82.96296296296296,
+    "novos_em_mai": 22,
+    "saidas_em_mai": 23
+  },
+  "quadrante_estavel_pct": 85.88351431391905,
+  "delta_hhi_mediana": -0.009634551508706013,
+  "delta_hhi_norm_mediana": -0.002923497328210699,
+  "delta_exposicao_strength_mediana": -0.003723123687646046,
+  "nota": "Comparação condicionada aos compradores elegíveis em ambas as janelas e à mesma especificação global. Não mede estabilidade anual nem corrige mudança de cobertura do PNCP."
+}

@@ -1,0 +1,204 @@
+{
+  "instrumentos_base": 43185,
+  "multiplicidade": {
+    "grupos_compra_comprador_fornecedor": 27144,
+    "grupos_com_multiplos_instrumentos": 6179,
+    "grupos_multiplos_pct": 22.763778367226642,
+    "instrumentos_em_grupos_multiplos": 22220,
+    "valor_soma_grupos_multiplos": 300335267.0244,
+    "valor_excesso_sobre_max_grupos_multiplos": 115626307.1882,
+    "tipos": [
+      {
+        "tipo_contrato_norm": "Carta Contrato",
+        "instrumentos": 20,
+        "valor": 17578456.43,
+        "share_instrumentos": 0.0004631237698274864,
+        "share_valor": 0.005002136708163534
+      },
+      {
+        "tipo_contrato_norm": "Comodato",
+        "instrumentos": 10,
+        "valor": 154189.83,
+        "share_instrumentos": 0.0002315618849137432,
+        "share_valor": 4.3876355796075705e-05
+      },
+      {
+        "tipo_contrato_norm": "Contrato (termo inicial)",
+        "instrumentos": 8914,
+        "valor": 3134571788.1889,
+        "share_instrumentos": 0.20641426421211068,
+        "share_valor": 0.8919757356689313
+      },
+      {
+        "tipo_contrato_norm": "Empenho",
+        "instrumentos": 6691,
+        "valor": 164911323.53,
+        "share_instrumentos": 0.15493805719578557,
+        "share_valor": 0.04692727079343711
+      },
+      {
+        "tipo_contrato_norm": "Outros",
+        "instrumentos": 27533,
+        "valor": 189861704.8012,
+        "share_instrumentos": 0.6375593377330091,
+        "share_valor": 0.05402716710892636
+      },
+      {
+        "tipo_contrato_norm": "Termo de Adesão",
+        "instrumentos": 17,
+        "valor": 7112063.73,
+        "share_instrumentos": 0.0003936552043533634,
+        "share_valor": 0.0020238133647455564
+      }
+    ]
+  },
+  "variantes": [
+    {
+      "spec": "todos",
+      "linhas_instrumentais": 43185,
+      "valor_total": 3514189526.5101004,
+      "compradores_elegiveis_proprios": 780
+    },
+    {
+      "spec": "sem_empenho",
+      "linhas_instrumentais": 36494,
+      "valor_total": 3349278202.9800997,
+      "compradores_elegiveis_proprios": 671
+    },
+    {
+      "spec": "colapsa_compra_fornecedor_max",
+      "linhas_instrumentais": 27144,
+      "valor_total": 3398563219.3219004,
+      "compradores_elegiveis_proprios": 766
+    }
+  ],
+  "compradores_amostra_comum": 663,
+  "metricas": [
+    {
+      "spec": "todos",
+      "n_compradores": 663,
+      "hhi_mediana": 0.22539548879812923,
+      "hhi_norm_mediana": 0.14494937704909638,
+      "count_hhi_mediana": 0.08333333333333334,
+      "cr1_mediana": 0.3667664397399946,
+      "cr4_mediana": 0.804449957446971,
+      "neff_mediana": 4.4366460275326505,
+      "value_gt_count_pct": 98.19004524886877,
+      "hidden_exposure_pct": 12.97134238310709,
+      "rho_hhi_norm_exposure": 0.3598731403571505,
+      "p_rho": 1.05530579537642e-21
+    },
+    {
+      "spec": "sem_empenho",
+      "n_compradores": 663,
+      "hhi_mediana": 0.2442618925204053,
+      "hhi_norm_mediana": 0.14704197066658214,
+      "count_hhi_mediana": 0.09090909090909091,
+      "cr1_mediana": 0.37806663529416695,
+      "cr4_mediana": 0.8205846635921629,
+      "neff_mediana": 4.093966478690332,
+      "value_gt_count_pct": 98.79336349924586,
+      "hidden_exposure_pct": 13.273001508295627,
+      "rho_hhi_norm_exposure": 0.3577331536134815,
+      "p_rho": 1.900650227533369e-21
+    },
+    {
+      "spec": "colapsa_compra_fornecedor_max",
+      "n_compradores": 663,
+      "hhi_mediana": 0.2269553050054528,
+      "hhi_norm_mediana": 0.14731287800812068,
+      "count_hhi_mediana": 0.07692307692307694,
+      "cr1_mediana": 0.3689846568184437,
+      "cr4_mediana": 0.8066949691994924,
+      "neff_mediana": 4.406153889973949,
+      "value_gt_count_pct": 98.94419306184012,
+      "hidden_exposure_pct": 12.066365007541478,
+      "rho_hhi_norm_exposure": 0.4195457969546756,
+      "p_rho": 1.1928112077840368e-29
+    }
+  ],
+  "simulacoes": [
+    {
+      "pct_removed": 0.01,
+      "k": 96,
+      "strength_severe50": 0.07390648567119155,
+      "random_mean": 0.003177978883861237,
+      "random_p025": 0.0,
+      "random_p975": 0.00904977375565611,
+      "spec": "todos"
+    },
+    {
+      "pct_removed": 0.05,
+      "k": 480,
+      "strength_severe50": 0.3559577677224736,
+      "random_mean": 0.017396681749622927,
+      "random_p025": 0.007541478129713424,
+      "random_p975": 0.030165912518853696,
+      "spec": "todos"
+    },
+    {
+      "pct_removed": 0.1,
+      "k": 959,
+      "strength_severe50": 0.5098039215686274,
+      "random_mean": 0.039582202111613875,
+      "random_p025": 0.024132730015082957,
+      "random_p975": 0.05735294117647055,
+      "spec": "todos"
+    },
+    {
+      "pct_removed": 0.01,
+      "k": 74,
+      "strength_severe50": 0.06033182503770739,
+      "random_mean": 0.0032428355957767733,
+      "random_p025": 0.0,
+      "random_p975": 0.00904977375565611,
+      "spec": "sem_empenho"
+    },
+    {
+      "pct_removed": 0.05,
+      "k": 369,
+      "strength_severe50": 0.3167420814479638,
+      "random_mean": 0.01833785822021116,
+      "random_p025": 0.007541478129713424,
+      "random_p975": 0.03167420814479638,
+      "spec": "sem_empenho"
+    },
+    {
+      "pct_removed": 0.1,
+      "k": 738,
+      "strength_severe50": 0.4555052790346908,
+      "random_mean": 0.04131674208144796,
+      "random_p025": 0.024132730015082957,
+      "random_p975": 0.06184012066365008,
+      "spec": "sem_empenho"
+    },
+    {
+      "pct_removed": 0.01,
+      "k": 96,
+      "strength_severe50": 0.0784313725490196,
+      "random_mean": 0.0031613876319758678,
+      "random_p025": 0.0,
+      "random_p975": 0.00904977375565611,
+      "spec": "colapsa_compra_fornecedor_max"
+    },
+    {
+      "pct_removed": 0.05,
+      "k": 480,
+      "strength_severe50": 0.3438914027149321,
+      "random_mean": 0.017478129713423832,
+      "random_p025": 0.007541478129713424,
+      "random_p975": 0.030165912518853696,
+      "spec": "colapsa_compra_fornecedor_max"
+    },
+    {
+      "pct_removed": 0.1,
+      "k": 959,
+      "strength_severe50": 0.5037707390648567,
+      "random_mean": 0.0397315233785822,
+      "random_p025": 0.02262443438914027,
+      "random_p975": 0.058823529411764705,
+      "spec": "colapsa_compra_fornecedor_max"
+    }
+  ],
+  "interpretacao": "A especificação colapsada é limite inferior conservador e não substitui a interpretação jurídica/econômica de instrumentos múltiplos. Se os padrões persistirem nas três variantes, a conclusão não depende criticamente da inclusão de empenhos ou da soma de múltiplos instrumentos por compra-fornecedor."
+}

@@ -1,10 +1,6 @@
 name: PNCP janeiro 2025 integral
 
 on:
-  pull_request:
-    paths:
-      - 'research/dependencia-fornecedores-compras-publicas/scripts/coletar_pncp_periodo.py'
-      - '.github/workflows/pncp-janeiro-2025.yml'
   workflow_dispatch:
 
 permissions:
@@ -15,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - name: Checkout branch under test
+      - name: Checkout branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref_name }}
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -31,7 +27,7 @@ jobs:
       - name: Show summary
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: cat results/pncp_mensal/2025-01_resumo.json
-      - name: Commit public-safe January outputs to technical branch
+      - name: Commit public-safe January outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

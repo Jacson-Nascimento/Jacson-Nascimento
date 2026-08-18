@@ -1,0 +1,72 @@
+name: Diagnosticos longitudinais genericos
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/diagnosticos-longitudinais-generico.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/diagnosticos_longitudinais_generico.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/diagnosticos-longitudinais-generico' }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Reproduce May-June with generic script
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/diagnosticos_longitudinais_generico.py --from-month 5 --to-month 6
+      - name: Validate against versioned May-June diagnostics
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          r=Path('results')
+          g=json.loads((r/'diagnosticos_longitudinais_2025_05_06'/'resumo.json').read_text())
+          s=json.loads((r/'estabilidade_sinais_risco_mai_jun_2025'/'resumo_estabilidade_risco.json').read_text())
+          c=json.loads((r/'composicao_elegiveis_mai_jun_2025'/'resumo_composicao.json').read_text())
+          checks={
+            'elegiveis_from': (g['elegiveis_from'], s['elegiveis_mai']),
+            'elegiveis_to': (g['elegiveis_to'], s['elegiveis_jun']),
+            'common': (g['compradores_comuns'], s['compradores_comuns']),
+            'rho_strength': (g['spearman_estabilidade']['exposicao_strength_global']['rho'], s['spearman_estabilidade']['exposicao_strength_global']['rho']),
+            'hidden_retention': (g['exposicao_oculta']['retencao_from_pct'], s['exposicao_oculta']['retencao_mai_pct']),
+            'quadrant_stable': (g['quadrante_estavel_pct'], s['quadrante_estavel_pct']),
+            'hhi_new': (g['hhi_novos_mediana_to'], c['hhi_novos_mediana_jun']),
+            'hhi_common_to': (g['hhi_comuns_mediana_to'], c['hhi_comuns_mediana_jun']),
+            'new_eligible': (g['novos_elegiveis_to'], c['novos_elegiveis_junho']),
+          }
+          for k,(a,b) in checks.items():
+            if isinstance(a,(int,float)) and isinstance(b,(int,float)):
+              if not math.isclose(float(a),float(b),rel_tol=1e-12,abs_tol=1e-12):
+                raise SystemExit(f'{k} mismatch: {a} != {b}')
+            elif a != b:
+              raise SystemExit(f'{k} mismatch: {a} != {b}')
+          print('Generic diagnostic reproduces May-June validated outputs.')
+          PY
+      - name: Commit validation outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/results/diagnosticos_longitudinais_2025_05_06
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Valida diagnostico longitudinal generico em maio-junho [skip ci]'
+            BRANCH="${GITHUB_HEAD_REF:-research/diagnosticos-longitudinais-generico}"
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH"
+          fi

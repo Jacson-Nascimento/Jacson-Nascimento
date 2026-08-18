@@ -1,0 +1,7 @@
+﻿modelo,formula,n,r2,r2_ajustado,aic,bic,covariancia
+M1_HHI_norm_escala_externa,portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi,562,0.019733719312357345,0.016226505427965,-87.6066432739085,-74.61213772422744,HC3
+M2_HHI_norm_escala_carteira,portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores,562,0.08715483303696403,0.08059939198157429,-123.65362277740428,-101.99611352793582,HC3
+M3_HHI_norm_UF_FE,portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf),562,0.16034162747484404,0.12444545169774635,-132.62061995742215,-28.66457555997357,HC3
+M4_CountHHI_norm,count_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf),562,0.43345426667752673,0.40923391004849907,-2491.733361940221,-2387.7773175427724,HC3
+M5_Gap_valor_frequencia,hhi_norm_gap_value_count ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf),562,0.15474192111287643,0.1186063526846165,-129.41846806679814,-25.462423669349562,HC3
+M6_Exposicao_strength,exposicao_strength ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf),562,0.22800873571438285,0.19500539170217246,-434.90652932065814,-330.95048492320956,HC3

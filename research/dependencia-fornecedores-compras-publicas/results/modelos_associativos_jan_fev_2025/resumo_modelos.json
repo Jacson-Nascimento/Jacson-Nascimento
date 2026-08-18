@@ -1,0 +1,202 @@
+{
+  "natureza": "Modelos associativos diagnósticos; sem interpretação causal.",
+  "escopo": "Contratos assinados em 2025 e publicados até fevereiro; compradores >=3 fornecedores e >=5 instrumentos; cobertura fiscal válida.",
+  "n_modelos_principais": 562,
+  "outcomes": [
+    "portfolio_hhi_norm",
+    "count_hhi_norm",
+    "hhi_norm_gap_value_count",
+    "exposicao_strength"
+  ],
+  "nao_utilizado_como_explicativa_principal": "procurement_intensity_parcial, porque o numerador PNCP é incompleto na coorte jan-fev e compartilha componente de valor com medidas de rede.",
+  "M1": {
+    "log_despesa": {
+      "coef": -0.007859383466772462,
+      "se_HC3": 0.039239877131708845,
+      "p": 0.8412532154195991,
+      "ci95": [
+        -0.08476812940269868,
+        0.06904936246915375
+      ]
+    },
+    "log_populacao": {
+      "coef": 0.026158363299617696,
+      "se_HC3": 0.03683682351220559,
+      "p": 0.4776331219686988,
+      "ci95": [
+        -0.046040484089163516,
+        0.09835721068839891
+      ]
+    }
+  },
+  "M3": {
+    "log_despesa": {
+      "coef": 0.0014407504857540296,
+      "se_HC3": 0.03883625058050861,
+      "p": 0.9704067997357787,
+      "ci95": [
+        -0.07467690194661561,
+        0.07755840291812366
+      ]
+    },
+    "log_populacao": {
+      "coef": 0.018205982845010526,
+      "se_HC3": 0.036383615893844236,
+      "p": 0.6168007779442537,
+      "ci95": [
+        -0.053104593934263256,
+        0.08951655962428431
+      ]
+    },
+    "log_n_instrumentos": {
+      "coef": 0.011681820900771678,
+      "se_HC3": 0.026607988399101425,
+      "p": 0.6606366466630835,
+      "ci95": [
+        -0.04046887806252668,
+        0.06383251986407004
+      ]
+    },
+    "log_n_fornecedores": {
+      "coef": -0.08023337463507392,
+      "se_HC3": 0.034609137875890414,
+      "p": 0.020434575550435787,
+      "ci95": [
+        -0.1480660384078002,
+        -0.012400710862347647
+      ]
+    }
+  },
+  "M5_gap": {
+    "log_despesa": {
+      "coef": 0.001035895898988576,
+      "se_HC3": 0.03881423841571543,
+      "p": 0.9787081424449553,
+      "ci95": [
+        -0.07503861348316468,
+        0.07711040528114183
+      ]
+    },
+    "log_populacao": {
+      "coef": 0.017396414943841844,
+      "se_HC3": 0.03632858834349536,
+      "p": 0.6320361308357603,
+      "ci95": [
+        -0.053806309818590685,
+        0.08859913970627437
+      ]
+    },
+    "log_n_instrumentos": {
+      "coef": -0.05733437370730766,
+      "se_HC3": 0.03137799618463922,
+      "p": 0.0676673133359815,
+      "ci95": [
+        -0.11883411613623576,
+        0.00416536872162044
+      ]
+    },
+    "log_n_fornecedores": {
+      "coef": 0.003227325394000052,
+      "se_HC3": 0.040060886599073295,
+      "p": 0.9357914737592403,
+      "ci95": [
+        -0.07529056952892689,
+        0.081745220316927
+      ]
+    }
+  },
+  "vif": [
+    {
+      "variavel": "log_despesa_empenhada",
+      "vif": 31.48337335925109,
+      "n": 562
+    },
+    {
+      "variavel": "log_populacao_siconfi",
+      "vif": 31.580923315021643,
+      "n": 562
+    },
+    {
+      "variavel": "log_n_instrumentos",
+      "vif": 13.959180865383242,
+      "n": 562
+    },
+    {
+      "variavel": "log_n_fornecedores",
+      "vif": 13.892766434340862,
+      "n": 562
+    }
+  ],
+  "ajuste": [
+    {
+      "modelo": "M1_HHI_norm_escala_externa",
+      "formula": "portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi",
+      "n": 562,
+      "r2": 0.019733719312357345,
+      "r2_ajustado": 0.016226505427965,
+      "aic": -87.6066432739085,
+      "bic": -74.61213772422744,
+      "covariancia": "HC3"
+    },
+    {
+      "modelo": "M2_HHI_norm_escala_carteira",
+      "formula": "portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores",
+      "n": 562,
+      "r2": 0.08715483303696403,
+      "r2_ajustado": 0.08059939198157429,
+      "aic": -123.65362277740428,
+      "bic": -101.99611352793582,
+      "covariancia": "HC3"
+    },
+    {
+      "modelo": "M3_HHI_norm_UF_FE",
+      "formula": "portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf)",
+      "n": 562,
+      "r2": 0.16034162747484404,
+      "r2_ajustado": 0.12444545169774635,
+      "aic": -132.62061995742215,
+      "bic": -28.66457555997357,
+      "covariancia": "HC3"
+    },
+    {
+      "modelo": "M4_CountHHI_norm",
+      "formula": "count_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf)",
+      "n": 562,
+      "r2": 0.43345426667752673,
+      "r2_ajustado": 0.40923391004849907,
+      "aic": -2491.733361940221,
+      "bic": -2387.7773175427724,
+      "covariancia": "HC3"
+    },
+    {
+      "modelo": "M5_Gap_valor_frequencia",
+      "formula": "hhi_norm_gap_value_count ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf)",
+      "n": 562,
+      "r2": 0.15474192111287643,
+      "r2_ajustado": 0.1186063526846165,
+      "aic": -129.41846806679814,
+      "bic": -25.462423669349562,
+      "covariancia": "HC3"
+    },
+    {
+      "modelo": "M6_Exposicao_strength",
+      "formula": "exposicao_strength ~ log_despesa_empenhada + log_populacao_siconfi + log_n_instrumentos + log_n_fornecedores + C(uf)",
+      "n": 562,
+      "r2": 0.22800873571438285,
+      "r2_ajustado": 0.19500539170217246,
+      "aic": -434.90652932065814,
+      "bic": -330.95048492320956,
+      "covariancia": "HC3"
+    },
+    {
+      "modelo": "R1_HHI_norm_log_valor",
+      "formula": "portfolio_hhi_norm ~ log_despesa_empenhada + log_populacao_siconfi + log_valor_total + log_n_fornecedores",
+      "n": 562,
+      "r2": 0.15870597713248502,
+      "r2_ajustado": 0.15266436835067165,
+      "aic": -169.52691167032935,
+      "bic": -147.8694024208609,
+      "covariancia": "HC3"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+name: Bootstrap jan-fev
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/bootstrap-jan-fev-2025
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Calculate
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/bootstrap_padroes_jan_fev_2025.py
+      - name: Save results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/results/bootstrap_jan_fev_2025
+          git commit -m 'Adiciona bootstrap jan-fev [skip ci]' || exit 0
+          git push origin HEAD:research/bootstrap-jan-fev-2025

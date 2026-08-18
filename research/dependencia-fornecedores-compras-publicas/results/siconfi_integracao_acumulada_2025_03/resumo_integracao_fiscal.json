@@ -1,0 +1,49 @@
+{
+  "mes_final_publicacao": "2025-03",
+  "compradores_integracao_principal": 780,
+  "compradores_com_despesa_empenhada": 772,
+  "cobertura_despesa_empenhada_pct": 98.97435897435898,
+  "municipios_fiscais_com_total_despesa": 490,
+  "registros_siconfi_consolidados": 220139,
+  "procurement_intensity_parcial_mediana": 0.002925528890949731,
+  "procurement_intensity_parcial_p95": 0.03963633215954011,
+  "procurement_intensity_parcial_max": 1.1391639185395934,
+  "correlacoes_spearman": {
+    "hhi_norm_vs_log_despesa": {
+      "rho": 0.18707001783436306,
+      "p": 1.6446419534051143e-07,
+      "n": 772
+    },
+    "hhi_norm_vs_log_populacao": {
+      "rho": 0.19870317389475495,
+      "p": 2.5825936586436523e-08,
+      "n": 772
+    },
+    "hhi_norm_vs_log_despesa_per_capita": {
+      "rho": -0.10012890968310738,
+      "p": 0.005359987832067104,
+      "n": 772
+    },
+    "hhi_norm_vs_procurement_intensity_parcial": {
+      "rho": 0.035372883632082595,
+      "p": 0.32632344698980814,
+      "n": 772
+    },
+    "exposicao_strength_vs_log_despesa": {
+      "rho": 0.09924268699980539,
+      "p": 0.00578377173186627,
+      "n": 772
+    },
+    "exposicao_strength_vs_log_populacao": {
+      "rho": 0.11053945426934875,
+      "p": 0.002099526343738991,
+      "n": 772
+    },
+    "exposicao_strength_vs_log_despesa_per_capita": {
+      "rho": -0.06290103661387696,
+      "p": 0.08070741934295173,
+      "n": 772
+    }
+  },
+  "nota": "ProcurementIntensity parcial usa apenas instrumentos assinados em 2025 e publicados até o mês de corte; é diagnóstico de escala e não medida de execução orçamentária."
+}

@@ -1,13 +1,16 @@
 cff-version: 1.2.0
 title: "Dinâmica de Manada Organizacional: um arcabouço teórico-computacional para hierarquia, influência social, silêncio e independência informacional"
-message: "Se utilizar este material, cite o preprint e o repositório de replicação. Atualize o DOI após o depósito definitivo no Zenodo."
+message: "Se utilizar este material, cite o preprint v1.3 no Zenodo pelo DOI 10.5281/zenodo.21985858 e, quando pertinente, o repositório de replicação."
 type: software
 authors:
   - family-names: "Nascimento"
     given-names: "Jacson Cruz do"
+    orcid: "https://orcid.org/0009-0006-6535-9569"
 repository-code: "https://github.com/Jacson-Nascimento/Jacson-Nascimento/tree/main/research/dinamica-manada-organizacional"
+url: "https://zenodo.org/records/21985858"
+doi: "10.5281/zenodo.21985858"
 date-released: "2026-08-17"
-version: "1.0"
+version: "1.3"
 keywords:
   - opinion dynamics
   - herd behavior
@@ -23,5 +26,10 @@ preferred-citation:
   authors:
     - family-names: "Nascimento"
       given-names: "Jacson Cruz do"
+      orcid: "https://orcid.org/0009-0006-6535-9569"
   year: 2026
-  notes: "Preprint v1.0. DOI Zenodo a ser inserido após depósito definitivo."
+  publisher: "Zenodo"
+  doi: "10.5281/zenodo.21985858"
+  url: "https://zenodo.org/records/21985858"
+  version: "1.3"
+  notes: "Preprint v1.3, publicado no Zenodo em 17 de agosto de 2026."

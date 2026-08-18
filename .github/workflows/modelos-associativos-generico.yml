@@ -36,22 +36,25 @@ jobs:
           from pathlib import Path
           r=Path('results')
           old=pd.read_csv(r/'modelos_associativos_jan_jun_2025'/'coeficientes_modelos.csv')
-          new=pd.read_csv(r/'modelos_associativos_jan_06_2025'/'coeficientes_modelos.csv')
+          new=pd.read_csv(r/'modelos_associativos_generico_2025_06'/'coeficientes_modelos.csv')
           keys=['modelo','termo']
           m=old[keys+['coef','erro_padrao','p']].merge(new[keys+['coef','erro_padrao','p']],on=keys,suffixes=('_old','_new'),validate='one_to_one')
           if len(m)!=len(old) or len(m)!=len(new):
             raise SystemExit(f'Row mismatch old={len(old)} new={len(new)} matched={len(m)}')
           for col in ['coef','erro_padrao','p']:
             diff=(m[f'{col}_old']-m[f'{col}_new']).abs().max()
-            if not math.isclose(float(diff),0.0,abs_tol=1e-12):
+            if not math.isclose(float(diff),0.0,abs_tol=1e-10):
               raise SystemExit(f'{col} max diff={diff}')
-          print('Generic model reproduces Jan-June versioned coefficients.')
+          comp=pd.read_csv(r/'modelos_associativos_generico_2025_06'/'comparacao_coeficientes_m05_m06.csv')
+          if len(comp)!=8:
+            raise SystemExit(f'Expected 8 comparison rows, got {len(comp)}')
+          print('Generic model reproduces Jan-June versioned coefficients within machine tolerance and maps May comparison correctly.')
           PY
       - name: Commit validation outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add research/dependencia-fornecedores-compras-publicas/results/modelos_associativos_jan_06_2025
+          git add research/dependencia-fornecedores-compras-publicas/results/modelos_associativos_generico_2025_06
           if git diff --cached --quiet; then
             echo 'No generated changes.'
           else

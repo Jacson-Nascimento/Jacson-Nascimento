@@ -1,0 +1,20 @@
+{
+  "mes_final_publicacao": "2025-06",
+  "especificacao_metricas": "carteira_acumulada_global; elegibilidade 3 fornecedores/5 instrumentos",
+  "compradores_elegiveis_entrada": 1347,
+  "compradores_mapeados": 1347,
+  "compradores_unico_municipio": 1346,
+  "compradores_multi_municipio": 1,
+  "municipios_unicos_para_siconfi": 727,
+  "municipios_cache_sucesso_total": 676,
+  "municipios_ja_coletados_reutilizados": 676,
+  "municipios_novos_para_coleta": 51,
+  "fontes_cache": {
+    "results/siconfi_integracao_jan_fev_2025/coleta/siconfi_dca_2025_status.csv": 394,
+    "results/siconfi_integracao_acumulada_2025_03/coleta_delta/siconfi_dca_2025_status.csv": 98,
+    "results/siconfi_integracao_acumulada_2025_04/coleta_delta/siconfi_dca_2025_status.csv": 110,
+    "results/siconfi_integracao_acumulada_2025_05/coleta_delta/siconfi_dca_2025_status.csv": 74
+  },
+  "regra_cache": "Município é considerado coletado somente se houver DCA-Anexo I-D com status ok em uma coleta anterior.",
+  "regra_integracao": "Integração fiscal principal requer exatamente um municipio_ibge observado por CNPJ comprador na coorte PNCP acumulada assinada em 2025."
+}

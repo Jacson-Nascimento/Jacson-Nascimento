@@ -1,0 +1,11 @@
+{
+  "mes_final_publicacao": "2025-03",
+  "compradores_elegiveis_entrada": 780,
+  "compradores_mapeados": 780,
+  "compradores_unico_municipio": 780,
+  "compradores_multi_municipio": 0,
+  "municipios_unicos_para_siconfi": 492,
+  "municipios_ja_coletados_reutilizados": 394,
+  "municipios_novos_para_coleta": 98,
+  "regra": "Integração fiscal principal requer exatamente um municipio_ibge observado por CNPJ comprador na coorte PNCP acumulada assinada em 2025."
+}

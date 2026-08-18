@@ -1,0 +1,50 @@
+name: Composicao elegiveis abr-mai 2025
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/composicao-elegiveis-abr-mai-2025.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/composicao_elegiveis_abr_mai_2025.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  composition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/composicao-elegiveis-abr-mai-2025' }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Run composition analysis
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/composicao_elegiveis_abr_mai_2025.py
+      - name: Show summary
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: cat results/composicao_elegiveis_abr_mai_2025/resumo_composicao.json
+      - name: Commit outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/results/composicao_elegiveis_abr_mai_2025
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Adiciona composição de elegíveis abr-mai [skip ci]'
+            BRANCH="${GITHUB_HEAD_REF:-research/composicao-elegiveis-abr-mai-2025}"
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: composicao-elegiveis-abr-mai-2025
+          path: research/dependencia-fornecedores-compras-publicas/results/composicao_elegiveis_abr_mai_2025

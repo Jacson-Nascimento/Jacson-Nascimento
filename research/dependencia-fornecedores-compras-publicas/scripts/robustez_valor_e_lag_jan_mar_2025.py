@@ -4,7 +4,8 @@
 Testes:
 1. excluir instrumentos com lag_publicacao_dias < 0;
 2. comparar valorInicial e valorGlobal em uma amostra comum de instrumentos com
-   ambos os campos positivos.
+   ambos os campos positivos;
+3. diagnosticar a distribuição instrumento a instrumento de valorGlobal / valorInicial.
 
 As métricas usam comprador institucional por CNPJ, rede global observada e
 Strength global como ordenação principal dos choques. Resultados permanecem
@@ -89,11 +90,41 @@ def simulate(rel,sup,eligible_ids):
     return out
 
 
+def value_ratio_diagnostics(common):
+    z=common[["id_contrato","valorInicial","valorGlobal"]].copy()
+    z["ratio_global_inicial"]=z["valorGlobal"]/z["valorInicial"]
+    ratio=z["ratio_global_inicial"].replace([np.inf,-np.inf],np.nan).dropna()
+    tol=1e-9
+    equal=np.isclose(z["valorGlobal"],z["valorInicial"],rtol=1e-9,atol=0.01)
+    gt=z["valorGlobal"]>z["valorInicial"]+0.01
+    lt=z["valorGlobal"]<z["valorInicial"]-0.01
+    quantiles={str(q):float(ratio.quantile(q)) for q in [0,.01,.05,.25,.5,.75,.9,.95,.99,1]}
+    summary={
+        "n_instrumentos_comuns":int(len(z)),
+        "valor_global_igual_inicial_n":int(equal.sum()),
+        "valor_global_igual_inicial_pct":float(equal.mean()*100),
+        "valor_global_maior_inicial_n":int(gt.sum()),
+        "valor_global_maior_inicial_pct":float(gt.mean()*100),
+        "valor_global_menor_inicial_n":int(lt.sum()),
+        "valor_global_menor_inicial_pct":float(lt.mean()*100),
+        "ratio_global_inicial_quantiles":quantiles,
+        "soma_valorInicial":float(z["valorInicial"].sum()),
+        "soma_valorGlobal":float(z["valorGlobal"].sum()),
+        "razao_somas_global_inicial":float(z["valorGlobal"].sum()/z["valorInicial"].sum()),
+    }
+    # Apenas distribuição agregada; não republicar uma lista de contratos extremos como resultado central.
+    pd.DataFrame([summary | {"ratio_global_inicial_quantiles":json.dumps(quantiles,ensure_ascii=False)}]).to_csv(
+        OUT/"diagnostico_valorGlobal_valorInicial.csv",index=False,encoding="utf-8-sig"
+    )
+    return summary
+
+
 def main():
     x=load()
     baseline=x[x.valorInicial.gt(0)].copy()
     no_neg=baseline[~baseline.lag_publicacao_dias.lt(0)].copy()
     common=x[x.valorInicial.gt(0)&x.valorGlobal.gt(0)].copy()
+    ratio_diag=value_ratio_diagnostics(common)
 
     _,r0,b0,s0=metrics(baseline,"valorInicial")
     _,rn,bn,sn=metrics(no_neg,"valorInicial")
@@ -119,7 +150,7 @@ def main():
     pd.DataFrame(simulations).to_csv(OUT/"simulacoes_strength.csv",index=False,encoding="utf-8-sig")
 
     val_cov={"instrumentos_assinados_2025":int(len(x)),"valorInicial_positivo":int(x.valorInicial.gt(0).sum()),"valorGlobal_positivo":int(x.valorGlobal.gt(0).sum()),"ambos_positivos":int((x.valorInicial.gt(0)&x.valorGlobal.gt(0)).sum()),"valorGlobal_positivo_pct_sobre_valorInicial":float((x.valorInicial.gt(0)&x.valorGlobal.gt(0)).sum()/max(int(x.valorInicial.gt(0).sum()),1)*100),"lags_negativos_no_baseline":int(baseline.lag_publicacao_dias.lt(0).sum())}
-    summary={"cobertura":val_cov,"amostra_comum_lag_compradores":len(common_lag),"amostra_comum_valores_compradores":len(common_value),"metricas":desc.to_dict(orient="records"),"simulacoes":simulations,"decision_rule":"Se excluir lags negativos produzir mudanças desprezíveis e valorGlobal preservar os padrões qualitativos na amostra comum, valorInicial permanece principal por representar a celebração e valorGlobal entra como robustez."}
+    summary={"cobertura":val_cov,"diagnostico_valor_global_vs_inicial":ratio_diag,"amostra_comum_lag_compradores":len(common_lag),"amostra_comum_valores_compradores":len(common_value),"metricas":desc.to_dict(orient="records"),"simulacoes":simulations,"decision_rule":"Se excluir lags negativos produzir mudanças desprezíveis, a exclusão será robustez. Se valorGlobal alterar níveis/magnitudes, valorInicial permanece principal por representar o compromisso na celebração e valorGlobal deve ser reportado como robustez material, não como equivalência."}
     (OUT/"resumo_robustez.json").write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding="utf-8")
     print(json.dumps(summary,ensure_ascii=False,indent=2))
 

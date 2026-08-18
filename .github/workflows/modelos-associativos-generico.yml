@@ -1,0 +1,62 @@
+name: Modelos associativos genericos
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/modelos-associativos-generico.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/modelos_associativos_pncp_siconfi_generico.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/modelos-associativos-generico' }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Reproduce Jan-June models with generic script
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/modelos_associativos_pncp_siconfi_generico.py --month 6 --compare-month 5
+      - name: Validate coefficients against versioned Jan-June results
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          python - <<'PY'
+          import pandas as pd, math
+          from pathlib import Path
+          r=Path('results')
+          old=pd.read_csv(r/'modelos_associativos_jan_jun_2025'/'coeficientes_modelos.csv')
+          new=pd.read_csv(r/'modelos_associativos_jan_06_2025'/'coeficientes_modelos.csv')
+          keys=['modelo','termo']
+          m=old[keys+['coef','erro_padrao','p']].merge(new[keys+['coef','erro_padrao','p']],on=keys,suffixes=('_old','_new'),validate='one_to_one')
+          if len(m)!=len(old) or len(m)!=len(new):
+            raise SystemExit(f'Row mismatch old={len(old)} new={len(new)} matched={len(m)}')
+          for col in ['coef','erro_padrao','p']:
+            diff=(m[f'{col}_old']-m[f'{col}_new']).abs().max()
+            if not math.isclose(float(diff),0.0,abs_tol=1e-12):
+              raise SystemExit(f'{col} max diff={diff}')
+          print('Generic model reproduces Jan-June versioned coefficients.')
+          PY
+      - name: Commit validation outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/results/modelos_associativos_jan_06_2025
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Valida modelos associativos genericos em jan-jun [skip ci]'
+            BRANCH="${GITHUB_HEAD_REF:-research/modelos-associativos-generico}"
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH"
+          fi

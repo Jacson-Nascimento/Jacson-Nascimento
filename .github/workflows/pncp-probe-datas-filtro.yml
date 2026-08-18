@@ -1,0 +1,31 @@
+name: PNCP probe campos de data
+
+on:
+  push:
+    paths:
+      - '.github/workflows/pncp-probe-datas-filtro.yml'
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Probe date fields
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/probe_pncp_datas_filtro.py
+      - name: Show result
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: cat results/probe_datas_filtro/campos_data_intervalo.csv
+      - name: Upload aggregate diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: pncp-probe-datas-filtro
+          path: research/dependencia-fornecedores-compras-publicas/results/probe_datas_filtro

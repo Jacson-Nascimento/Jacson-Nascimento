@@ -1,0 +1,59 @@
+name: Estabilidade sinais de risco mar-abr 2025
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/estabilidade-risco-mar-abr-2025.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/estabilidade_sinais_risco_mar_abr_2025.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  stability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/estabilidade-risco-mar-abr-2025' }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Rebuild March with global specification
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/analisar_acumulado_2025_global.py --month 3
+      - name: Run longitudinal stability
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/estabilidade_sinais_risco_mar_abr_2025.py
+      - name: Show summaries
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          cat results/carteira_acumulada_2025_03_global/resumo.json
+          echo '--- ESTABILIDADE MAR-ABR ---'
+          cat results/estabilidade_sinais_risco_mar_abr_2025/resumo_estabilidade_risco.json
+      - name: Commit outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/results/carteira_acumulada_2025_03_global
+          git add research/dependencia-fornecedores-compras-publicas/results/estabilidade_sinais_risco_mar_abr_2025
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Adiciona março global e estabilidade mar-abr [skip ci]'
+            BRANCH="${GITHUB_HEAD_REF:-research/estabilidade-risco-mar-abr-2025}"
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: estabilidade-risco-mar-abr-2025
+          path: |
+            research/dependencia-fornecedores-compras-publicas/results/carteira_acumulada_2025_03_global
+            research/dependencia-fornecedores-compras-publicas/results/estabilidade_sinais_risco_mar_abr_2025

@@ -1,10 +1,6 @@
 name: PNCP probe 2025
 
 on:
-  pull_request:
-    paths:
-      - 'research/dependencia-fornecedores-compras-publicas/**'
-      - '.github/workflows/pncp-probe-2025.yml'
   workflow_dispatch:
 
 jobs:

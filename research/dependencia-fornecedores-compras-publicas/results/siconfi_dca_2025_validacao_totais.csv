@@ -1,0 +1,10 @@
+instituicao,cod_ibge,uf,coluna,valor,populacao,valor_per_capita
+Prefeitura Municipal de São Paulo - SP,3550308,SP,Despesas Empenhadas,123571806691.25,12200180,10128.69
+Prefeitura Municipal de São Paulo - SP,3550308,SP,Despesas Liquidadas,117009214332.57,12200180,9590.78
+Prefeitura Municipal de São Paulo - SP,3550308,SP,Despesas Pagas,116798206872.08,12200180,9573.48
+Prefeitura Municipal de Florianópolis - SC,4205407,SC,Despesas Empenhadas,4141731191.87,574200,7213.05
+Prefeitura Municipal de Florianópolis - SC,4205407,SC,Despesas Liquidadas,3929994742.60,574200,6844.30
+Prefeitura Municipal de Florianópolis - SC,4205407,SC,Despesas Pagas,3821893397.52,574200,6656.03
+Prefeitura Municipal de Goiânia - GO,5208707,GO,Despesas Empenhadas,9443789728.21,1414483,6676.50
+Prefeitura Municipal de Goiânia - GO,5208707,GO,Despesas Liquidadas,9305863716.05,1414483,6578.99
+Prefeitura Municipal de Goiânia - GO,5208707,GO,Despesas Pagas,9251388580.97,1414483,6540.47

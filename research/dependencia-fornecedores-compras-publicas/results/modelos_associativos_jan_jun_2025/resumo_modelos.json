@@ -1,0 +1,315 @@
+{
+  "natureza": "Modelos associativos; sem interpretação causal.",
+  "mes_final_publicacao": "2025-06",
+  "especificacao": "Idêntica à pré-fixada; nenhuma seleção de covariáveis após observar junho.",
+  "n": 1335,
+  "clusters_municipio": 725,
+  "regioes": [
+    {
+      "regiao": "Centro-Oeste",
+      "n_compradores": 336,
+      "n_municipios": 134
+    },
+    {
+      "regiao": "Nordeste",
+      "n_compradores": 190,
+      "n_municipios": 104
+    },
+    {
+      "regiao": "Norte",
+      "n_compradores": 58,
+      "n_municipios": 27
+    },
+    {
+      "regiao": "Sudeste",
+      "n_compradores": 322,
+      "n_municipios": 216
+    },
+    {
+      "regiao": "Sul",
+      "n_compradores": 429,
+      "n_municipios": 244
+    }
+  ],
+  "vif": [
+    {
+      "variavel": "log_populacao",
+      "vif": 1.1592785374483732,
+      "n": 1335
+    },
+    {
+      "variavel": "log_despesa_pc",
+      "vif": 1.1438466727954781,
+      "n": 1335
+    },
+    {
+      "variavel": "log_n_fornecedores",
+      "vif": 1.4794544621129735,
+      "n": 1335
+    },
+    {
+      "variavel": "log_instr_por_forn",
+      "vif": 1.4982047512902312,
+      "n": 1335
+    }
+  ],
+  "OLS_regiao": {
+    "populacao": {
+      "coef": 0.02482371904848102,
+      "se": 0.0033566998646334637,
+      "p": 1.411157733564717e-13,
+      "ci95": [
+        0.018244708206888956,
+        0.03140272989007308
+      ]
+    },
+    "despesa_pc": {
+      "coef": 0.026103641965055872,
+      "se": 0.01938669511897765,
+      "p": 0.17815034758519688,
+      "ci95": [
+        -0.011893582247398782,
+        0.06410086617751053
+      ]
+    },
+    "n_fornecedores": {
+      "coef": -0.06753808502789782,
+      "se": 0.005937791861056537,
+      "p": 5.616682988713056e-30,
+      "ci95": [
+        -0.0791759432232637,
+        -0.05590022683253194
+      ]
+    },
+    "recorrencia": {
+      "coef": 0.027517202668330354,
+      "se": 0.012908472123090438,
+      "p": 0.03303016176062585,
+      "ci95": [
+        0.00221706221163381,
+        0.052817343125026894
+      ]
+    }
+  },
+  "fractional_regiao": {
+    "populacao": {
+      "coef": 0.13470216614654554,
+      "se": 0.017217737187751266,
+      "p": 5.13935487003341e-15,
+      "ci95": [
+        0.10095602136327711,
+        0.16844831092981397
+      ]
+    },
+    "despesa_pc": {
+      "coef": 0.11832292123813036,
+      "se": 0.10927868643229402,
+      "p": 0.2789136207336985,
+      "ci95": [
+        -0.09585936844701178,
+        0.3325052109232725
+      ]
+    },
+    "n_fornecedores": {
+      "coef": -0.40024967401615447,
+      "se": 0.035501353171522754,
+      "p": 1.7595295859720696e-29,
+      "ci95": [
+        -0.4698310476347759,
+        -0.33066830039753303
+      ]
+    },
+    "recorrencia": {
+      "coef": 0.12177330524713853,
+      "se": 0.07905452863397046,
+      "p": 0.12346994020346762,
+      "ci95": [
+        -0.033170723690233994,
+        0.27671733418451105
+      ]
+    }
+  },
+  "gap_regiao": {
+    "populacao": {
+      "coef": 0.02281702867051511,
+      "se": 0.0034854530561498898,
+      "p": 5.895656835258471e-11,
+      "ci95": [
+        0.015985666210656262,
+        0.029648391130373954
+      ]
+    },
+    "despesa_pc": {
+      "coef": 0.025259614346966136,
+      "se": 0.019648309581619186,
+      "p": 0.19858718319041724,
+      "ci95": [
+        -0.013250364790100728,
+        0.063769593484033
+      ]
+    },
+    "n_fornecedores": {
+      "coef": -0.04617093735322636,
+      "se": 0.00666170175499053,
+      "p": 4.1846073726763e-12,
+      "ci95": [
+        -0.05922763286875507,
+        -0.03311424183769765
+      ]
+    },
+    "recorrencia": {
+      "coef": -0.046878170304140016,
+      "se": 0.017836226800268615,
+      "p": 0.008582389814437805,
+      "ci95": [
+        -0.08183653245275459,
+        -0.011919808155525444
+      ]
+    }
+  },
+  "exposicao_strength_regiao": {
+    "populacao": {
+      "coef": 0.013032669743216246,
+      "se": 0.003023730942818823,
+      "p": 1.631595072850895e-05,
+      "ci95": [
+        0.007106265996352011,
+        0.01895907349008048
+      ]
+    },
+    "despesa_pc": {
+      "coef": -0.012185899614348768,
+      "se": 0.017231118993138415,
+      "p": 0.4794403139925606,
+      "ci95": [
+        -0.045958272254224136,
+        0.021586473025526604
+      ]
+    },
+    "n_fornecedores": {
+      "coef": 0.028458748169584464,
+      "se": 0.005149306583074618,
+      "p": 3.262829830769993e-08,
+      "ci95": [
+        0.018366292721403204,
+        0.03855120361776572
+      ]
+    },
+    "recorrencia": {
+      "coef": 0.046874839080250044,
+      "se": 0.010729535569029976,
+      "p": 1.2495008654703574e-05,
+      "ci95": [
+        0.025845335794109817,
+        0.06790434236639027
+      ]
+    }
+  },
+  "comparacao_jan_mai": [
+    {
+      "modelo": "O2_HHI_norm_regiao",
+      "termo": "log_populacao",
+      "coef_jan_mai": 0.0218359081043004,
+      "p_jan_mai": 3.694027192870281e-09,
+      "coef_jan_jun": 0.02482371904848102,
+      "p_jan_jun": 1.411157733564717e-13,
+      "mesmo_sinal": true,
+      "delta_coef": 0.0029878109441806196,
+      "razao_abs_coef": 1.1368301666186347,
+      "significativo_5pct_jan_mai": true,
+      "significativo_5pct_jan_jun": true
+    },
+    {
+      "modelo": "O2_HHI_norm_regiao",
+      "termo": "log_despesa_pc",
+      "coef_jan_mai": 0.0155293854771025,
+      "p_jan_mai": 0.4534044151352063,
+      "coef_jan_jun": 0.026103641965055872,
+      "p_jan_jun": 0.17815034758519688,
+      "mesmo_sinal": true,
+      "delta_coef": 0.010574256487953373,
+      "razao_abs_coef": 1.6809191840555906,
+      "significativo_5pct_jan_mai": false,
+      "significativo_5pct_jan_jun": false
+    },
+    {
+      "modelo": "O2_HHI_norm_regiao",
+      "termo": "log_n_fornecedores",
+      "coef_jan_mai": -0.0664866019971229,
+      "p_jan_mai": 6.570301978937118e-25,
+      "coef_jan_jun": -0.06753808502789782,
+      "p_jan_jun": 5.616682988713056e-30,
+      "mesmo_sinal": true,
+      "delta_coef": -0.0010514830307749162,
+      "razao_abs_coef": 1.0158149611980534,
+      "significativo_5pct_jan_mai": true,
+      "significativo_5pct_jan_jun": true
+    },
+    {
+      "modelo": "O2_HHI_norm_regiao",
+      "termo": "log_instr_por_forn",
+      "coef_jan_mai": 0.0063732164846236,
+      "p_jan_mai": 0.639947270066062,
+      "coef_jan_jun": 0.027517202668330354,
+      "p_jan_jun": 0.03303016176062585,
+      "mesmo_sinal": true,
+      "delta_coef": 0.021143986183706755,
+      "razao_abs_coef": 4.317631879400298,
+      "significativo_5pct_jan_mai": false,
+      "significativo_5pct_jan_jun": true
+    },
+    {
+      "modelo": "F2_HHI_norm_regiao",
+      "termo": "log_populacao",
+      "coef_jan_mai": 0.1175343645717278,
+      "p_jan_mai": 5.462773089433479e-09,
+      "coef_jan_jun": 0.13470216614654554,
+      "p_jan_jun": 5.13935487003341e-15,
+      "mesmo_sinal": true,
+      "delta_coef": 0.01716780157481773,
+      "razao_abs_coef": 1.146066230394607,
+      "significativo_5pct_jan_mai": true,
+      "significativo_5pct_jan_jun": true
+    },
+    {
+      "modelo": "F2_HHI_norm_regiao",
+      "termo": "log_despesa_pc",
+      "coef_jan_mai": 0.0618649608742736,
+      "p_jan_mai": 0.5981885117387964,
+      "coef_jan_jun": 0.11832292123813036,
+      "p_jan_jun": 0.2789136207336985,
+      "mesmo_sinal": true,
+      "delta_coef": 0.05645796036385676,
+      "razao_abs_coef": 1.9125999526386943,
+      "significativo_5pct_jan_mai": false,
+      "significativo_5pct_jan_jun": false
+    },
+    {
+      "modelo": "F2_HHI_norm_regiao",
+      "termo": "log_n_fornecedores",
+      "coef_jan_mai": -0.3932284513218573,
+      "p_jan_mai": 1.5569774912839532e-24,
+      "coef_jan_jun": -0.40024967401615447,
+      "p_jan_jun": 1.7595295859720696e-29,
+      "mesmo_sinal": true,
+      "delta_coef": -0.007021222694297169,
+      "razao_abs_coef": 1.0178553272803506,
+      "significativo_5pct_jan_mai": true,
+      "significativo_5pct_jan_jun": true
+    },
+    {
+      "modelo": "F2_HHI_norm_regiao",
+      "termo": "log_instr_por_forn",
+      "coef_jan_mai": -0.0078109581588982,
+      "p_jan_mai": 0.9273854304300464,
+      "coef_jan_jun": 0.12177330524713853,
+      "p_jan_jun": 0.12346994020346762,
+      "mesmo_sinal": false,
+      "delta_coef": 0.12958426340603674,
+      "razao_abs_coef": 15.590059858202551,
+      "significativo_5pct_jan_mai": false,
+      "significativo_5pct_jan_jun": false
+    }
+  ],
+  "regra_interpretacao": "Priorizar persistência de sinal e ordem de grandeza entre jan-mai e jan-jun; significância isolada não é evidência causal."
+}

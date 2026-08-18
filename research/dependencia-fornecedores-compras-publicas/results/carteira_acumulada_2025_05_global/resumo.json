@@ -1,0 +1,221 @@
+{
+  "mes_final": 5,
+  "advertencia": "Coorte de publicações acumuladas; não representa o ano completo até a coleta e janela tardia serem concluídas.",
+  "registros_pj_acumulados": 87515,
+  "instrumentos_unicos": 87515,
+  "assinados_2025": 80820,
+  "compradores_metricas": 2197,
+  "compradores_elegiveis_3_5": 1210,
+  "fornecedores_rede_global": 17062,
+  "portfolio_hhi_mediana": 0.24203091177660513,
+  "portfolio_hhi_norm_mediana": 0.15477832229436267,
+  "count_hhi_mediana": 0.08606701940035273,
+  "count_hhi_norm_mediana": 0.006944444444444459,
+  "portfolio_neff_mediana": 4.131703677994075,
+  "portfolio_cr1_mediana": 0.3909743611362113,
+  "portfolio_cr4_mediana": 0.8205822058484912,
+  "spearman_hhi_count": {
+    "rho": 0.5744032016949335,
+    "p": 3.749048865153998e-107,
+    "n": 1210
+  },
+  "spearman_hhi_norm_exposure_strength_global": {
+    "rho": 0.4091922350529304,
+    "p": 4.771445410855457e-50,
+    "n": 1210
+  },
+  "hhi_baixo_exposicao_alta_n": 153,
+  "hhi_baixo_exposicao_alta_pct": 12.644628099173556,
+  "portfolio_hhi_maior_count_hhi_pct": 97.76859504132231,
+  "lag_negativo_n": 38,
+  "simulacao": {
+    "ranking_principal": "strength_global",
+    "degree": "complementar",
+    "random_draws": 1000,
+    "seed": 20260818,
+    "strength_limiar_50pct": [
+      {
+        "estrategia": "strength",
+        "papel": "principal",
+        "ranking_scope": "global",
+        "pct_fornecedores_removidos": 0.01,
+        "k_fornecedores_removidos": 171,
+        "limiar_perda": 0.5,
+        "share_severos_direcionado": 0.08264462809917356,
+        "share_severos_aleatorio_media": 0.0032983471074380165,
+        "share_severos_aleatorio_p025": 0.0008264462809917355,
+        "share_severos_aleatorio_p975": 0.00743801652892562,
+        "excesso_vs_aleatorio": 0.07934628099173555,
+        "perda_media_direcionada": 0.10960186272859573,
+        "perda_media_aleatoria_media": 0.010192793871741742,
+        "perda_media_aleatoria_p025": 0.006714640557765961,
+        "perda_media_aleatoria_p975": 0.015204356214962899
+      },
+      {
+        "estrategia": "strength",
+        "papel": "principal",
+        "ranking_scope": "global",
+        "pct_fornecedores_removidos": 0.05,
+        "k_fornecedores_removidos": 854,
+        "limiar_perda": 0.5,
+        "share_severos_direcionado": 0.3347107438016529,
+        "share_severos_aleatorio_media": 0.018039669421487603,
+        "share_severos_aleatorio_p025": 0.009917355371900827,
+        "share_severos_aleatorio_p975": 0.02809917355371901,
+        "excesso_vs_aleatorio": 0.3166710743801653,
+        "perda_media_direcionada": 0.31703275442123413,
+        "perda_media_aleatoria_media": 0.050038596332073214,
+        "perda_media_aleatoria_p025": 0.04085442051291466,
+        "perda_media_aleatoria_p975": 0.061396523285657166
+      },
+      {
+        "estrategia": "strength",
+        "papel": "principal",
+        "ranking_scope": "global",
+        "pct_fornecedores_removidos": 0.1,
+        "k_fornecedores_removidos": 1707,
+        "limiar_perda": 0.5,
+        "share_severos_direcionado": 0.48925619834710743,
+        "share_severos_aleatorio_media": 0.04139090909090909,
+        "share_severos_aleatorio_p025": 0.028925619834710745,
+        "share_severos_aleatorio_p975": 0.05537190082644628,
+        "excesso_vs_aleatorio": 0.44786528925619834,
+        "perda_media_direcionada": 0.44758355617523193,
+        "perda_media_aleatoria_media": 0.10006790293008089,
+        "perda_media_aleatoria_p025": 0.08705090172588825,
+        "perda_media_aleatoria_p975": 0.11492001060396433
+      }
+    ]
+  },
+  "sensibilidade_elegibilidade": [
+    {
+      "criterio": "3/5",
+      "n": 1210,
+      "portfolio_hhi_mediana": 0.24203091177660513,
+      "portfolio_hhi_norm_mediana": 0.15477832229436267,
+      "count_hhi_mediana": 0.08606701940035273,
+      "count_hhi_norm_mediana": 0.006944444444444459,
+      "portfolio_neff_mediana": 4.131703677994075,
+      "portfolio_cr1_mediana": 0.3909743611362113,
+      "portfolio_cr4_mediana": 0.8205822058484912,
+      "portfolio_hhi_maior_count_hhi_pct": 97.76859504132231,
+      "hidden_exposure_pct": 12.644628099173556,
+      "spearman_hhi_norm_exposure_strength_global": {
+        "rho": 0.4091922350529304,
+        "p": 4.771445410855457e-50,
+        "n": 1210
+      }
+    },
+    {
+      "criterio": "5/10",
+      "n": 821,
+      "portfolio_hhi_mediana": 0.17920821852399055,
+      "portfolio_hhi_norm_mediana": 0.13251072516320056,
+      "count_hhi_mediana": 0.055000000000000014,
+      "count_hhi_norm_mediana": 0.008264462809917352,
+      "portfolio_neff_mediana": 5.580101226585936,
+      "portfolio_cr1_mediana": 0.3268103383047234,
+      "portfolio_cr4_mediana": 0.7032037799730316,
+      "portfolio_hhi_maior_count_hhi_pct": 98.05115712545675,
+      "hidden_exposure_pct": 13.520097442143728,
+      "spearman_hhi_norm_exposure_strength_global": {
+        "rho": 0.37480790110585216,
+        "p": 8.826847983749395e-29,
+        "n": 821
+      }
+    },
+    {
+      "criterio": "5/20",
+      "n": 519,
+      "portfolio_hhi_mediana": 0.14263137616289423,
+      "portfolio_hhi_norm_mediana": 0.11239916524915335,
+      "count_hhi_mediana": 0.036250000000000004,
+      "count_hhi_norm_mediana": 0.010322301087805089,
+      "portfolio_neff_mediana": 7.0110800786072165,
+      "portfolio_cr1_mediana": 0.2788352685810654,
+      "portfolio_cr4_mediana": 0.6239583142705092,
+      "portfolio_hhi_maior_count_hhi_pct": 97.495183044316,
+      "hidden_exposure_pct": 12.716763005780345,
+      "spearman_hhi_norm_exposure_strength_global": {
+        "rho": 0.34808340386375075,
+        "p": 3.146693523646265e-16,
+        "n": 519
+      }
+    },
+    {
+      "criterio": "10/20",
+      "n": 513,
+      "portfolio_hhi_mediana": 0.14129702048771006,
+      "portfolio_hhi_norm_mediana": 0.11145371922864765,
+      "count_hhi_mediana": 0.0357666015625,
+      "count_hhi_norm_mediana": 0.010291955471539587,
+      "portfolio_neff_mediana": 7.07729006987079,
+      "portfolio_cr1_mediana": 0.2774932945418303,
+      "portfolio_cr4_mediana": 0.6229880376276814,
+      "portfolio_hhi_maior_count_hhi_pct": 98.24561403508771,
+      "hidden_exposure_pct": 12.670565302144249,
+      "spearman_hhi_norm_exposure_strength_global": {
+        "rho": 0.34953928880242113,
+        "p": 3.4556062782581447e-16,
+        "n": 513
+      }
+    }
+  ],
+  "estabilidade_mensal": [
+    {
+      "mes_final": 1,
+      "n_elegiveis": 240,
+      "hhi_mediana": 0.2393289700393677,
+      "hhi_norm_mediana": 0.1462194237422849,
+      "count_hhi_mediana": 0.08009676054170514,
+      "count_hhi_norm_mediana": 0.010925644892658787,
+      "neff_mediana": 4.178566514234339,
+      "cr1_mediana": 0.3619997797600547,
+      "cr4_mediana": 0.8183804110309216
+    },
+    {
+      "mes_final": 2,
+      "n_elegiveis": 569,
+      "hhi_mediana": 0.237419986456335,
+      "hhi_norm_mediana": 0.14732398497701146,
+      "count_hhi_mediana": 0.09469302809573361,
+      "count_hhi_norm_mediana": 0.007325664765111123,
+      "neff_mediana": 4.2119453165073555,
+      "cr1_mediana": 0.3822952117701211,
+      "cr4_mediana": 0.8360546274646532
+    },
+    {
+      "mes_final": 3,
+      "n_elegiveis": 780,
+      "hhi_mediana": 0.24505694074099693,
+      "hhi_norm_mediana": 0.15018514692537518,
+      "count_hhi_mediana": 0.09090909090909091,
+      "count_hhi_norm_mediana": 0.006944444444444459,
+      "neff_mediana": 4.0806847193889855,
+      "cr1_mediana": 0.3812120257426427,
+      "cr4_mediana": 0.821427029667158
+    },
+    {
+      "mes_final": 4,
+      "n_elegiveis": 1013,
+      "hhi_mediana": 0.24700389938117137,
+      "hhi_norm_mediana": 0.15322556463155643,
+      "count_hhi_mediana": 0.09090909090909091,
+      "count_hhi_norm_mediana": 0.006944444444444459,
+      "neff_mediana": 4.048519082108985,
+      "cr1_mediana": 0.392956345482527,
+      "cr4_mediana": 0.8245484141925796
+    },
+    {
+      "mes_final": 5,
+      "n_elegiveis": 1210,
+      "hhi_mediana": 0.24203091177660513,
+      "hhi_norm_mediana": 0.15477832229436267,
+      "count_hhi_mediana": 0.08606701940035273,
+      "count_hhi_norm_mediana": 0.006944444444444459,
+      "neff_mediana": 4.131703677994075,
+      "cr1_mediana": 0.3909743611362113,
+      "cr4_mediana": 0.8205822058484912
+    }
+  ]
+}

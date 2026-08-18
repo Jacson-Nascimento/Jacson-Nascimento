@@ -1,0 +1,25 @@
+{
+  "mes": "2025-05",
+  "particoes": 8,
+  "registros_pj": 20008,
+  "instrumentos_unicos": 20008,
+  "duplicidades": 0,
+  "compradores_unicos": 1401,
+  "fornecedores_pj_unicos": 6278,
+  "municipios_unicos": 720,
+  "assinados_2025": 19462,
+  "assinados_antes_2025": 543,
+  "lag_mediana": 2.0,
+  "lag_p90": 55.0,
+  "lag_p95": 113.0,
+  "lag_negativo_n": 7,
+  "janela": {
+    "min": "2025-05-01T00:00:12",
+    "max": "2025-05-31T03:35:01"
+  },
+  "sha256_base_mensal": "371295d7f79cb9db3492533bc49c2b56de3f68d696e55910c8ec51c78734f8f3",
+  "registros_brutos_particoes_soma": 165511,
+  "registros_municipais_validos_todos_tipos_soma": 21074,
+  "registros_pf_soma": 1047,
+  "registros_pe_soma": 19
+}

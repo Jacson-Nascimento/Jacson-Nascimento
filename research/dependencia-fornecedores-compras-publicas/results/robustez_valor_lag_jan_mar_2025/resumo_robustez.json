@@ -7,6 +7,30 @@
     "valorGlobal_positivo_pct_sobre_valorInicial": 99.89579715178881,
     "lags_negativos_no_baseline": 14
   },
+  "diagnostico_valor_global_vs_inicial": {
+    "n_instrumentos_comuns": 43140,
+    "valor_global_igual_inicial_n": 42999,
+    "valor_global_igual_inicial_pct": 99.67315716272601,
+    "valor_global_maior_inicial_n": 124,
+    "valor_global_maior_inicial_pct": 0.28743625405656004,
+    "valor_global_menor_inicial_n": 17,
+    "valor_global_menor_inicial_pct": 0.039406583217431616,
+    "ratio_global_inicial_quantiles": {
+      "0": 0.012810658467845248,
+      "0.01": 1.0,
+      "0.05": 1.0,
+      "0.25": 1.0,
+      "0.5": 1.0,
+      "0.75": 1.0,
+      "0.9": 1.0,
+      "0.95": 1.0,
+      "0.99": 1.0,
+      "1": 71.158524
+    },
+    "soma_valorInicial": 3509005623.8501,
+    "soma_valorGlobal": 3541203002.5993996,
+    "razao_somas_global_inicial": 1.0091756418201383
+  },
   "amostra_comum_lag_compradores": 779,
   "amostra_comum_valores_compradores": 779,
   "metricas": [
@@ -177,5 +201,5 @@
       "spec": "valorGlobal_amostra_comum"
     }
   ],
-  "decision_rule": "Se excluir lags negativos produzir mudanças desprezíveis e valorGlobal preservar os padrões qualitativos na amostra comum, valorInicial permanece principal por representar a celebração e valorGlobal entra como robustez."
+  "decision_rule": "Se excluir lags negativos produzir mudanças desprezíveis, a exclusão será robustez. Se valorGlobal alterar níveis/magnitudes, valorInicial permanece principal por representar o compromisso na celebração e valorGlobal deve ser reportado como robustez material, não como equivalência."
 }

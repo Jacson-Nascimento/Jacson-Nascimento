@@ -18,6 +18,9 @@ jobs:
       - name: Install
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: pip install -r requirements.txt
+      - name: Limit probe to one page
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: sed -i 's/MAX_PAGES = 5/MAX_PAGES = 1/' scripts/probe_pncp_datas_filtro.py
       - name: Probe date fields
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: python scripts/probe_pncp_datas_filtro.py

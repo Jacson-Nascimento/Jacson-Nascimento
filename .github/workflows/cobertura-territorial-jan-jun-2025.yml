@@ -1,0 +1,59 @@
+name: Cobertura territorial PNCP jan-jun 2025
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cobertura-territorial-jan-jun-2025.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/diagnostico_cobertura_territorial_pncp.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'research/cobertura-territorial-jan-jun-2025' }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Diagnose territorial presence through June
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/diagnostico_cobertura_territorial_pncp.py --month 6
+      - name: Validate strict municipal universe
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('results/cobertura_territorial_pncp_2025_06/resumo_cobertura_territorial.json')
+          s=json.loads(p.read_text())
+          assert s['registros_endpoint_localidades_ibge'] == 5571, s
+          assert s['universo_ibge_municipios_estritos'] == 5569, s
+          assert len(s['unidades_estatisticas_excluidas']) == 2, s
+          print('Strict IBGE municipal universe validated: 5,569 municipalities.')
+          PY
+      - name: Show summary
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: cat results/cobertura_territorial_pncp_2025_06/resumo_cobertura_territorial.json
+      - name: Commit validated outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/dependencia-fornecedores-compras-publicas/results/cobertura_territorial_pncp_2025_06
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Atualiza diagnostico territorial PNCP jan-jun [skip ci]'
+            BRANCH="${GITHUB_HEAD_REF:-research/cobertura-territorial-jan-jun-2025}"
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH"
+          fi

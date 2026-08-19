@@ -1,0 +1,51 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "@id": "https://www.jacsonnascimento.com.br/p/home-jacson-cruz-do-nascimento.html#jacson-cruz-do-nascimento",
+    "name": "Jacson Cruz do Nascimento",
+    "alternateName": [
+      "Jacson Nascimento",
+      "JC Nascimento"
+    ],
+    "url": "https://www.jacsonnascimento.com.br/p/home-jacson-cruz-do-nascimento.html",
+    "identifier": "0009-0006-6535-9569",
+    "description": "Auditor interno na CAIXA Econômica Federal, Mestre em Economia pela Universidade Católica de Brasília (UCB), pós-graduando em Contabilidade e Finanças Públicas Municipais pela Universidade de Brasília (UnB) e pesquisador nas interfaces entre auditoria, economia, contabilidade, finanças públicas, governança e análise de dados.",
+    "jobTitle": "Auditor Pleno",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "CAIXA Econômica Federal",
+      "url": "https://www.caixa.gov.br/"
+    },
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "Universidade de Brasília",
+      "alternateName": "UnB",
+      "url": "https://www.unb.br/"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Universidade Católica de Brasília",
+      "alternateName": "UCB",
+      "url": "https://ucb.catolica.edu.br/"
+    },
+    "sameAs": [
+      "https://orcid.org/0009-0006-6535-9569",
+      "https://isni.org/isni/0000000530529869",
+      "https://scholar.google.com/citations?user=F-4Sql4AAAAJ",
+      "http://lattes.cnpq.br/7111149229990007",
+      "https://www.linkedin.com/in/jacson-nascimento-auditor/",
+      "https://github.com/Jacson-Nascimento"
+    ],
+    "knowsAbout": [
+      "Auditoria Interna",
+      "Governança Corporativa",
+      "Gestão de Riscos",
+      "Controles Internos",
+      "Economia Aplicada",
+      "Análise de Dados",
+      "Finanças Públicas"
+    ]
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "from_month": 7,
+  "to_month": 8,
+  "elegiveis_from": 1500,
+  "elegiveis_to": 1621,
+  "compradores_comuns": 1500,
+  "retencao_elegiveis_from_pct": 100.0,
+  "novos_elegiveis_to": 121,
+  "saidas_da_elegibilidade": 0,
+  "crescimento_elegiveis_pct": 8.066666666666666,
+  "cortes_common_sample": {
+    "from": {
+      "q75_hhi": 0.3703277142758337,
+      "q75_exposicao_strength_global": 0.9234010986193177
+    },
+    "to": {
+      "q75_hhi": 0.3477924810095364,
+      "q75_exposicao_strength_global": 0.9266644698255654
+    }
+  },
+  "spearman_estabilidade": {
+    "portfolio_hhi": {
+      "rho": 0.942163995525623,
+      "p": 0.0,
+      "n": 1500
+    },
+    "portfolio_hhi_norm": {
+      "rho": 0.9355428156822164,
+      "p": 0.0,
+      "n": 1500
+    },
+    "portfolio_cr1": {
+      "rho": 0.926018932321337,
+      "p": 0.0,
+      "n": 1500
+    },
+    "portfolio_cr4": {
+      "rho": 0.9538169426799421,
+      "p": 0.0,
+      "n": 1500
+    },
+    "count_hhi": {
+      "rho": 0.9754837596652666,
+      "p": 0.0,
+      "n": 1500
+    },
+    "count_hhi_norm": {
+      "rho": 0.9299077160876253,
+      "p": 0.0,
+      "n": 1500
+    },
+    "exposicao_strength_global": {
+      "rho": 0.9727916074629367,
+      "p": 0.0,
+      "n": 1500
+    },
+    "exposicao_degree_global": {
+      "rho": 0.9516029685589019,
+      "p": 0.0,
+      "n": 1500
+    }
+  },
+  "sobreposicao_top_quartil": {
+    "portfolio_hhi": {
+      "n_top_from": 375,
+      "n_top_to": 375,
+      "n_intersecao": 326,
+      "jaccard": 0.7688679245283019,
+      "retencao_from_pct": 86.93333333333332
+    },
+    "portfolio_hhi_norm": {
+      "n_top_from": 375,
+      "n_top_to": 375,
+      "n_intersecao": 324,
+      "jaccard": 0.7605633802816901,
+      "retencao_from_pct": 86.4
+    },
+    "exposicao_strength_global": {
+      "n_top_from": 375,
+      "n_top_to": 375,
+      "n_intersecao": 351,
+      "jaccard": 0.8796992481203008,
+      "retencao_from_pct": 93.60000000000001
+    },
+    "exposicao_degree_global": {
+      "n_top_from": 375,
+      "n_top_to": 375,
+      "n_intersecao": 341,
+      "jaccard": 0.8337408312958435,
+      "retencao_from_pct": 90.93333333333334
+    }
+  },
+  "exposicao_oculta": {
+    "n_from": 212,
+    "n_to": 220,
+    "n_persistentes": 191,
+    "jaccard": 0.7925311203319502,
+    "retencao_from_pct": 90.09433962264151,
+    "novos_to": 29,
+    "saidas_to": 21
+  },
+  "quadrante_estavel_pct": 91.0,
+  "delta_mediano_dentro_comuns": {
+    "portfolio_hhi": -0.003337432297309994,
+    "portfolio_hhi_norm": -0.0006246313773101003,
+    "portfolio_cr1": -0.003870738396122231,
+    "portfolio_cr4": -0.004074900663817993,
+    "count_hhi": -0.0008334493952761503,
+    "count_hhi_norm": 0.0,
+    "n_fornecedores": 1.0,
+    "n_instrumentos": 2.0,
+    "exposicao_strength_global": -0.0023787458428586594,
+    "exposicao_degree_global": -0.0007623700029272262
+  },
+  "hhi_agregado_mediana_from": 0.234633112302427,
+  "hhi_agregado_mediana_to": 0.2267175574513147,
+  "hhi_comuns_mediana_from": 0.234633112302427,
+  "hhi_comuns_mediana_to": 0.21496184496996296,
+  "hhi_novos_mediana_to": 0.3721900280024132,
+  "hhi_norm_novos_mediana_to": 0.26260577432732,
+  "n_fornecedores_novos_mediana_to": 6.0,
+  "n_instrumentos_novos_mediana_to": 6.0,
+  "gap_mediana_novos_vs_comuns_to": {
+    "portfolio_hhi": 0.15722818303245023,
+    "portfolio_hhi_norm": 0.11544316733145712,
+    "portfolio_cr1": 0.18530813670928892,
+    "portfolio_cr4": 0.18540339717672716,
+    "count_hhi": 0.1305555555555556,
+    "count_hhi_norm": -0.006944444444444365,
+    "n_fornecedores": -11.0,
+    "n_instrumentos": -15.0,
+    "exposicao_strength_global": -0.02548829112580364,
+    "exposicao_degree_global": -0.056472487202614774
+  },
+  "nota": "Diagnóstico condicionado aos compradores elegíveis e à mesma especificação global; não mede estabilidade anual nem corrige cobertura do PNCP."
+}

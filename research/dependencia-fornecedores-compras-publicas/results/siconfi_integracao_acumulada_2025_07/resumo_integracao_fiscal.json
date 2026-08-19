@@ -1,0 +1,60 @@
+{
+  "mes_final_publicacao": "2025-07",
+  "especificacao_metricas": "global",
+  "compradores_integracao_principal": 1499,
+  "compradores_com_despesa_empenhada": 1488,
+  "cobertura_despesa_empenhada_pct": 99.26617745163442,
+  "municipios_fiscais_com_total_despesa": 788,
+  "registros_siconfi_antes_dedup": 349641,
+  "registros_siconfi_consolidados": 349641,
+  "duplicidades_siconfi_removidas": 0,
+  "fontes_coleta_e_registros": {
+    "results/siconfi_integracao_jan_fev_2025/coleta/siconfi_dca_2025.csv.gz": 175184,
+    "results/siconfi_integracao_acumulada_2025_03/coleta_delta/siconfi_dca_2025.csv.gz": 44955,
+    "results/siconfi_integracao_acumulada_2025_04/coleta_delta/siconfi_dca_2025.csv.gz": 48640,
+    "results/siconfi_integracao_acumulada_2025_05/coleta_delta/siconfi_dca_2025.csv.gz": 30994,
+    "results/siconfi_integracao_acumulada_2025_06/coleta_delta/siconfi_dca_2025.csv.gz": 22420,
+    "results/siconfi_integracao_acumulada_2025_07/coleta_delta/siconfi_dca_2025.csv.gz": 27448
+  },
+  "procurement_intensity_parcial_mediana": 0.005373285124206842,
+  "procurement_intensity_parcial_p95": 0.06589041519655324,
+  "procurement_intensity_parcial_max": 1.1562159374639287,
+  "correlacoes_spearman": {
+    "hhi_norm_vs_log_despesa": {
+      "rho": 0.20344937803842245,
+      "p": 2.2924701628913684e-15,
+      "n": 1488
+    },
+    "hhi_norm_vs_log_populacao": {
+      "rho": 0.20496689872827556,
+      "p": 1.4075995180722978e-15,
+      "n": 1488
+    },
+    "hhi_norm_vs_log_despesa_per_capita": {
+      "rho": -0.06345143077834586,
+      "p": 0.014364214376293665,
+      "n": 1488
+    },
+    "hhi_norm_vs_procurement_intensity_parcial": {
+      "rho": -0.01904745554419149,
+      "p": 0.4628285758591609,
+      "n": 1488
+    },
+    "exposicao_strength_vs_log_despesa": {
+      "rho": 0.21267351721110056,
+      "p": 1.1141945977061398e-16,
+      "n": 1488
+    },
+    "exposicao_strength_vs_log_populacao": {
+      "rho": 0.2120060845337847,
+      "p": 1.3933779611238136e-16,
+      "n": 1488
+    },
+    "exposicao_strength_vs_log_despesa_per_capita": {
+      "rho": -0.04744327991653671,
+      "p": 0.06731007495219818,
+      "n": 1488
+    }
+  },
+  "nota": "ProcurementIntensity parcial usa instrumentos assinados em 2025 e publicados até o mês de corte; é diagnóstico de escala e não medida de execução orçamentária. Associações não são causais."
+}

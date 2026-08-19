@@ -4,54 +4,45 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-lotofacil-v12:
+  run-lotofacil-v12-python:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup R
-        uses: r-lib/actions/setup-r@v2
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          r-version: 'release'
+          python-version: '3.11'
 
-      - name: Install R packages
+      - name: Install Python packages
         working-directory: lotofacil_axion
         run: |
-          Rscript -e 'pkgs <- readLines("environment/R-packages.txt"); install.packages(pkgs, repos="https://cloud.r-project.org")'
+          python -m pip install --upgrade pip
+          pip install -r environment/python-requirements.txt
 
-      - name: Download official CAIXA data if absent
+      - name: Run model in Python
+        working-directory: lotofacil_axion
+        run: python python/run_all.py
+
+      - name: Verify reproducibility artifacts
         working-directory: lotofacil_axion
         run: |
-          mkdir -p data/raw
-          if [ ! -f data/raw/lotofacil_historico.xlsx ] && [ ! -f data/raw/Lotofacil.xlsx ] && [ ! -f data/raw/Lotofácil.xlsx ]; then
-            Rscript scripts/download_resultados_caixa.R
-          fi
-
-      - name: Check input data
-        working-directory: lotofacil_axion
-        run: |
-          test -f data/raw/lotofacil_historico.xlsx || test -f data/raw/Lotofacil.xlsx || test -f data/raw/Lotofácil.xlsx || (echo "Base historica nao encontrada em lotofacil_axion/data/raw/" && exit 1)
-
-      - name: Run model
-        working-directory: lotofacil_axion
-        run: Rscript run_all.R
-
-      - name: Collect outputs
-        working-directory: lotofacil_axion
-        run: |
-          mkdir -p outputs figures checksums
-          cp saida_axion_lotofacil_v12/*.csv outputs/ || true
-          cp saida_axion_lotofacil_v12/*.txt outputs/ || true
-          cp saida_axion_lotofacil_v12/*.png figures/ || true
-          sha256sum data/raw/* outputs/* figures/* > checksums/CHECKSUMS.sha256 || true
+          test -f outputs/jogos_final_v12.csv
+          test -f outputs/metricas_conjunto_final_v12.csv
+          test -f outputs/relatorio_execucao_v12.txt
+          test -f figures/grafico_frequencia_dezenas_v12.png
+          test -f figures/grafico_score_residual_v12.png
+          test -f checksums/CHECKSUMS.sha256
 
       - name: Upload reproducibility artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: lotofacil-v12-outputs
+          name: lotofacil-v12-python-outputs
           path: |
             lotofacil_axion/outputs
             lotofacil_axion/figures
             lotofacil_axion/checksums
+            lotofacil_axion/data/processed
+            lotofacil_axion/data/raw/SOURCE_CAIXA.md

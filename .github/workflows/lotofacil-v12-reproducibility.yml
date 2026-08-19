@@ -1,0 +1,49 @@
+name: lotofacil-v12-reproducibility
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-lotofacil-v12:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+
+      - name: Install R packages
+        working-directory: lotofacil_axion
+        run: |
+          Rscript -e 'pkgs <- readLines("environment/R-packages.txt"); install.packages(pkgs, repos="https://cloud.r-project.org")'
+
+      - name: Check input data
+        working-directory: lotofacil_axion
+        run: |
+          test -f data/raw/lotofacil_historico.xlsx || test -f data/raw/Lotofacil.xlsx || test -f data/raw/Lotofácil.xlsx || (echo "Base historica nao encontrada em lotofacil_axion/data/raw/" && exit 1)
+
+      - name: Run model
+        working-directory: lotofacil_axion
+        run: Rscript run_all.R
+
+      - name: Collect outputs
+        working-directory: lotofacil_axion
+        run: |
+          mkdir -p outputs figures checksums
+          cp saida_axion_lotofacil_v12/*.csv outputs/ || true
+          cp saida_axion_lotofacil_v12/*.txt outputs/ || true
+          cp saida_axion_lotofacil_v12/*.png figures/ || true
+          sha256sum data/raw/* outputs/* figures/* > checksums/CHECKSUMS.sha256 || true
+
+      - name: Upload reproducibility artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lotofacil-v12-outputs
+          path: |
+            lotofacil_axion/outputs
+            lotofacil_axion/figures
+            lotofacil_axion/checksums

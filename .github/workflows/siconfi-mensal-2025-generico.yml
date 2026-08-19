@@ -1,0 +1,152 @@
+name: SICONFI mensal 2025 - integracao e modelos
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/siconfi-mensal-2025-generico.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/triggers/siconfi-2025-*.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate-routine:
+    if: ${{ !startsWith(github.head_ref, 'research/siconfi-2025-') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+      - name: Validate incremental fiscal pipeline without API
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          set -euo pipefail
+          python scripts/preparar_amostra_siconfi_incremental_2025.py --month 6
+          python scripts/extrair_integrar_siconfi_incremental_2025.py --month 6
+          python scripts/modelos_associativos_pncp_siconfi_generico.py --month 6 --compare-month 5
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=Path('results')
+          s=json.loads((r/'siconfi_integracao_acumulada_2025_06'/'resumo_integracao_fiscal.json').read_text())
+          assert s['cobertura_despesa_empenhada_pct'] > 95, s
+          m=json.loads((r/'modelos_associativos_jan_06_2025'/'resumo_modelos_generico.json').read_text())
+          assert m['n'] > 500, m
+          print('Incremental SICONFI + generic model pipeline validated on Jan-Jun.')
+          PY
+
+  integrate-model:
+    if: ${{ startsWith(github.head_ref, 'research/siconfi-2025-') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout fiscal monthly branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+
+      - name: Resolve month
+        id: month
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH="${GITHUB_HEAD_REF}"
+          MM="${BRANCH##*-}"
+          case "$MM" in 07|08|09|10|11|12) ;; *) echo "Unsupported fiscal branch: $BRANCH"; exit 1;; esac
+          M=$((10#$MM)); PREV=$((M-1))
+          echo "mm=$MM" >> "$GITHUB_OUTPUT"
+          echo "month=$M" >> "$GITHUB_OUTPUT"
+          echo "prev=$PREV" >> "$GITHUB_OUTPUT"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Verify PNCP accumulated inputs
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          test -f "results/carteira_acumulada_2025_${{ steps.month.outputs.mm }}_global/compradores_elegiveis_3_5.csv"
+
+      - name: Prepare incremental SICONFI sample
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/preparar_amostra_siconfi_incremental_2025.py --month ${{ steps.month.outputs.month }}
+
+      - name: Collect only new municipalities from DCA/SICONFI
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        shell: bash
+        run: |
+          set -euo pipefail
+          MM='${{ steps.month.outputs.mm }}'
+          DELTA="results/siconfi_integracao_acumulada_2025_${MM}/municipios_siconfi_delta.csv"
+          OUT="results/siconfi_integracao_acumulada_2025_${MM}/coleta_delta"
+          N=$(( $(wc -l < "$DELTA") - 1 ))
+          echo "Municipios novos para SICONFI: $N"
+          if [ "$N" -gt 0 ]; then
+            python scripts/coletar_siconfi_dca.py "$DELTA" --year 2025 --out "$OUT"
+          else
+            mkdir -p "$OUT"
+            printf 'municipio_ibge,anexo,exercicio,status,n_registros\n' > "$OUT/siconfi_dca_2025_status.csv"
+          fi
+
+      - name: Integrate cumulative fiscal cache
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/extrair_integrar_siconfi_incremental_2025.py --month ${{ steps.month.outputs.month }}
+
+      - name: Run pre-fixed associative models
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/modelos_associativos_pncp_siconfi_generico.py --month ${{ steps.month.outputs.month }} --compare-month ${{ steps.month.outputs.prev }}
+
+      - name: Validate fiscal coverage and diagnostics
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          mm=os.environ['MM']
+          r=Path('results')
+          s=json.loads((r/f'siconfi_integracao_acumulada_2025_{mm}'/'resumo_integracao_fiscal.json').read_text())
+          if s['cobertura_despesa_empenhada_pct'] < 95:
+              raise SystemExit(f"Fiscal coverage below 95%: {s['cobertura_despesa_empenhada_pct']}")
+          m=json.loads((r/f'modelos_associativos_jan_{mm}_2025'/'resumo_modelos_generico.json').read_text())
+          if m['n'] < 100:
+              raise SystemExit(f"Unexpectedly small model sample: {m['n']}")
+          print(json.dumps({'fiscal':s,'model_n':m['n'],'clusters':m['clusters_municipio']}, ensure_ascii=False, indent=2))
+          PY
+        env:
+          MM: ${{ steps.month.outputs.mm }}
+
+      - name: Commit fiscal integration and models
+        env:
+          MM: ${{ steps.month.outputs.mm }}
+          BRANCH: ${{ steps.month.outputs.branch }}
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "research/dependencia-fornecedores-compras-publicas/results/siconfi_integracao_acumulada_2025_${MM}"
+          git add "research/dependencia-fornecedores-compras-publicas/results/modelos_associativos_jan_${MM}_2025"
+          if ! git diff --cached --quiet; then
+            git commit -m "Integra SICONFI e modelos acumulados ate 2025-${MM} [skip ci]"
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH"
+          fi
+
+      - name: Upload fiscal/model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: siconfi-modelos-2025-${{ steps.month.outputs.mm }}
+          path: |
+            research/dependencia-fornecedores-compras-publicas/results/siconfi_integracao_acumulada_2025_${{ steps.month.outputs.mm }}
+            research/dependencia-fornecedores-compras-publicas/results/modelos_associativos_jan_${{ steps.month.outputs.mm }}_2025

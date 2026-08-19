@@ -21,6 +21,14 @@ jobs:
         run: |
           Rscript -e 'pkgs <- readLines("environment/R-packages.txt"); install.packages(pkgs, repos="https://cloud.r-project.org")'
 
+      - name: Download official CAIXA data if absent
+        working-directory: lotofacil_axion
+        run: |
+          mkdir -p data/raw
+          if [ ! -f data/raw/lotofacil_historico.xlsx ] && [ ! -f data/raw/Lotofacil.xlsx ] && [ ! -f data/raw/Lotofácil.xlsx ]; then
+            Rscript scripts/download_resultados_caixa.R
+          fi
+
       - name: Check input data
         working-directory: lotofacil_axion
         run: |

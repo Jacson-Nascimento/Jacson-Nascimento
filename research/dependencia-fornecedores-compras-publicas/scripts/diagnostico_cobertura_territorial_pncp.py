@@ -6,6 +6,8 @@ de Fernando de Noronha. Como a amostra principal é Executivo municipal, ambos s
 excluídos do denominador. A UF é derivada do prefixo oficial do código municipal,
 evita dependência das antigas hierarquias microrregião/mesorregião e cobre novos
 municípios. Ausência mensal não é tratada como falha de reporte.
+
+Validação obrigatória: universo estrito = 5.569 municípios e 26 UFs municipais.
 """
 from __future__ import annotations
 import argparse, json

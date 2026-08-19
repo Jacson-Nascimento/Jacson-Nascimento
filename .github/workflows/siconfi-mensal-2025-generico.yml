@@ -36,7 +36,7 @@ jobs:
           r=Path('results')
           s=json.loads((r/'siconfi_integracao_acumulada_2025_06'/'resumo_integracao_fiscal.json').read_text())
           assert s['cobertura_despesa_empenhada_pct'] > 95, s
-          m=json.loads((r/'modelos_associativos_jan_06_2025'/'resumo_modelos_generico.json').read_text())
+          m=json.loads((r/'modelos_associativos_generico_2025_06'/'resumo_modelos_generico.json').read_text())
           assert m['n'] > 500, m
           print('Incremental SICONFI + generic model pipeline validated on Jan-Jun.')
           PY
@@ -76,8 +76,7 @@ jobs:
 
       - name: Verify PNCP accumulated inputs
         working-directory: research/dependencia-fornecedores-compras-publicas
-        run: |
-          test -f "results/carteira_acumulada_2025_${{ steps.month.outputs.mm }}_global/compradores_elegiveis_3_5.csv"
+        run: test -f "results/carteira_acumulada_2025_${{ steps.month.outputs.mm }}_global/compradores_elegiveis_3_5.csv"
 
       - name: Prepare incremental SICONFI sample
         working-directory: research/dependencia-fornecedores-compras-publicas
@@ -119,7 +118,7 @@ jobs:
           s=json.loads((r/f'siconfi_integracao_acumulada_2025_{mm}'/'resumo_integracao_fiscal.json').read_text())
           if s['cobertura_despesa_empenhada_pct'] < 95:
               raise SystemExit(f"Fiscal coverage below 95%: {s['cobertura_despesa_empenhada_pct']}")
-          m=json.loads((r/f'modelos_associativos_jan_{mm}_2025'/'resumo_modelos_generico.json').read_text())
+          m=json.loads((r/f'modelos_associativos_generico_2025_{mm}'/'resumo_modelos_generico.json').read_text())
           if m['n'] < 100:
               raise SystemExit(f"Unexpectedly small model sample: {m['n']}")
           print(json.dumps({'fiscal':s,'model_n':m['n'],'clusters':m['clusters_municipio']}, ensure_ascii=False, indent=2))
@@ -136,7 +135,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "research/dependencia-fornecedores-compras-publicas/results/siconfi_integracao_acumulada_2025_${MM}"
-          git add "research/dependencia-fornecedores-compras-publicas/results/modelos_associativos_jan_${MM}_2025"
+          git add "research/dependencia-fornecedores-compras-publicas/results/modelos_associativos_generico_2025_${MM}"
           if ! git diff --cached --quiet; then
             git commit -m "Integra SICONFI e modelos acumulados ate 2025-${MM} [skip ci]"
             git pull --rebase origin "$BRANCH"
@@ -149,4 +148,4 @@ jobs:
           name: siconfi-modelos-2025-${{ steps.month.outputs.mm }}
           path: |
             research/dependencia-fornecedores-compras-publicas/results/siconfi_integracao_acumulada_2025_${{ steps.month.outputs.mm }}
-            research/dependencia-fornecedores-compras-publicas/results/modelos_associativos_jan_${{ steps.month.outputs.mm }}_2025
+            research/dependencia-fornecedores-compras-publicas/results/modelos_associativos_generico_2025_${{ steps.month.outputs.mm }}

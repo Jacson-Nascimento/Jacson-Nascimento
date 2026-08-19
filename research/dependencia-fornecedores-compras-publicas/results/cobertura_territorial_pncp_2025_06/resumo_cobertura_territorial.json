@@ -16,6 +16,7 @@
   "n_codigos_pncp_fora_universo_municipal_estrito": 0,
   "instrumentos_pj_assinados_2025_acumulados": 98438,
   "compradores_institucionais_acumulados": 2349,
-  "nota_metodologica": "Presença mensal no PNCP não equivale a completude de reporte. Município sem instrumento em um mês pode simplesmente não ter contratação publicada. O indicador mede presença/continuidade observacional.",
+  "ufs_com_municipios_estritos": 26,
+  "nota_metodologica": "Presença mensal no PNCP não equivale a completude de reporte. Município sem instrumento em um mês pode simplesmente não ter contratação publicada. O indicador mede presença/continuidade observacional e não autoriza inferência de representatividade nacional.",
   "fonte_universo": "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
 }

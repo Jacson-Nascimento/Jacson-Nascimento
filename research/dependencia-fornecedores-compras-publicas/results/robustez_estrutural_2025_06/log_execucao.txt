@@ -1,3 +1,8 @@
+workflow=robustez-paper1-jan-jun-2025
+run_id=32399371797
+run_attempt=1
+head_sha=ae28936ea196f553d96164966c3b608c5ffa206c
+executed_at_utc=2026-08-20T17:45:54Z
 {
   "mes_final": 6,
   "natureza": "Robustezes; especificacao principal de coleta e choques preservada.",

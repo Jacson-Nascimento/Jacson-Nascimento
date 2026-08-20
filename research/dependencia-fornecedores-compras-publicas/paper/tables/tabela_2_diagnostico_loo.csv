@@ -1,0 +1,5 @@
+Métrica,Strength,Degree
+Correlação exposição bruta vs LOO,0.2647,0.9821
+Retenção do quartil superior,38.87%,89.61%
+Correlação HHI_norm vs exposição LOO,-0.0183,-0.0763
+Compradores em discordância,221 (16.41%),237 (17.59%)

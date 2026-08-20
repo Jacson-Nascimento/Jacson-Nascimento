@@ -1,0 +1,68 @@
+{
+  "mes_final": 5,
+  "n_elegiveis": 1210,
+  "strength_original_vs_loo": {
+    "rho": 0.2663142968098644,
+    "p": 4.305140677736754e-21,
+    "n": 1210
+  },
+  "degree_original_vs_loo": {
+    "rho": 0.984423005583065,
+    "p": 0.0,
+    "n": 1210
+  },
+  "strength_loo_vs_degree_loo": {
+    "rho": 0.9550225528569406,
+    "p": 0.0,
+    "n": 1210
+  },
+  "hhi_norm_vs_strength_loo": {
+    "rho": -0.03513673274307402,
+    "p": 0.2219546482673868,
+    "n": 1210
+  },
+  "hhi_norm_vs_degree_loo": {
+    "rho": -0.09245388817909428,
+    "p": 0.001283752431299658,
+    "n": 1210
+  },
+  "discordancia": {
+    "strength_raw": {
+      "exposure_col": "exposicao_strength_global",
+      "q75_hhi": 0.3973460396688471,
+      "q75_exposure": 0.9237544693467991,
+      "n": 153,
+      "pct": 12.644628099173556,
+      "spearman_hhi_norm_exposure": {
+        "rho": 0.4091922350529304,
+        "p": 4.771445410855457e-50,
+        "n": 1210
+      }
+    },
+    "strength_loo": {
+      "exposure_col": "exposicao_strength_loo",
+      "q75_hhi": 0.3973460396688471,
+      "q75_exposure": 0.6309607202603394,
+      "n": 198,
+      "pct": 16.363636363636363,
+      "spearman_hhi_norm_exposure": {
+        "rho": -0.03513673274307402,
+        "p": 0.2219546482673868,
+        "n": 1210
+      }
+    },
+    "degree_loo": {
+      "exposure_col": "exposicao_degree_loo",
+      "q75_hhi": 0.3973460396688471,
+      "q75_exposure": 0.5827971600866698,
+      "n": 213,
+      "pct": 17.60330578512397,
+      "spearman_hhi_norm_exposure": {
+        "rho": -0.09245388817909428,
+        "p": 0.001283752431299658,
+        "n": 1210
+      }
+    }
+  },
+  "regra": "Strength bruto mede importancia sistemica; Strength LOO e Degree LOO medem exposicao externa do comprador."
+}

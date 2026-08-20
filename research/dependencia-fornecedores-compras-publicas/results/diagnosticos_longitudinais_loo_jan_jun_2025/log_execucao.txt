@@ -1,0 +1,317 @@
+workflow=longitudinal-loo-paper1-jan-jun-2025
+run_id=32399713386
+run_attempt=1
+head_sha=4920def1c1f770572147610e7125fd61ceb80766
+executed_at_utc=2026-08-20T17:49:32Z
+### month=4
+{
+  "mes_final": 4,
+  "n_elegiveis": 1013,
+  "strength_original_vs_loo": {
+    "rho": 0.2615242268879483,
+    "p": 2.6484298363993852e-17,
+    "n": 1013
+  },
+  "degree_original_vs_loo": {
+    "rho": 0.9880813328215882,
+    "p": 0.0,
+    "n": 1013
+  },
+  "strength_loo_vs_degree_loo": {
+    "rho": 0.9630385027419371,
+    "p": 0.0,
+    "n": 1013
+  },
+  "hhi_norm_vs_strength_loo": {
+    "rho": -0.0594904484400368,
+    "p": 0.05838704899310124,
+    "n": 1013
+  },
+  "hhi_norm_vs_degree_loo": {
+    "rho": -0.11597732038954484,
+    "p": 0.0002162640719749648,
+    "n": 1013
+  },
+  "discordancia": {
+    "strength_raw": {
+      "exposure_col": "exposicao_strength_global",
+      "q75_hhi": 0.4037865221682067,
+      "q75_exposure": 0.9224205338073822,
+      "n": 135,
+      "pct": 13.326752221125371,
+      "spearman_hhi_norm_exposure": {
+        "rho": 0.3817231822775144,
+        "p": 1.742031158345446e-36,
+        "n": 1013
+      }
+    },
+    "strength_loo": {
+      "exposure_col": "exposicao_strength_loo",
+      "q75_hhi": 0.4037865221682067,
+      "q75_exposure": 0.6377618333252557,
+      "n": 171,
+      "pct": 16.88055281342547,
+      "spearman_hhi_norm_exposure": {
+        "rho": -0.0594904484400368,
+        "p": 0.05838704899310124,
+        "n": 1013
+      }
+    },
+    "degree_loo": {
+      "exposure_col": "exposicao_degree_loo",
+      "q75_hhi": 0.4037865221682067,
+      "q75_exposure": 0.6196590554718283,
+      "n": 185,
+      "pct": 18.26258637709773,
+      "spearman_hhi_norm_exposure": {
+        "rho": -0.11597732038954484,
+        "p": 0.0002162640719749648,
+        "n": 1013
+      }
+    }
+  },
+  "regra": "Strength bruto mede importancia sistemica; Strength LOO e Degree LOO medem exposicao externa do comprador."
+}
+### month=5
+{
+  "mes_final": 5,
+  "n_elegiveis": 1210,
+  "strength_original_vs_loo": {
+    "rho": 0.2663142968098644,
+    "p": 4.305140677736754e-21,
+    "n": 1210
+  },
+  "degree_original_vs_loo": {
+    "rho": 0.984423005583065,
+    "p": 0.0,
+    "n": 1210
+  },
+  "strength_loo_vs_degree_loo": {
+    "rho": 0.9550225528569406,
+    "p": 0.0,
+    "n": 1210
+  },
+  "hhi_norm_vs_strength_loo": {
+    "rho": -0.03513673274307402,
+    "p": 0.2219546482673868,
+    "n": 1210
+  },
+  "hhi_norm_vs_degree_loo": {
+    "rho": -0.09245388817909428,
+    "p": 0.001283752431299658,
+    "n": 1210
+  },
+  "discordancia": {
+    "strength_raw": {
+      "exposure_col": "exposicao_strength_global",
+      "q75_hhi": 0.3973460396688471,
+      "q75_exposure": 0.9237544693467991,
+      "n": 153,
+      "pct": 12.644628099173556,
+      "spearman_hhi_norm_exposure": {
+        "rho": 0.4091922350529304,
+        "p": 4.771445410855457e-50,
+        "n": 1210
+      }
+    },
+    "strength_loo": {
+      "exposure_col": "exposicao_strength_loo",
+      "q75_hhi": 0.3973460396688471,
+      "q75_exposure": 0.6309607202603394,
+      "n": 198,
+      "pct": 16.363636363636363,
+      "spearman_hhi_norm_exposure": {
+        "rho": -0.03513673274307402,
+        "p": 0.2219546482673868,
+        "n": 1210
+      }
+    },
+    "degree_loo": {
+      "exposure_col": "exposicao_degree_loo",
+      "q75_hhi": 0.3973460396688471,
+      "q75_exposure": 0.5827971600866698,
+      "n": 213,
+      "pct": 17.60330578512397,
+      "spearman_hhi_norm_exposure": {
+        "rho": -0.09245388817909428,
+        "p": 0.001283752431299658,
+        "n": 1210
+      }
+    }
+  },
+  "regra": "Strength bruto mede importancia sistemica; Strength LOO e Degree LOO medem exposicao externa do comprador."
+}
+### month=6
+{
+  "mes_final": 6,
+  "n_elegiveis": 1347,
+  "strength_original_vs_loo": {
+    "rho": 0.2647043361097829,
+    "p": 4.9415641296648335e-23,
+    "n": 1347
+  },
+  "degree_original_vs_loo": {
+    "rho": 0.9821390567325268,
+    "p": 0.0,
+    "n": 1347
+  },
+  "strength_loo_vs_degree_loo": {
+    "rho": 0.9500006762256106,
+    "p": 0.0,
+    "n": 1347
+  },
+  "hhi_norm_vs_strength_loo": {
+    "rho": -0.018301158910828827,
+    "p": 0.5021488107558107,
+    "n": 1347
+  },
+  "hhi_norm_vs_degree_loo": {
+    "rho": -0.07625013240959491,
+    "p": 0.005110687413709409,
+    "n": 1347
+  },
+  "discordancia": {
+    "strength_raw": {
+      "exposure_col": "exposicao_strength_global",
+      "q75_hhi": 0.3819644194196913,
+      "q75_exposure": 0.9252786757940399,
+      "n": 177,
+      "pct": 13.140311804008908,
+      "spearman_hhi_norm_exposure": {
+        "rho": 0.40810772970546766,
+        "p": 3.2805764624120504e-55,
+        "n": 1347
+      }
+    },
+    "strength_loo": {
+      "exposure_col": "exposicao_strength_loo",
+      "q75_hhi": 0.3819644194196913,
+      "q75_exposure": 0.6113316392096737,
+      "n": 221,
+      "pct": 16.406829992576093,
+      "spearman_hhi_norm_exposure": {
+        "rho": -0.018301158910828827,
+        "p": 0.5021488107558107,
+        "n": 1347
+      }
+    },
+    "degree_loo": {
+      "exposure_col": "exposicao_degree_loo",
+      "q75_hhi": 0.3819644194196913,
+      "q75_exposure": 0.5835264577764403,
+      "n": 237,
+      "pct": 17.59465478841871,
+      "spearman_hhi_norm_exposure": {
+        "rho": -0.07625013240959491,
+        "p": 0.005110687413709409,
+        "n": 1347
+      }
+    }
+  },
+  "regra": "Strength bruto mede importancia sistemica; Strength LOO e Degree LOO medem exposicao externa do comprador."
+}
+### longitudinal
+{
+  "natureza": "Diagnostico longitudinal descritivo com exposicao externalizada leave-one-buyer-out.",
+  "transicoes": [
+    {
+      "de": 4,
+      "para": 5,
+      "n_mes_anterior": 1013,
+      "n_mes_atual": 1210,
+      "n_comuns": 1013,
+      "n_entrantes": 197,
+      "n_saidas": 0,
+      "spearman_strength_loo": {
+        "rho": 0.8961933749203661,
+        "p": 0.0,
+        "n": 1013
+      },
+      "spearman_degree_loo": {
+        "rho": 0.9091116046163511,
+        "p": 0.0,
+        "n": 1013
+      },
+      "strength_loo": {
+        "q75_hhi_m1": 0.4037865221682067,
+        "q75_hhi_m2": 0.3973460396688471,
+        "q75_exposicao_m1": 0.6377618333252557,
+        "q75_exposicao_m2": 0.6309607202603394,
+        "retencao_quartil_superior": 0.8818897637795275,
+        "retencao_discordancia": 0.8596491228070176,
+        "estabilidade_quadrante_completo": 0.8647581441263573,
+        "discordantes_m1": 171,
+        "discordantes_m2": 198
+      },
+      "degree_loo": {
+        "q75_hhi_m1": 0.4037865221682067,
+        "q75_hhi_m2": 0.3973460396688471,
+        "q75_exposicao_m1": 0.6196590554718283,
+        "q75_exposicao_m2": 0.5827971600866698,
+        "retencao_quartil_superior": 0.8937007874015748,
+        "retencao_discordancia": 0.8756756756756757,
+        "estabilidade_quadrante_completo": 0.8706811451135242,
+        "discordantes_m1": 185,
+        "discordantes_m2": 213
+      },
+      "composicao": {
+        "hhi_mediana_comuns_no_mes_atual": 0.22189749706313,
+        "hhi_mediana_entrantes": 0.3217859939454603,
+        "strength_loo_mediana_comuns": 0.2885134674054624,
+        "strength_loo_mediana_entrantes": 0.2502588493884154,
+        "degree_loo_mediana_comuns": 0.2864805702418855,
+        "degree_loo_mediana_entrantes": 0.2308318324568246
+      }
+    },
+    {
+      "de": 5,
+      "para": 6,
+      "n_mes_anterior": 1210,
+      "n_mes_atual": 1347,
+      "n_comuns": 1210,
+      "n_entrantes": 137,
+      "n_saidas": 0,
+      "spearman_strength_loo": {
+        "rho": 0.9266155696377544,
+        "p": 0.0,
+        "n": 1210
+      },
+      "spearman_degree_loo": {
+        "rho": 0.9416191646150254,
+        "p": 0.0,
+        "n": 1210
+      },
+      "strength_loo": {
+        "q75_hhi_m1": 0.3973460396688471,
+        "q75_hhi_m2": 0.3819644194196913,
+        "q75_exposicao_m1": 0.6309607202603394,
+        "q75_exposicao_m2": 0.6113316392096737,
+        "retencao_quartil_superior": 0.9174917491749175,
+        "retencao_discordancia": 0.9040404040404041,
+        "estabilidade_quadrante_completo": 0.8950413223140495,
+        "discordantes_m1": 198,
+        "discordantes_m2": 221
+      },
+      "degree_loo": {
+        "q75_hhi_m1": 0.3973460396688471,
+        "q75_hhi_m2": 0.3819644194196913,
+        "q75_exposicao_m1": 0.5827971600866698,
+        "q75_exposicao_m2": 0.5835264577764403,
+        "retencao_quartil_superior": 0.9438943894389439,
+        "retencao_discordancia": 0.9061032863849765,
+        "estabilidade_quadrante_completo": 0.9041322314049587,
+        "discordantes_m1": 213,
+        "discordantes_m2": 237
+      },
+      "composicao": {
+        "hhi_mediana_comuns_no_mes_atual": 0.22332581496576304,
+        "hhi_mediana_entrantes": 0.3606199271551786,
+        "strength_loo_mediana_comuns": 0.31058674393252417,
+        "strength_loo_mediana_entrantes": 0.2047721376893046,
+        "degree_loo_mediana_comuns": 0.3043750402513472,
+        "degree_loo_mediana_entrantes": 0.199580109139227
+      }
+    }
+  ],
+  "regra_interpretacao": "Persistencia indica estabilidade de screening, nao permanencia causal de risco."
+}

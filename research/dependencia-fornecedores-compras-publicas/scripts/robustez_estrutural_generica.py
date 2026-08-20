@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
-"""Robustezes estruturais para o artigo de dependência de fornecedores.
+"""Robustezes estruturais para os papers de dependência de fornecedores.
 
-Não altera a especificação principal. Produz testes separados para responder a
-objeções de mensuração:
+A especificação principal permanece preservada. Este script produz testes
+separados para responder a objeções de mensuração:
 
 1. centralidade Strength e Degree leave-one-buyer-out (LOO), retirando a
-   contribuição do próprio comprador do ranking global de cada fornecedor;
-2. alternativas ao quadrante HHI x exposição: diferença de percentis e
-   resíduo da exposição após HHI normalizado;
-3. stress tests adicionais com remoções aleatórias enviesadas por Strength e
-   contrafactual com massa sistêmica aproximadamente equivalente, permitindo
-   número variável de fornecedores removidos.
+   contribuição do próprio comprador da posição global de cada fornecedor;
+2. discordância HHI-exposição com medidas originais e externalizadas LOO;
+3. alternativas contínuas à classificação em quadrantes;
+4. stress test adicional com sorteio aleatório ponderado por Strength;
+5. diagnóstico de quantos fornecedores aleatórios seriam necessários para
+   remover massa sistêmica de Strength semelhante à dos maiores fornecedores.
 
 Uso:
     python scripts/robustez_estrutural_generica.py --month 6
 
-A unidade de comprador permanece o CNPJ institucional e a chave de instrumento
-permanece numeroControlePNCP, já materializada como id_contrato nas bases.
+Comprador = CNPJ institucional. A chave de instrumento permanece
+numeroControlePNCP, já materializada como id_contrato nas bases processadas.
 """
 from __future__ import annotations
 
@@ -46,11 +46,7 @@ def spearman(a, b):
 
 
 def exact_loo_percentiles(base_values: np.ndarray, portfolio_base: np.ndarray, portfolio_adj: np.ndarray) -> np.ndarray:
-    """Percentis exatos no vetor global após ajustar apenas fornecedores do comprador.
-
-    Usa contagem de valores < x e <= x para reproduzir midrank sem ordenar o vetor
-    global inteiro para cada comprador.
-    """
+    """Midrank percentual após substituir valores dos fornecedores do comprador."""
     global_sorted = np.sort(base_values)
     pb = np.sort(portfolio_base)
     pa = np.sort(portfolio_adj)
@@ -72,12 +68,15 @@ def exact_loo_percentiles(base_values: np.ndarray, portfolio_base: np.ndarray, p
     return np.asarray(out, dtype=float)
 
 
-def build_loo(rel: pd.DataFrame, buyers: pd.DataFrame, suppliers: pd.DataFrame) -> pd.DataFrame:
+def build_loo(rel: pd.DataFrame, eligible: pd.DataFrame, suppliers: pd.DataFrame) -> pd.DataFrame:
     rel = rel.copy()
     suppliers = suppliers.copy()
     rel["orgao_cnpj"] = rel.orgao_cnpj.astype("string")
     rel["fornecedor_id_limpo"] = rel.fornecedor_id_limpo.astype("string")
     suppliers["fornecedor_id_limpo"] = suppliers.fornecedor_id_limpo.astype("string")
+
+    eligible_ids = set(eligible.orgao_cnpj.astype(str))
+    rel_eligible = rel[rel.orgao_cnpj.astype(str).isin(eligible_ids)].copy()
 
     sup = suppliers.set_index("fornecedor_id_limpo")
     base_strength = sup.strength.astype(float).to_dict()
@@ -86,28 +85,52 @@ def build_loo(rel: pd.DataFrame, buyers: pd.DataFrame, suppliers: pd.DataFrame) 
     all_degree = suppliers.degree.astype(float).to_numpy()
 
     rows = []
-    for buyer, g in rel.groupby("orgao_cnpj", sort=False):
+    for buyer, g in rel_eligible.groupby("orgao_cnpj", sort=False):
         ids = g.fornecedor_id_limpo.astype(str).to_numpy()
         shares = g.share_valor.astype(float).to_numpy()
         values = g.valor_relacao.astype(float).to_numpy()
         bs = np.asarray([base_strength[x] for x in ids], dtype=float)
         bd = np.asarray([base_degree[x] for x in ids], dtype=float)
+
+        # Externaliza a posição do fornecedor em relação ao comprador focal.
         adj_s = np.maximum(bs - values, 0.0)
         adj_d = np.maximum(bd - 1.0, 0.0)
         pct_s = exact_loo_percentiles(all_strength, bs, adj_s)
         pct_d = exact_loo_percentiles(all_degree, bd, adj_d)
+
+        own_share_strength = np.divide(values, bs, out=np.zeros_like(values), where=bs > 0)
         rows.append({
             "orgao_cnpj": str(buyer),
             "exposicao_strength_loo": float(np.sum(shares * pct_s)),
             "exposicao_degree_loo": float(np.sum(shares * pct_d)),
-            "contribuicao_propria_strength_media_ponderada": float(np.sum(shares * np.divide(values, bs, out=np.zeros_like(values), where=bs > 0))),
+            "contribuicao_propria_strength_media_ponderada": float(np.sum(shares * own_share_strength)),
         })
+
     out = pd.DataFrame(rows)
-    keep = ["orgao_cnpj", "portfolio_hhi", "portfolio_hhi_norm", "n_fornecedores", "n_instrumentos", "exposicao_strength_global", "exposicao_degree_global"]
-    out = buyers[keep].merge(out, on="orgao_cnpj", how="left")
+    keep = [
+        "orgao_cnpj", "portfolio_hhi", "portfolio_hhi_norm", "n_fornecedores",
+        "n_instrumentos", "exposicao_strength_global", "exposicao_degree_global"
+    ]
+    out = eligible[keep].merge(out, on="orgao_cnpj", how="left")
     out["delta_strength_loo"] = out.exposicao_strength_loo - out.exposicao_strength_global
     out["delta_degree_loo"] = out.exposicao_degree_loo - out.exposicao_degree_global
     return out
+
+
+def classify_discordance(d: pd.DataFrame, exposure_col: str, prefix: str) -> tuple[pd.DataFrame, dict]:
+    z = d.copy()
+    qh = float(z.portfolio_hhi.quantile(.75))
+    qe = float(z[exposure_col].quantile(.75))
+    flag = (z.portfolio_hhi < qh) & (z[exposure_col] >= qe)
+    z[f"discordancia_{prefix}"] = flag
+    return z, {
+        "exposure_col": exposure_col,
+        "q75_hhi": qh,
+        "q75_exposure": qe,
+        "n": int(flag.sum()),
+        "pct": float(flag.mean() * 100),
+        "spearman_hhi_norm_exposure": spearman(z.portfolio_hhi_norm, z[exposure_col]),
+    }
 
 
 def hidden_alternatives(eligible: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
@@ -121,23 +144,17 @@ def hidden_alternatives(eligible: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     d["residuo_exposure_hhi"] = m.resid
     q_gap = float(d.gap_percentil_exposure_hhi.quantile(.75))
     q_resid = float(d.residuo_exposure_hhi.quantile(.75))
-    qh = float(d.portfolio_hhi.quantile(.75))
-    qe = float(d.exposicao_strength_global.quantile(.75))
-    d["quadrante_discordante_principal"] = (d.portfolio_hhi < qh) & (d.exposicao_strength_global >= qe)
     d["sobreexposicao_gap_q75"] = d.gap_percentil_exposure_hhi >= q_gap
     d["sobreexposicao_resid_q75"] = d.residuo_exposure_hhi >= q_resid
-    summary = {
-        "definicao_principal": "HHI monetario abaixo do Q75 e exposicao Strength no Q75 ou acima; interpretar como discordancia entre metricas, nao como prevalencia anormal.",
-        "benchmark_independencia_pct": 18.75,
-        "quadrante_principal_n": int(d.quadrante_discordante_principal.sum()),
-        "quadrante_principal_pct": float(d.quadrante_discordante_principal.mean() * 100),
+
+    return d, {
+        "benchmark_independencia_quadrante_pct": 18.75,
         "gap_percentil_q75": q_gap,
         "residuo_q75": q_resid,
-        "spearman_hhi_exposure": spearman(d.portfolio_hhi_norm, d.exposicao_strength_global),
         "ols_exposure_hhi_coef": float(m.params["portfolio_hhi_norm"]),
         "ols_exposure_hhi_r2": float(m.rsquared),
+        "interpretacao": "Medidas contínuas de discordância; não representam fraude, favorecimento ou risco causal.",
     }
-    return d, summary
 
 
 def matrix_for_stress(rel: pd.DataFrame, eligible_ids: pd.Series, suppliers: pd.DataFrame):
@@ -153,11 +170,11 @@ def matrix_for_stress(rel: pd.DataFrame, eligible_ids: pd.Series, suppliers: pd.
     sup = suppliers.copy()
     sup["fornecedor_id_limpo"] = sup.fornecedor_id_limpo.astype(str)
     sup = sup.set_index("fornecedor_id_limpo").loc[sids].reset_index()
-    return A, bids, sids, sup
+    return A, sup
 
 
 def stress_robustness(rel: pd.DataFrame, eligible_ids: pd.Series, suppliers: pd.DataFrame) -> pd.DataFrame:
-    A, _, _, sup = matrix_for_stress(rel, eligible_ids, suppliers)
+    A, sup = matrix_for_stress(rel, eligible_ids, suppliers)
     strength = sup.strength.astype(float).to_numpy()
     total_strength = float(strength.sum())
     n_sup = len(strength)
@@ -171,21 +188,20 @@ def stress_robustness(rel: pd.DataFrame, eligible_ids: pd.Series, suppliers: pd.
         target_mass = float(strength[target_idx].sum() / total_strength)
         target_loss = np.asarray(A[:, target_idx].sum(axis=1)).ravel()
 
-        weighted_severe = []
-        weighted_loss = []
-        weighted_mass = []
-        mass_severe = []
-        mass_loss = []
-        mass_k = []
-        mass_actual = []
+        weighted_severe, weighted_loss, weighted_mass = [], [], []
+        mass_severe, mass_loss, mass_k, mass_actual = [], [], [], []
 
         for _ in range(DRAWS):
+            # Nulo mais forte: mesmo k, mas fornecedores de maior Strength têm maior chance de sorteio.
             idx_w = rng.choice(n_sup, size=k, replace=False, p=p_weight)
             loss_w = np.asarray(A[:, idx_w].sum(axis=1)).ravel()
             weighted_loss.append(float(loss_w.mean()))
             weighted_severe.append(float((loss_w >= .5).mean()))
             weighted_mass.append(float(strength[idx_w].sum() / total_strength))
 
+            # Diagnóstico, não contrafactual de desempenho: quantos fornecedores
+            # de uma permutação uniforme são necessários para alcançar massa de
+            # Strength semelhante à concentração dos top-k?
             perm = rng.permutation(n_sup)
             cs = np.cumsum(strength[perm]) / total_strength
             stop = int(np.searchsorted(cs, target_mass, side="left")) + 1
@@ -207,16 +223,22 @@ def stress_robustness(rel: pd.DataFrame, eligible_ids: pd.Series, suppliers: pd.
             "weighted_random_share_severos_p975": float(np.quantile(weighted_severe, .975)),
             "weighted_random_perda_media": float(np.mean(weighted_loss)),
             "weighted_random_massa_media": float(np.mean(weighted_mass)),
-            "mass_matched_share_severos_media": float(np.mean(mass_severe)),
-            "mass_matched_share_severos_p025": float(np.quantile(mass_severe, .025)),
-            "mass_matched_share_severos_p975": float(np.quantile(mass_severe, .975)),
-            "mass_matched_perda_media": float(np.mean(mass_loss)),
-            "mass_matched_k_mediana": float(np.median(mass_k)),
-            "mass_matched_massa_media": float(np.mean(mass_actual)),
+            "diagnostico_massa_k_mediana": float(np.median(mass_k)),
+            "diagnostico_massa_k_p025": float(np.quantile(mass_k, .025)),
+            "diagnostico_massa_k_p975": float(np.quantile(mass_k, .975)),
+            "diagnostico_massa_strength_media": float(np.mean(mass_actual)),
+            "diagnostico_massa_share_severos_media": float(np.mean(mass_severe)),
+            "diagnostico_massa_perda_media": float(np.mean(mass_loss)),
             "draws": DRAWS,
             "seed": SEED,
         })
     return pd.DataFrame(rows)
+
+
+def overlap_rate(a: pd.Series, b: pd.Series) -> float:
+    aa = set(a.astype(str))
+    bb = set(b.astype(str))
+    return float(len(aa & bb) / len(aa)) if aa else np.nan
 
 
 def main():
@@ -224,6 +246,7 @@ def main():
     ap.add_argument("--month", type=int, required=True, choices=range(1, 13))
     a = ap.parse_args()
     m = a.month
+
     src = RES / f"carteira_acumulada_2025_{m:02d}_global"
     rel_path = src / "relacoes.csv.gz"
     buyers_path = src / "metricas_compradores.csv"
@@ -241,37 +264,68 @@ def main():
     alt, alt_summary = hidden_alternatives(eligible)
     stress = stress_robustness(rel, eligible.orgao_cnpj, suppliers)
 
-    q_old = float(eligible.exposicao_strength_global.quantile(.75))
-    q_loo = float(loo.exposicao_strength_loo.quantile(.75))
-    old_top = set(eligible.loc[eligible.exposicao_strength_global >= q_old, "orgao_cnpj"].astype(str))
-    loo_top = set(loo.loc[loo.exposicao_strength_loo >= q_loo, "orgao_cnpj"].astype(str))
-    top_ret = len(old_top & loo_top) / len(old_top) if old_top else np.nan
+    # Classificações com exposição original e externalizada.
+    c_raw, raw_sum = classify_discordance(loo, "exposicao_strength_global", "strength_raw")
+    c_sloo, sloo_sum = classify_discordance(c_raw, "exposicao_strength_loo", "strength_loo")
+    c_dloo, dloo_sum = classify_discordance(c_sloo, "exposicao_degree_loo", "degree_loo")
+
+    raw_ids = c_dloo.loc[c_dloo.discordancia_strength_raw, "orgao_cnpj"]
+    sloo_ids = c_dloo.loc[c_dloo.discordancia_strength_loo, "orgao_cnpj"]
+    dloo_ids = c_dloo.loc[c_dloo.discordancia_degree_loo, "orgao_cnpj"]
+
+    q_raw_s = float(loo.exposicao_strength_global.quantile(.75))
+    q_loo_s = float(loo.exposicao_strength_loo.quantile(.75))
+    q_raw_d = float(loo.exposicao_degree_global.quantile(.75))
+    q_loo_d = float(loo.exposicao_degree_loo.quantile(.75))
+
+    old_top_s = loo.loc[loo.exposicao_strength_global >= q_raw_s, "orgao_cnpj"]
+    loo_top_s = loo.loc[loo.exposicao_strength_loo >= q_loo_s, "orgao_cnpj"]
+    old_top_d = loo.loc[loo.exposicao_degree_global >= q_raw_d, "orgao_cnpj"]
+    loo_top_d = loo.loc[loo.exposicao_degree_loo >= q_loo_d, "orgao_cnpj"]
 
     out = RES / f"robustez_estrutural_2025_{m:02d}"
     out.mkdir(parents=True, exist_ok=True)
-    loo.to_csv(out / "leave_one_buyer_out.csv", index=False, encoding="utf-8-sig")
+    c_dloo.to_csv(out / "leave_one_buyer_out.csv", index=False, encoding="utf-8-sig")
     alt.to_csv(out / "alternativas_exposicao_discordante.csv", index=False, encoding="utf-8-sig")
     stress.to_csv(out / "stress_tests_alternativos.csv", index=False, encoding="utf-8-sig")
 
     summary = {
         "mes_final": m,
-        "natureza": "Robustezes; especificacao principal preservada.",
+        "natureza": "Robustezes; especificacao principal de coleta e choques preservada.",
+        "distincao_conceitual": {
+            "strength_raw": "Importancia sistemica monetaria do fornecedor; permanece ranking principal dos choques.",
+            "exposicao_strength_loo": "Exposicao externa do comprador baseada em Strength após retirar sua propria contribuicao.",
+            "exposicao_degree_loo": "Exposicao externa complementar baseada em alcance do fornecedor após retirar o comprador focal.",
+        },
         "leave_one_buyer_out": {
             "n": int(len(loo)),
             "spearman_strength_original_loo": spearman(loo.exposicao_strength_global, loo.exposicao_strength_loo),
             "spearman_degree_original_loo": spearman(loo.exposicao_degree_global, loo.exposicao_degree_loo),
+            "spearman_strength_loo_degree_loo": spearman(loo.exposicao_strength_loo, loo.exposicao_degree_loo),
             "delta_strength_mediana": float(loo.delta_strength_loo.median()),
             "delta_strength_p05": float(loo.delta_strength_loo.quantile(.05)),
             "delta_strength_p95": float(loo.delta_strength_loo.quantile(.95)),
-            "retencao_top_quartil_strength": float(top_ret),
+            "delta_degree_mediana": float(loo.delta_degree_loo.median()),
+            "retencao_top_quartil_strength": overlap_rate(old_top_s, loo_top_s),
+            "retencao_top_quartil_degree": overlap_rate(old_top_d, loo_top_d),
             "contribuicao_propria_strength_mediana": float(loo.contribuicao_propria_strength_media_ponderada.median()),
         },
-        "exposicao_discordante": alt_summary,
+        "discordancia_concentracao_exposicao": {
+            "benchmark_independencia_pct": 18.75,
+            "strength_raw": raw_sum,
+            "strength_loo": sloo_sum,
+            "degree_loo": dloo_sum,
+            "retencao_classificacao_raw_para_strength_loo": overlap_rate(raw_ids, sloo_ids),
+            "retencao_classificacao_raw_para_degree_loo": overlap_rate(raw_ids, dloo_ids),
+            "sobreposicao_strength_loo_degree_loo": overlap_rate(sloo_ids, dloo_ids),
+            "regra_interpretacao": "Classificacao mede discordancia entre dimensoes; nao deve ser tratada como prevalencia anormal, fraude ou risco causal.",
+        },
+        "alternativas_continuas": alt_summary,
         "stress_tests_alternativos": stress.to_dict(orient="records"),
         "interpretacao": [
-            "LOO testa se a exposicao decorre mecanicamente da contribuicao do proprio comprador ao Strength global.",
-            "O quadrante principal mede discordancia entre HHI e exposicao, nao fraude, favoritismo ou prevalencia anormal.",
-            "Os nulos weighted-random e mass-matched reduzem a dependencia da comparacao em relacao ao simples fato de fornecedores de alto Strength concentrarem mais valor sistemico.",
+            "Strength bruto continua adequado para ordenar importancia sistemica monetaria nos choques, mas nao deve ser tratado como medida puramente externa da exposicao do comprador.",
+            "Para screening de exposicao externa, reportar prioritariamente Strength LOO e Degree LOO.",
+            "O weighted-random e o contrafactual adicional comparavel por k; o diagnostico de massa sistemica mostra quantos fornecedores aleatorios seriam necessarios para reproduzir a massa de Strength dos top-k e nao deve ser interpretado como teste de superioridade do ataque direcionado.",
         ],
     }
     (out / "resumo_robustez_estrutural.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")

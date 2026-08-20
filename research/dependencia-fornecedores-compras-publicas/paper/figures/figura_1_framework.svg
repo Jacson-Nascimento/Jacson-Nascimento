@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620">
+<rect width="100%" height="100%" fill="white"/>
+<style>
+text { font-family: Arial, Helvetica, sans-serif; fill:#111; }
+.title { font-size:28px; font-weight:700; }
+.subtitle { font-size:17px; }
+.label { font-size:16px; }
+.small { font-size:14px; }
+.axis { stroke:#222; stroke-width:1.5; }
+.grid { stroke:#d0d0d0; stroke-width:1; }
+.bar1 { fill:#444; }
+.bar2 { fill:#aaa; }
+.line1 { stroke:#333; stroke-width:3; fill:none; }
+.line2 { stroke:#888; stroke-width:3; fill:none; stroke-dasharray:8 5; }
+.box { fill:#f5f5f5; stroke:#333; stroke-width:2; rx:12; ry:12; }
+.arrow { stroke:#333; stroke-width:2.5; fill:none; marker-end:url(#arrow); }
+</style>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#333"/></marker></defs>
+<text x="550.0" y="48" text-anchor="middle" class="title">Framework empírico da dependência estrutural</text><rect x="70" y="150" width="280" height="230" class="box"/><text x="210.0" y="208" text-anchor="middle" class="subtitle" font-weight="700">Concentração local</text><text x="210.0" y="260" text-anchor="middle" class="label">HHI, HHI normalizado,</text><text x="210.0" y="295" text-anchor="middle" class="label">CR1, CR4, Neff, CountHHI</text><rect x="410" y="150" width="280" height="230" class="box"/><text x="550.0" y="208" text-anchor="middle" class="subtitle" font-weight="700">Exposição externa</text><text x="550.0" y="260" text-anchor="middle" class="label">Strength LOO (principal),</text><text x="550.0" y="295" text-anchor="middle" class="label">Degree LOO (complementar)</text><rect x="750" y="150" width="280" height="230" class="box"/><text x="890.0" y="208" text-anchor="middle" class="subtitle" font-weight="700">Vulnerabilidade sistêmica</text><text x="890.0" y="260" text-anchor="middle" class="label">Stress tests por Strength bruto,</text><text x="890.0" y="295" text-anchor="middle" class="label">comparação com nulos aleatórios</text><line x1="350" y1="265" x2="405" y2="265" class="arrow"/><line x1="690" y1="265" x2="745" y2="265" class="arrow"/><text x="550.0" y="455" text-anchor="middle" class="subtitle">A concentração descreve a carteira; a exposição LOO remove a contribuição do comprador focal;</text><text x="550.0" y="486" text-anchor="middle" class="subtitle">os stress tests usam Strength bruto para ordenar a importância monetária sistêmica dos fornecedores.</text><text x="550.0" y="555" text-anchor="middle" class="small">Nenhuma dimensão, isoladamente, identifica fraude, favorecimento ou interrupção efetiva.</text></svg>

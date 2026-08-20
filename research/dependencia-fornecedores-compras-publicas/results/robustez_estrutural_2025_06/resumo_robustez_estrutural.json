@@ -1,6 +1,11 @@
 {
   "mes_final": 6,
-  "natureza": "Robustezes; especificacao principal preservada.",
+  "natureza": "Robustezes; especificacao principal de coleta e choques preservada.",
+  "distincao_conceitual": {
+    "strength_raw": "Importancia sistemica monetaria do fornecedor; permanece ranking principal dos choques.",
+    "exposicao_strength_loo": "Exposicao externa do comprador baseada em Strength após retirar sua propria contribuicao.",
+    "exposicao_degree_loo": "Exposicao externa complementar baseada em alcance do fornecedor após retirar o comprador focal."
+  },
   "leave_one_buyer_out": {
     "n": 1347,
     "spearman_strength_original_loo": {
@@ -13,26 +18,69 @@
       "p": 0.0,
       "n": 1347
     },
+    "spearman_strength_loo_degree_loo": {
+      "rho": 0.9500006762256106,
+      "p": 0.0,
+      "n": 1347
+    },
     "delta_strength_mediana": -0.3941875305748659,
     "delta_strength_p05": -0.913309270297015,
     "delta_strength_p95": -0.0025960524055827134,
+    "delta_degree_mediana": -0.3299079457509494,
     "retencao_top_quartil_strength": 0.3887240356083086,
+    "retencao_top_quartil_degree": 0.8961424332344213,
     "contribuicao_propria_strength_mediana": 0.7589047514183451
   },
-  "exposicao_discordante": {
-    "definicao_principal": "HHI monetario abaixo do Q75 e exposicao Strength no Q75 ou acima; interpretar como discordancia entre metricas, nao como prevalencia anormal.",
+  "discordancia_concentracao_exposicao": {
     "benchmark_independencia_pct": 18.75,
-    "quadrante_principal_n": 177,
-    "quadrante_principal_pct": 13.140311804008908,
+    "strength_raw": {
+      "exposure_col": "exposicao_strength_global",
+      "q75_hhi": 0.3819644194196913,
+      "q75_exposure": 0.9252786757940399,
+      "n": 177,
+      "pct": 13.140311804008908,
+      "spearman_hhi_norm_exposure": {
+        "rho": 0.40810772970546766,
+        "p": 3.2805764624120504e-55,
+        "n": 1347
+      }
+    },
+    "strength_loo": {
+      "exposure_col": "exposicao_strength_loo",
+      "q75_hhi": 0.3819644194196913,
+      "q75_exposure": 0.6113316392096737,
+      "n": 221,
+      "pct": 16.406829992576093,
+      "spearman_hhi_norm_exposure": {
+        "rho": -0.018301158910828827,
+        "p": 0.5021488107558107,
+        "n": 1347
+      }
+    },
+    "degree_loo": {
+      "exposure_col": "exposicao_degree_loo",
+      "q75_hhi": 0.3819644194196913,
+      "q75_exposure": 0.5835264577764403,
+      "n": 237,
+      "pct": 17.59465478841871,
+      "spearman_hhi_norm_exposure": {
+        "rho": -0.07625013240959491,
+        "p": 0.005110687413709409,
+        "n": 1347
+      }
+    },
+    "retencao_classificacao_raw_para_strength_loo": 0.423728813559322,
+    "retencao_classificacao_raw_para_degree_loo": 0.3615819209039548,
+    "sobreposicao_strength_loo_degree_loo": 0.8914027149321267,
+    "regra_interpretacao": "Classificacao mede discordancia entre dimensoes; nao deve ser tratada como prevalencia anormal, fraude ou risco causal."
+  },
+  "alternativas_continuas": {
+    "benchmark_independencia_quadrante_pct": 18.75,
     "gap_percentil_q75": 0.1893095768374165,
     "residuo_q75": 0.12289859953880883,
-    "spearman_hhi_exposure": {
-      "rho": 0.40810772970546766,
-      "p": 3.2805764624120504e-55,
-      "n": 1347
-    },
     "ols_exposure_hhi_coef": 0.3074369185311202,
-    "ols_exposure_hhi_r2": 0.13128402368130765
+    "ols_exposure_hhi_r2": 0.13128402368130765,
+    "interpretacao": "Medidas contínuas de discordância; não representam fraude, favorecimento ou risco causal."
   },
   "stress_tests_alternativos": [
     {
@@ -46,12 +94,12 @@
       "weighted_random_share_severos_p975": 0.06607275426874536,
       "weighted_random_perda_media": 0.06974396015085454,
       "weighted_random_massa_media": 0.429084833846152,
-      "mass_matched_share_severos_media": 0.6180348923533779,
-      "mass_matched_share_severos_p025": 0.4379361544172235,
-      "mass_matched_share_severos_p975": 0.793615441722346,
-      "mass_matched_perda_media": 0.5737892695123797,
-      "mass_matched_k_mediana": 11425.0,
-      "mass_matched_massa_media": 0.5860880984313401,
+      "diagnostico_massa_k_mediana": 11425.0,
+      "diagnostico_massa_k_p025": 9417.625,
+      "diagnostico_massa_k_p975": 14242.025,
+      "diagnostico_massa_strength_media": 0.5860880984313401,
+      "diagnostico_massa_share_severos_media": 0.6180348923533779,
+      "diagnostico_massa_perda_media": 0.5737892695123797,
       "draws": 1000,
       "seed": 20260820
     },
@@ -66,12 +114,12 @@
       "weighted_random_share_severos_p975": 0.24944320712694878,
       "weighted_random_perda_media": 0.2455349081562179,
       "weighted_random_massa_media": 0.696346479460585,
-      "mass_matched_share_severos_media": 0.880804008908686,
-      "mass_matched_share_severos_p025": 0.8195991091314031,
-      "mass_matched_share_severos_p975": 0.9665924276169265,
-      "mass_matched_perda_media": 0.7881702510913162,
-      "mass_matched_k_mediana": 15762.0,
-      "mass_matched_massa_media": 0.8032525441713342,
+      "diagnostico_massa_k_mediana": 15762.0,
+      "diagnostico_massa_k_p025": 14603.9,
+      "diagnostico_massa_k_p975": 18544.2,
+      "diagnostico_massa_strength_media": 0.8032525441713342,
+      "diagnostico_massa_share_severos_media": 0.880804008908686,
+      "diagnostico_massa_perda_media": 0.7881702510913162,
       "draws": 1000,
       "seed": 20260820
     },
@@ -86,19 +134,19 @@
       "weighted_random_share_severos_p975": 0.4031365998515219,
       "weighted_random_perda_media": 0.38108368493840705,
       "weighted_random_massa_media": 0.8091090830028417,
-      "mass_matched_share_severos_media": 0.9384157386785448,
-      "mass_matched_share_severos_p025": 0.9086859688195991,
-      "mass_matched_share_severos_p975": 0.9911098737936155,
-      "mass_matched_perda_media": 0.8653394648375344,
-      "mass_matched_k_mediana": 17478.0,
-      "mass_matched_massa_media": 0.8834858360667359,
+      "diagnostico_massa_k_mediana": 17478.0,
+      "diagnostico_massa_k_p025": 16635.975,
+      "diagnostico_massa_k_p975": 19736.85,
+      "diagnostico_massa_strength_media": 0.8834858360667359,
+      "diagnostico_massa_share_severos_media": 0.9384157386785448,
+      "diagnostico_massa_perda_media": 0.8653394648375344,
       "draws": 1000,
       "seed": 20260820
     }
   ],
   "interpretacao": [
-    "LOO testa se a exposicao decorre mecanicamente da contribuicao do proprio comprador ao Strength global.",
-    "O quadrante principal mede discordancia entre HHI e exposicao, nao fraude, favoritismo ou prevalencia anormal.",
-    "Os nulos weighted-random e mass-matched reduzem a dependencia da comparacao em relacao ao simples fato de fornecedores de alto Strength concentrarem mais valor sistemico."
+    "Strength bruto continua adequado para ordenar importancia sistemica monetaria nos choques, mas nao deve ser tratado como medida puramente externa da exposicao do comprador.",
+    "Para screening de exposicao externa, reportar prioritariamente Strength LOO e Degree LOO.",
+    "O weighted-random e o contrafactual adicional comparavel por k; o diagnostico de massa sistemica mostra quantos fornecedores aleatorios seriam necessarios para reproduzir a massa de Strength dos top-k e nao deve ser interpretado como teste de superioridade do ataque direcionado."
   ]
 }

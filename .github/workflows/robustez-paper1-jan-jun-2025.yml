@@ -1,0 +1,70 @@
+name: Robustez Paper 1 jan-jun 2025
+
+on:
+  push:
+    branches:
+      - research/dois-papers-robustez-2025
+    paths:
+      - '.github/workflows/robustez-paper1-jan-jun-2025.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/robustez_estrutural_generica.py'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/robustez_modelos_municipio_generica.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  robustness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+
+      - name: Run structural robustness
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/robustez_estrutural_generica.py --month 6
+
+      - name: Run municipality-model robustness
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/robustez_modelos_municipio_generica.py --month 6
+
+      - name: Show structural summary
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: cat results/robustez_estrutural_2025_06/resumo_robustez_estrutural.json
+
+      - name: Show model summary
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: cat results/robustez_modelos_municipio_2025_06/resumo_robustez_modelos.json
+
+      - name: Commit outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- \
+            research/dependencia-fornecedores-compras-publicas/results/robustez_estrutural_2025_06 \
+            research/dependencia-fornecedores-compras-publicas/results/robustez_modelos_municipio_2025_06
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Calcula robustezes estruturais e municipais do Paper 1 [skip ci]'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin HEAD:"${{ github.ref_name }}"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: robustez-paper1-jan-jun-2025
+          path: |
+            research/dependencia-fornecedores-compras-publicas/results/robustez_estrutural_2025_06
+            research/dependencia-fornecedores-compras-publicas/results/robustez_modelos_municipio_2025_06

@@ -8,22 +8,31 @@ O projeto possui dois papers complementares.
 
 ### Paper 1: janeiro a junho de 2025
 
-**Dependência Estrutural de Fornecedores nas Compras Públicas Municipais: Concentração da Carteira, Exposição Externa em Rede e Testes de Estresse**
+**Preprint:** *Dependência Estrutural de Fornecedores nas Compras Públicas Municipais: Concentração da Carteira, Exposição Externa em Rede e Testes de Estresse*.
+
+**Journal Version V1:** *Dependência Estrutural de Fornecedores nas Compras Públicas Municipais: Concentração Local, Exposição Externa Leave-One-Buyer-Out e Testes de Estresse*.
 
 Objetivo: propor e validar o framework que combina concentração local da carteira, exposição externa leave-one-buyer-out, discordância concentração-exposição, testes de estresse e persistência longitudinal.
 
-**Versão corrente para revisão e divulgação:**
+**Versão de circulação acadêmica e registro de precedência:**
 
 `paper/PAPER1_JAN_JUN_2025_PREPRINT_V1.md`
+
+**Versão separada para futura submissão a periódico:**
+
+`paper/PAPER1_JOURNAL_VERSION_V1.md`
+
+A Journal Version V1 preserva integralmente a metodologia e os resultados auditados do preprint, mas reforça o posicionamento científico, amplia a literatura consolidada anterior a 2025, reduz ressalvas repetitivas e padroniza a apresentação numérica.
 
 Histórico de desenvolvimento: `PAPER1_JAN_JUN_2025_V1.md`, `V2.md` e `V3.md`.
 
 Artefatos editoriais:
 
-- referências: `paper/references_paper1.bib`;
+- referências do preprint: `paper/references_paper1.bib`;
+- referências consolidadas da journal version: `paper/references_paper1_journal_v1.bib`;
 - figuras vetoriais: `paper/figures/`;
 - tabelas reproduzíveis: `paper/tables/`;
-- nota de fechamento: `paper/NOTA_EDITORIAL_PREPRINT_PAPER1_2026-08-20.md`.
+- nota de fechamento do preprint: `paper/NOTA_EDITORIAL_PREPRINT_PAPER1_2026-08-20.md`.
 
 ### Paper 2: ano de 2025 completo
 
@@ -128,6 +137,17 @@ A integração SICONFI é associativa e não causal. As robustezes incluem:
 
 Com a externalização, a antiga associação positiva entre número de fornecedores e exposição Strength desaparece. Recorrência contratual permanece positiva e consistente nos modelos de exposição externa, mas é frágil nos modelos de concentração local.
 
+## Journal Version V1: alterações editoriais
+
+A versão para periódico implementa quatro ajustes sem recalcular a base ou alterar a metodologia:
+
+1. reforço explícito no título, resumo e abstract de que a contribuição está na integração entre concentração local, exposição LOO, discordância e stress testing;
+2. ampliação do lastro teórico com literatura consolidada sobre dependência de recursos, complexidade da base de fornecedores, redes, disrupção e resiliência;
+3. condensação de ressalvas repetitivas, concentrando limites interpretativos em métodos, discussão e limitações;
+4. padronização de correlações e coeficientes em quatro casas decimais e percentuais em duas casas, inclusive nas figuras específicas da journal version.
+
+A versão editorial em Word/PDF possui 12 páginas e passou por inspeção visual, auditoria de acessibilidade e preflight de PDF.
+
 ## Reprodutibilidade
 
 Scripts principais:
@@ -168,4 +188,4 @@ Os novos resultados possuem `log_execucao.txt` versionado junto às saídas corr
 
 ## Estado atual
 
-O Paper 1 está fechado editorialmente como `PAPER1_JAN_JUN_2025_PREPRINT_V1.md`, com revisão bibliográfica ampliada, referências normalizadas, quatro figuras vetoriais e cinco tabelas reproduzíveis. O Paper 2 permanece aberto e não deve receber resultados anuais antes da conclusão de janeiro-dezembro e da captura tardia de 2026.
+O Paper 1 possui duas versões editoriais deliberadamente separadas: `PAPER1_JAN_JUN_2025_PREPRINT_V1.md`, preservado para circulação e precedência, e `PAPER1_JOURNAL_VERSION_V1.md`, preparada para futura submissão a periódico. A Journal Version V1 amplia a literatura consolidada e enxuga a redação, sem alterar qualquer resultado auditado. O Paper 2 permanece aberto e não deve receber resultados anuais antes da conclusão de janeiro-dezembro e da captura tardia de 2026.

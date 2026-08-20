@@ -31,13 +31,35 @@ jobs:
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: pip install -r requirements.txt
 
-      - name: Run structural robustness
+      - name: Run structural robustness and persist log
+        shell: bash
         working-directory: research/dependencia-fornecedores-compras-publicas
-        run: python scripts/robustez_estrutural_generica.py --month 6
+        run: |
+          set -o pipefail
+          mkdir -p results/robustez_estrutural_2025_06
+          {
+            echo "workflow=robustez-paper1-jan-jun-2025"
+            echo "run_id=${GITHUB_RUN_ID}"
+            echo "run_attempt=${GITHUB_RUN_ATTEMPT}"
+            echo "head_sha=${GITHUB_SHA}"
+            echo "executed_at_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            python scripts/robustez_estrutural_generica.py --month 6
+          } 2>&1 | tee results/robustez_estrutural_2025_06/log_execucao.txt
 
-      - name: Run municipality-model robustness
+      - name: Run municipality-model robustness and persist log
+        shell: bash
         working-directory: research/dependencia-fornecedores-compras-publicas
-        run: python scripts/robustez_modelos_municipio_generica.py --month 6
+        run: |
+          set -o pipefail
+          mkdir -p results/robustez_modelos_municipio_2025_06
+          {
+            echo "workflow=robustez-paper1-jan-jun-2025"
+            echo "run_id=${GITHUB_RUN_ID}"
+            echo "run_attempt=${GITHUB_RUN_ATTEMPT}"
+            echo "head_sha=${GITHUB_SHA}"
+            echo "executed_at_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            python scripts/robustez_modelos_municipio_generica.py --month 6
+          } 2>&1 | tee results/robustez_modelos_municipio_2025_06/log_execucao.txt
 
       - name: Show structural summary
         working-directory: research/dependencia-fornecedores-compras-publicas
@@ -47,7 +69,7 @@ jobs:
         working-directory: research/dependencia-fornecedores-compras-publicas
         run: cat results/robustez_modelos_municipio_2025_06/resumo_robustez_modelos.json
 
-      - name: Commit outputs
+      - name: Commit outputs and execution logs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -57,7 +79,7 @@ jobs:
           if git diff --cached --quiet; then
             echo 'No generated changes.'
           else
-            git commit -m 'Calcula robustezes estruturais e municipais do Paper 1 [skip ci]'
+            git commit -m 'Calcula robustezes e versiona logs do Paper 1 [skip ci]'
             git pull --rebase origin "${{ github.ref_name }}"
             git push origin HEAD:"${{ github.ref_name }}"
           fi

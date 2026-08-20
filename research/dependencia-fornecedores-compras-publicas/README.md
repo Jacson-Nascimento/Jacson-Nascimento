@@ -1,39 +1,39 @@
 # Dependência de Fornecedores e Compras Públicas
 
-Projeto de pesquisa quantitativa sobre concentração da carteira de fornecedores, recorrência contratual e vulnerabilidade estrutural nas redes brasileiras de contratação pública municipal.
+Projeto de pesquisa quantitativa sobre concentração da carteira de fornecedores, exposição externa em rede, recorrência contratual e vulnerabilidade estrutural nas compras públicas municipais.
 
-## Pergunta central do projeto
+## Pergunta central
 
-Em que medida compradores públicos municipais concentram valor e frequência de contratação em poucos fornecedores, e quanto a estrutura da rede comprador-fornecedor revela exposições que não aparecem nas medidas locais de concentração da carteira?
+Em que medida compradores públicos municipais concentram valor e frequência de contratação em poucos fornecedores, e quanto a posição externa desses fornecedores revela exposições que não aparecem nas medidas locais de concentração da carteira?
 
 ## Estratégia de publicação
 
-O projeto passa a ter dois papers complementares, com perguntas e contribuições distintas.
+O projeto possui dois papers complementares, com perguntas e contribuições distintas.
 
 ### Paper 1: janeiro a junho de 2025
 
-**Dependência Estrutural de Fornecedores nas Compras Públicas Municipais: Concentração da Carteira, Exposição em Rede e Vulnerabilidade a Choques**
+**Dependência Estrutural de Fornecedores nas Compras Públicas Municipais: Concentração da Carteira, Exposição Externa em Rede e Testes de Estresse**
 
-Objetivo: propor e validar inicialmente o framework de mensuração combinando concentração local da carteira, centralidade global de fornecedores, exposição estrutural, discordância entre HHI e exposição, stress tests e persistência longitudinal.
+Objetivo: propor e validar o framework de mensuração combinando concentração local da carteira, exposição externa leave-one-buyer-out, discordância entre HHI e exposição, stress tests e persistência longitudinal.
 
-Arquivo de trabalho: `paper/PAPER1_JAN_JUN_2025_V1.md`.
+Manuscrito principal: `paper/PAPER1_JAN_JUN_2025_V3.md`.
 
 ### Paper 2: ano de 2025 completo
 
 **Persistência Temporal da Dependência Estrutural de Fornecedores nas Compras Públicas Municipais: Evidência Anual, Redes e Testes de Estresse**
 
-Objetivo: testar a estabilidade temporal do framework ao longo de janeiro-dezembro, decompor efeito de composição, avaliar estabilidade dos stress tests e dos modelos associativos e medir a sensibilidade à captura tardia de instrumentos assinados em 2025 e publicados em 2026.
+Objetivo: testar a estabilidade temporal do framework ao longo de janeiro-dezembro, decompor efeito de composição, avaliar estabilidade dos stress tests e das associações fiscais e medir a sensibilidade à captura tardia de instrumentos assinados em 2025 e publicados em 2026.
 
-Arquivo de trabalho: `paper/PAPER2_ANUAL_2025_V1.md`.
+Especificação anual atual: `paper/PAPER2_ANUAL_2025_V2.md`.
 
-O Paper 2 deve citar o Paper 1 e evitar repetição integral de texto, tabelas e contribuição, preservando apenas as definições matemáticas indispensáveis.
+O Paper 2 deve citar o Paper 1 e evitar repetição integral de texto, tabelas e contribuição. Sua contribuição própria é longitudinal e de validação anual.
 
 ## Fontes principais
 
 - PNCP: instrumentos, fornecedores, órgãos, unidades, valores, datas e contratações de origem.
 - SICONFI/DCA: controles fiscais e contábeis municipais.
 - IBGE: população e características econômicas municipais.
-- Receita Federal/CNPJ: características cadastrais de fornecedores pessoa jurídica, como enriquecimento posterior.
+- Receita Federal/CNPJ: características cadastrais de fornecedores PJ, como enriquecimento posterior.
 
 ## Estrutura
 
@@ -41,67 +41,146 @@ O Paper 2 deve citar o Paper 1 e evitar repetição integral de texto, tabelas e
 - `data/processed/`: bases analíticas minimizadas.
 - `scripts/`: coleta, limpeza, diagnóstico, cálculos e robustezes.
 - `docs/`: metodologia, dicionário de variáveis e registros técnicos.
-- `results/`: tabelas, métricas e saídas analíticas.
+- `results/`: tabelas, métricas, logs e saídas analíticas.
 - `paper/`: materiais dos dois artigos.
 
 ## Unidade principal de análise
 
 `comprador institucional (CNPJ) × fornecedor × ano`
 
-O município é dimensão territorial e fonte de controles. Categorias administrativas do PNCP são usadas para composição e análises secundárias, não presumidas como mercados econômicos.
+O município é dimensão territorial e fonte de controles. Categorias administrativas do PNCP são utilizadas para composição e análises secundárias, não presumidas como mercados econômicos.
 
-O escopo empírico principal atualmente corresponde a órgãos do Poder Executivo municipal observados no PNCP segundo os filtros documentados. Por isso, os títulos e conclusões dos papers utilizam explicitamente o termo **compras públicas municipais**, evitando generalização para todo o universo da contratação pública brasileira.
+O escopo empírico principal corresponde a órgãos do Poder Executivo municipal observados no PNCP segundo os filtros documentados. Por isso, títulos e conclusões usam explicitamente o termo **compras públicas municipais**.
 
-## Resultados principais
+## Distinção conceitual central
 
-- `PortfolioHHI`: concentração monetária da carteira de fornecedores.
-- `PortfolioCR1` e `PortfolioCR4`.
-- número efetivo de fornecedores.
-- `CountHHI`: concentração da frequência de instrumentos por fornecedor.
-- divergência entre concentração monetária e frequência contratual.
-- Degree, Strength e Reach dos fornecedores.
-- exposição dos compradores a fornecedores centrais.
-- discordância entre HHI e exposição estrutural.
-- simulações de remoção direcionada e aleatória.
-- persistência longitudinal dos rankings e classificações.
+A robustez leave-one-buyer-out mostrou que duas funções do Strength devem ser separadas.
 
-## Robustezes estruturais adicionadas
+### Importância sistêmica do fornecedor
 
-As novas robustezes não alteram a especificação principal congelada. São testes separados para reduzir objeções de mensuração:
+`Strength_j = sum_b(V_bj)`
 
-- **leave-one-buyer-out** de Strength e Degree, retirando do ranking global a contribuição do próprio comprador;
-- gap de percentis entre exposição e HHI;
-- resíduo da exposição após HHI normalizado;
-- remoções aleatórias ponderadas por Strength;
-- stress test com massa sistêmica de Strength aproximadamente equivalente à do ataque direcionado;
-- regressões com peso `1/N_m` para equalizar o peso municipal;
-- especificação agregada ao município;
-- CR1 e CR4 como outcomes alternativos ao HHI normalizado.
+O Strength global bruto mede massa monetária sistêmica observada e permanece o ranking principal dos testes de estresse.
 
-Scripts:
+### Exposição externa do comprador
+
+Para comprador `b`:
+
+`Strength_j^(-b) = Strength_j - V_bj`
+
+`Degree_j^(-b) = Degree_j - I(V_bj > 0)`
+
+Strength LOO é a medida preferencial de exposição externa. Degree LOO é complementar.
+
+A exposição Strength bruta permanece apenas para comparabilidade histórica, porque a robustez mostrou forte componente de auto-inclusão do próprio comprador.
+
+## Resultados estruturais do Paper 1
+
+Na amostra de 1.347 compradores elegíveis:
+
+- correlação entre exposição Strength bruta e Strength LOO: `rho = 0,2647`;
+- correlação entre Degree bruto e Degree LOO: `rho = 0,9821`;
+- correlação entre Strength LOO e Degree LOO: `rho = 0,9500`;
+- HHI normalizado x Strength LOO: `rho = -0,0183`;
+- HHI normalizado x Degree LOO: `rho = -0,0763`.
+
+A classificação passa a ser denominada **discordância concentração-exposição** ou **exposição externa não capturada pelo HHI**.
+
+- Strength LOO: 221 compradores, 16,41%;
+- Degree LOO: 237 compradores, 17,59%;
+- sobreposição entre as classificações LOO: 89,14%.
+
+O benchmark mecânico sob independência dos cortes Q75 é 18,75%. Os percentuais não devem ser apresentados como prevalência anormal.
+
+## Persistência longitudinal LOO
+
+Abril para maio:
+
+- `rho` Strength LOO: 0,8962;
+- `rho` Degree LOO: 0,9091;
+- retenção da discordância: 85,96% e 87,57%.
+
+Maio para junho:
+
+- `rho` Strength LOO: 0,9266;
+- `rho` Degree LOO: 0,9416;
+- retenção da discordância: 90,40% e 90,61%.
+
+A persistência é interpretada como estabilidade de screening, não permanência causal de risco.
+
+## Stress tests
+
+O ranking principal de choque permanece o Strength bruto.
+
+Além das remoções aleatórias uniformes históricas, foi adicionado contrafactual de igual número de fornecedores com probabilidade de seleção proporcional ao Strength.
+
+Para perda de pelo menos 50% da carteira:
+
+- top 1% direcionado: 8,91%, contra 5,46% no aleatório ponderado;
+- top 5%: 34,15%, contra 22,88%;
+- top 10%: 48,26%, contra 38,52%.
+
+Os top 1%, 5% e 10% concentram 57,56%, 79,47% e 87,41% da massa total de Strength observada.
+
+O procedimento que remove número variável de fornecedores até atingir massa semelhante de Strength é apenas um **diagnóstico de concentração sistêmica**. Não deve ser usado como contrafactual de superioridade do ataque direcionado.
+
+## Robustez econométrica
+
+Os modelos SICONFI são complementares e associativos.
+
+Robustezes adicionais:
+
+- WLS com peso `1/N_m`, equalizando o peso municipal;
+- modelo agregado ao município;
+- CR1 e CR4 como outcomes alternativos ao HHI normalizado;
+- Strength LOO e Degree LOO como outcomes preferenciais de exposição externa.
+
+O número de fornecedores é tratado como controle estrutural, pois possui relação matemática com medidas de concentração.
+
+Com as medidas LOO, a antiga associação positiva entre número de fornecedores e exposição Strength desaparece. Recorrência contratual, em contraste, permanece positiva e consistente nos modelos de exposição externa, mas não apresenta a mesma robustez para concentração local.
+
+Nenhuma associação recebe interpretação causal.
+
+## Scripts de robustez e persistência
 
 - `scripts/robustez_estrutural_generica.py`
 - `scripts/robustez_modelos_municipio_generica.py`
+- `scripts/calcular_exposicao_loo_generica.py`
+- `scripts/diagnosticos_longitudinais_loo_jan_jun_2025.py`
+
+## Resultados e logs auditáveis
+
+- `results/robustez_estrutural_2025_06/`
+- `results/robustez_modelos_municipio_2025_06/`
+- `results/exposicao_loo_2025_04/`
+- `results/exposicao_loo_2025_05/`
+- `results/exposicao_loo_2025_06/`
+- `results/diagnosticos_longitudinais_loo_jan_jun_2025/`
+
+Os workflows persistem `log_execucao.txt` junto aos resultados para permitir auditoria dos novos números.
 
 ## Compras compartilhadas
 
-O projeto distingue o CNPJ do órgão/entidade do instrumento do CNPJ da contratação de origem. A participação de instrumentos originados por outra entidade será medida por `SharedProcurementShare`, sem presunção de irregularidade.
+O projeto distingue o CNPJ do órgão ou entidade do instrumento do CNPJ da contratação de origem. A participação de instrumentos originados por outra entidade é medida sem presunção de irregularidade.
 
 ## Mercado relevante
 
-Os probes de itens do PNCP não forneceram, na amostra testada, taxonomia suficientemente granular para tratar a categoria geral `Compras` como mercado econômico. Por isso, o resultado principal é concentração da **carteira de fornecedores**, não concentração antitruste de mercado. Análises setoriais só serão realizadas quando houver classificação econômica defensável.
+Os probes de itens do PNCP não forneceram taxonomia suficientemente granular para tratar a categoria geral `Compras` como mercado econômico. O resultado principal é concentração da **carteira de fornecedores**, não concentração antitruste de mercado.
 
 ## Privacidade
 
 O repositório é público. Bases identificadas publicadas contêm somente fornecedores pessoa jurídica. Registros de pessoa física não terão CPF ou nome republicados. Cópias integrais de pesquisa permanecem em armazenamento privado.
 
-## Regra de interpretação
+## Regras de interpretação
 
-Concentração, recorrência, persistência e centralidade descrevem dependência e exposição estrutural. Não constituem, isoladamente, evidência de fraude, favorecimento, poder de mercado ou interrupção efetiva de serviços.
+- HHI, recorrência, persistência e centralidade não implicam fraude ou favorecimento.
+- centralidade não mede probabilidade de falha ou substituibilidade técnica.
+- stress tests são cenários mecânicos de perda de carteira.
+- modelos econométricos são associativos.
+- ausência mensal de município não implica falha de reporte.
+- janeiro-M não representa o ano completo.
 
-Os modelos SICONFI são associativos e ocupam papel complementar. Não devem receber interpretação causal. O número de fornecedores é tratado como controle estrutural, pois possui relação matemática com medidas de concentração.
-
-## Regra temporal
+## Regra temporal anual
 
 - coleta por data de publicação no PNCP;
 - período econômico anual: instrumentos assinados de 01/01/2025 a 31/12/2025;
@@ -111,4 +190,4 @@ Os modelos SICONFI são associativos e ocupam papel complementar. Não devem rec
 
 ## Estado atual
 
-O Paper 1 utiliza a evidência consolidada janeiro-junho. Julho já foi validado e integra a trilha longitudinal do Paper 2. A coleta dos meses restantes de 2025 continua sem mudança da metodologia principal.
+O Paper 1 está estruturado na versão V3 com as robustezes LOO e a persistência abril-junho recalculadas. Julho já foi validado e integra a trilha longitudinal do Paper 2. A coleta dos meses restantes de 2025 continua sem mudança da metodologia de coleta principal.

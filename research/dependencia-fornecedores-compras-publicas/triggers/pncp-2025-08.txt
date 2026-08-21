@@ -1,0 +1,4 @@
+Executar rotina mensal genérica PNCP para agosto de 2025.
+Mes: 08
+Ano: 2025
+Especificacao: congelada conforme rotina validada agosto-dezembro.

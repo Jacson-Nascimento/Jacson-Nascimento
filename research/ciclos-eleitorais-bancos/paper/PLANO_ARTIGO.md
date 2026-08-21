@@ -1,183 +1,236 @@
 # Plano de artigo derivado da dissertação
 
-## Status em 21/08/2026
+Status: versão revisada após auditoria de reprodutibilidade e efeitos marginais.
 
-O desenho inicialmente preferido, centrado na heterogeneidade simples entre bancos públicos e privados durante anos eleitorais, **não recebeu apoio nos primeiros testes two-way fixed effects**. Por isso, o projeto não fixará ainda uma narrativa de artigo.
+## Título provisório preferencial
 
-A prioridade passa a ser reproduzir integralmente a dissertação e testar se o efeito agregado de eleição geral sobre ROA resiste a uma estratégia de inferência temporal mais exigente.
-
-## Título de trabalho provisório
-
-**Ciclos Eleitorais e Rentabilidade Bancária no Brasil: Reavaliação com Dados Trimestrais, 2000-2023**
+**Ciclos Eleitorais e Rentabilidade Bancária no Brasil: Uma Reavaliação dos Efeitos, do Timing e da Inferência**
 
 Título em inglês:
 
-**Electoral Cycles and Bank Profitability in Brazil: A Reassessment Using Quarterly Data, 2000-2023**
+**Electoral Cycles and Bank Profitability in Brazil: Reassessing Effects, Timing, and Inference**
 
-O título será alterado se os testes mostrarem que outro mecanismo oferece uma pergunta mais forte.
+## Pergunta central
 
-## Pergunta central provisória
+A associação positiva entre eleições gerais e ROA encontrada na dissertação permanece quando:
 
-A associação positiva entre eleições gerais e ROA identificada na dissertação permanece quando a dimensão temporal, os placebos e a dependência dos erros são tratados de forma mais rigorosa?
+1. a base e os modelos são reproduzidos de forma rastreável;
+2. os termos de interação são interpretados por efeitos marginais, e não apenas pelo coeficiente principal da dummy;
+3. a eleição é localizada no trimestre efetivo;
+4. sazonalidade e dinâmica temporal são tratadas explicitamente;
+5. a inferência considera que o choque eleitoral é comum a todos os bancos no mesmo período?
 
-## Problema de identificação
+## Motivação empírica
 
-As dummies de eleição geral e municipal são comuns a todos os bancos em determinado trimestre/ano. Isso implica que:
+A reprodução confirmou o coeficiente condicional de `dummy_EG` no modelo original de ROA. Entretanto, o modelo também inclui interações de `dummy_EG` com DPCDL, endividamento e tipo de controle.
 
-1. o painel possui muitas observações banco-trimestre, mas o tratamento eleitoral varia apenas no tempo;
-2. efeitos fixos completos de trimestre absorvem o efeito principal das eleições;
-3. uma regressão com apenas efeitos fixos de banco pode atribuir à eleição outros choques nacionais ocorridos nos mesmos anos;
-4. a inferência não deve tratar as 3.072 observações como 3.072 variações independentes do tratamento eleitoral.
+Assim, o coeficiente principal de `dummy_EG` não é o efeito médio da eleição. O efeito marginal correto varia com características observadas do banco.
 
-Esse ponto deve ser enfrentado diretamente no paper, e não escondido por uma especificação mais conveniente.
+Na amostra completa:
 
-## Evidência inicial a explicar
+- coeficiente condicional estático de `dummy_EG`: aproximadamente `0,02838`, p `0,0337`;
+- efeito marginal médio estático: aproximadamente `0,00107`, p `0,1135`;
+- efeito marginal médio dinâmico: aproximadamente `0,00095`, p `0,1349`.
 
-Na reconstrução aproximada da especificação original:
+Essa divergência cria a contribuição central do novo artigo: separar coeficiente condicional, efeito marginal médio e dinâmica temporal.
 
-- eleição geral permanece associada positivamente ao ROA, com coeficiente próximo de 0,02838;
-- eleição municipal não apresenta o mesmo padrão;
-- ROE não confirma resultado agregado equivalente.
+## Contribuições propostas
 
-Na especificação com efeitos fixos de banco e de trimestre:
+### 1. Reprodutibilidade
 
-- as interações `Público x Eleição Geral` e `Público x Eleição Municipal` não são estatisticamente significativas para ROA ou ROE;
-- uma triagem de mecanismos também não mostrou heterogeneidade público x privado forte.
+Reconstruir integralmente a cadeia `base -> especificação -> coeficientes -> inferência`, identificando a V13 como base arquivística efetivamente compatível com as tabelas finais.
 
-Portanto, a heterogeneidade por controle passa a ser robustez secundária.
+### 2. Interpretação de modelos interagidos
 
-## Estratégia empírica a desenvolver
+Mostrar que a interpretação econômica de uma dummy eleitoral em presença de interações exige combinações lineares e efeitos marginais no suporte da amostra.
 
-### Etapa 1 - reprodução histórica
+### 3. Timing
 
-Reproduzir exatamente as tabelas da dissertação com:
+Substituir a dummy anual, usada durante os quatro trimestres do ano eleitoral, por indicadores associados ao trimestre efetivo da eleição e por tempo relativo ao evento.
 
-- V11;
-- V12;
-- V13;
-- scripts originais;
-- erros-padrão originais.
+### 4. Inferência temporal
 
-Objetivo: estabelecer qual combinação `base + script` gerou cada tabela publicada.
+Comparar erros-padrão por banco, tempo, two-way e Driscoll-Kraay, além de diagnósticos de calendário e leave-one-election-out.
 
-### Etapa 2 - baseline reavaliado
+## Hipóteses de trabalho
 
-Manter efeitos fixos de banco e controles bancários, mas tratar explicitamente a baixa dimensão temporal efetiva do tratamento.
+As hipóteses abaixo são perguntas testáveis, não conclusões pré-definidas.
 
-Alternativas de inferência a comparar:
+### H1
 
-- Driscoll-Kraay;
-- erros agrupados adequadamente à estrutura do painel, quando identificáveis;
-- bootstrap temporal por blocos, se tecnicamente justificável;
-- randomization/permutation inference sobre a posição dos anos eleitorais.
+O efeito marginal médio de eleição geral sobre ROA é diferente de zero após considerar as interações do modelo.
 
-A escolha final deverá ser justificada, não selecionada pelo menor p-valor.
+### H2
 
-### Etapa 3 - estudo de evento temporal
+Existe dinâmica diferenciada de ROA nos trimestres imediatamente anteriores e posteriores às eleições gerais, além da sazonalidade típica do quarto trimestre.
 
-Recodificar o evento pelo trimestre efetivo das eleições, em vez de marcar os quatro trimestres do ano eleitoral como equivalentes.
+### H3
+
+Os resultados não são explicados por uma única eleição específica.
+
+### H4
+
+Se houver associação eleitoral, mecanismos bancários como provisões, spread ou crédito apresentam dinâmica temporal coerente com o resultado de rentabilidade.
+
+## Base
+
+Referência arquivística:
+
+`dataset_290624_13.csv`
+
+SHA-256:
+
+`058d0af9323925a8e82a0c532f247649ad72ffbf8a9968d6f8002eb387e4965f`
+
+Painel:
+
+- 32 bancos;
+- 96 trimestres;
+- 2000T1 a 2023T4;
+- 3.072 observações na especificação estática;
+- 3.040 observações efetivas no modelo dinâmico de período completo.
+
+Para o artigo será criada base canônica derivada, preservando `ROA_arquivistico` e usando:
+
+`ROA = ROA_arquivistico - 1`
+
+A correção de nível não altera as estimações within reproduzidas, mas corrige a interpretação e as estatísticas descritivas.
+
+## Estratégia empírica
+
+### Bloco 1 - replicação
+
+Reproduzir os modelos estático e dinâmico da dissertação com V13.
+
+Objetivo: estabelecer benchmark auditável, não tratá-lo automaticamente como modelo preferencial.
+
+### Bloco 2 - efeitos marginais
+
+Para o modelo com interações:
+
+```text
+ME_it(EG) = beta_EG
+          + beta_DPCDLxEG * DPCDL_it
+          + beta_IENDxEG  * IEND_it
+          + beta_PUBLICxEG * PUBLIC_i
+```
+
+Reportar:
+
+- efeito marginal médio;
+- intervalo de confiança;
+- efeitos por tipo de controle;
+- distribuição dos efeitos individuais implícitos;
+- suporte das covariáveis usadas para interpretar o coeficiente principal.
+
+### Bloco 3 - recodificação do evento
+
+Criar indicador de eleição geral no trimestre efetivo, T4 nos ciclos 2002, 2006, 2010, 2014, 2018 e 2022.
+
+A especificação simples, sem interações eleitorais, será usada como benchmark interpretável.
+
+### Bloco 4 - event study
 
 Janela inicial:
 
-```text
-k = -4, -3, -2, -1, 0, +1, +2, +3, +4
-```
+`k = -4,...,+4`
 
-onde `k=0` é o trimestre da eleição e `k=-1` poderá ser a referência.
+Referência:
 
-Objetivos:
+`k = -1`
 
-1. verificar se o padrão aparece antes da eleição;
-2. identificar se a associação está concentrada no trimestre eleitoral ou pós-eleitoral;
-3. comparar eleições gerais e municipais;
-4. verificar estabilidade entre os seis ciclos gerais observados.
+Como todas as instituições recebem o mesmo choque eleitoral nacional, o event study será apresentado como análise de dinâmica temporal associativa, não como desenho clássico de tratamento versus controle.
 
-### Etapa 4 - placebos
+Será comparado com:
 
-Construir pseudo-eleições em anos/trimestres não eleitorais, preservando número e espaçamento aproximado dos eventos.
+- sazonalidade de trimestre do ano;
+- tendências temporais;
+- médias setoriais agregadas por trimestre;
+- ciclos individuais.
 
-Pergunta:
+### Bloco 5 - inferência
 
-`O coeficiente observado para eleições reais é incomum em relação ao que obteríamos com calendários placebo?`
+Avaliar:
 
-Esse teste é central porque o tratamento eleitoral possui poucos eventos temporais.
+- HC1 cluster por banco, para reprodução;
+- cluster por trimestre;
+- two-way cluster banco e trimestre;
+- Driscoll-Kraay;
+- inferência em séries agregadas, quando apropriada;
+- leave-one-election-out.
 
-### Etapa 5 - heterogeneidade e mecanismos
+Permutações de calendário poderão ser usadas somente como diagnóstico, com ressalva explícita de que o calendário eleitoral não é aleatoriamente atribuído.
 
-Somente após o resultado agregado ser compreendido serão explorados:
+## Resultados preliminares já estabelecidos
 
-- bancos públicos versus privados;
-- bancos públicos federais versus demais bancos;
-- carteira de crédito / ativos;
-- provisões / ativos;
-- spread;
-- eficiência.
+1. V13 reproduz as tabelas finais relevantes da dissertação.
+2. O Apêndice H contém uma duplicação do ROE e não o ROA estático 2012-2023.
+3. A linha de observações dos modelos dinâmicos usa contagem pré-defasagem.
+4. O ROA arquivístico da V13 contém deslocamento de +1 frente à definição contábil.
+5. O coeficiente condicional eleitoral é estável a várias matrizes de covariância e ao leave-one-election-out.
+6. O efeito marginal médio eleitoral é muito menor e não significativo a 5% nas especificações já avaliadas.
+7. O quarto trimestre apresenta sazonalidade positiva relevante mesmo fora de anos eleitorais.
+8. A dummy restrita ao trimestre efetivo da eleição, sem interações eleitorais, não apresenta efeito significativo nos primeiros testes.
 
-Não será construída narrativa de mecanismo a partir de significância isolada.
+## Mecanismos
 
-## Outcomes
+Somente serão desenvolvidos se houver fundamento empírico após o event study.
 
-### Principais
+Candidatos:
 
-- ROA
-- ROE
-
-### Secundários
-
-- MCAT, após confirmar definição e construção;
 - despesa de provisão sobre ativos;
-- spread bancário;
+- spread;
+- carteira de crédito sobre ativos;
 - eficiência;
 - endividamento.
 
-## Robustezes previstas
+Antes disso, as fórmulas de DPCDL, MCAT, spread, CAPAT e CCAT devem ser reconciliadas com as fontes/rubricas de origem.
 
-- comparação V11/V12/V13;
-- 2000-2023 versus 2012-2023;
-- eleições gerais e municipais separadamente;
-- trimestre eleitoral versus ano eleitoral;
-- análise por ciclo individual;
-- Driscoll-Kraay e alternativas de inferência temporal;
-- placebos e permutation inference;
-- winsorização somente com regra pré-definida;
-- modelos dinâmicos como robustez, com discussão do viés de Nickell;
-- interação público x eleição como resultado secundário.
+## Estrutura prevista do paper
 
-## Pontos que não serão afirmados sem evidência adicional
+1. Introdução
+2. Contexto institucional e ciclos eleitorais no Brasil
+3. Literatura
+4. Dados e reconstrução da base
+5. Estratégia empírica
+6. Replicação do resultado original
+7. Efeitos marginais e interpretação das interações
+8. Timing eleitoral e event study
+9. Robustez e inferência
+10. Discussão
+11. Conclusão
+12. Apêndice de reprodutibilidade
+
+## Regra de interpretação
+
+O artigo não deve afirmar, sem evidência adicional:
 
 - causalidade eleitoral;
 - manipulação política de crédito;
-- gerenciamento de resultados;
 - interferência política direta;
-- fraude ou irregularidade.
+- gerenciamento de resultados;
+- efeito médio a partir de um coeficiente principal de dummy que participe de interações.
 
-## Critério de decisão do artigo
+## Critério para decidir a narrativa final
 
-Após a reprodução e os testes temporais:
+### Cenário A
 
-### Se o efeito geral sobre ROA sobreviver
+Event study, efeitos marginais e robustez sustentam padrão eleitoral consistente.
 
-O artigo será uma reavaliação fortalecida da evidência de ciclo eleitoral na rentabilidade bancária.
+Narrativa: evidência revisada e mais bem identificada de associação entre eleições e rentabilidade bancária.
 
-### Se o efeito desaparecer
+### Cenário B
 
-O resultado pode sustentar um artigo de reassessment mostrando que a conclusão original era sensível ao tratamento da dimensão temporal e da inferência.
+O coeficiente condicional permanece, mas efeitos marginais e timing não sustentam efeito economicamente relevante.
 
-### Se surgir mecanismo consistente
+Narrativa: reassessment da evidência, mostrando como interpretação de interações e estrutura temporal alteram a conclusão.
 
-O paper poderá ser reorientado para esse mecanismo, desde que a hipótese seja economicamente justificável e validada em diferentes ciclos.
+### Cenário C
 
-## Sequência de trabalho
+Surge mecanismo específico e consistente.
 
-1. reproduzir a dissertação;
-2. fechar base canônica;
-3. reconciliar tabela publicada x script x base;
-4. confirmar dicionário de variáveis;
-5. estimar inferência robusta ao tempo;
-6. executar event study;
-7. executar placebos/permutation inference;
-8. avaliar mecanismos e heterogeneidade;
-9. atualizar literatura;
-10. definir a pergunta final do paper;
-11. redigir versão journal;
-12. preparar pacote reprodutível GitHub/Zenodo.
+Narrativa: reorientar o paper para o mecanismo, mantendo a replicação como ponto de partida.
+
+## Próxima etapa
+
+Executar o event study e validar as fórmulas das variáveis de mecanismo antes da redação da versão journal.

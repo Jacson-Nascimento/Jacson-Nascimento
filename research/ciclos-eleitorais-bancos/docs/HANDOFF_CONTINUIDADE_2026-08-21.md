@@ -26,93 +26,191 @@ PR de trabalho:
 
 Transformar a dissertação de mestrado sobre eleições e desempenho bancário em uma linha de pesquisa reprodutível e definir, a partir dos resultados reestimados, o artigo científico derivado mais defensável.
 
-## Estado confirmado
+## Estado confirmado da base
 
 1. A versão textual final da dissertação é a versão de 21/09/2024.
-2. O acervo do Drive contém bases brutas, Power BI, bases analíticas, scripts R, literatura, qualificação, defesa e versões históricas.
-3. As bases `dataset_290624_11.csv`, `_12.csv` e `_13.csv` foram recuperadas e auditadas.
-4. Todas possuem 3.072 linhas, 32 bancos, 96 trimestres, zero duplicidades banco-data e zero NA.
-5. V11 e V12 diferem apenas em `taxa_selic_`.
-6. V12 e V13 diferem apenas em `Taxa_IPCA`.
-7. A Selic da V12/V13 foi reconciliada com `TB_selic_4390_acum_mes_trim.xlsx`: taxa trimestral composta a partir da série mensal 4390.
-8. A V13 converte IPCA de percentual para proporção decimal.
-9. O script `if_ols_estatico_2.R` usa V11.
-10. O script `if_ols_dinamico_2.R` usa V13.
-11. O arquivo `if_ols_estatico.R` modificado em 06/08/2024 também usa V11.
-12. O `.Rhistory` de 06/08/2024 confirma execução dos scripts finais estático e dinâmico.
-13. A reconstrução preliminar do modelo original encontra eleição geral positiva para ROA, próxima de 0,02838.
-14. O coeficiente publicado `2,837812e-02` é numericamente compatível com a reconstrução V12/V13, apesar de o script estático arquivado apontar para V11. Isso precisa de reconciliação exata em R.
-15. O primeiro teste two-way fixed effects não encontrou heterogeneidade simples estatisticamente forte entre bancos públicos e privados para ROA, ROE ou mecanismos avaliados.
+2. As bases `dataset_290624_11.csv`, `_12.csv` e `_13.csv` possuem 3.072 linhas, 32 bancos e 96 trimestres, sem duplicidades banco-data e sem valores ausentes.
+3. V11 -> V12 altera somente `taxa_selic_`.
+4. A Selic de V12/V13 foi reconciliada com `TB_selic_4390_acum_mes_trim.xlsx`: taxa trimestral composta a partir da série mensal Bacen 4390.
+5. V12 -> V13 altera somente `Taxa_IPCA`, convertendo percentual para proporção decimal.
+6. A V13, SHA-256 `058d0af9323925a8e82a0c532f247649ad72ffbf8a9968d6f8002eb387e4965f`, é a base arquivística que reproduz as tabelas finais da dissertação.
+7. O script estático arquivado aponta para V11, mas os coeficientes finais publicados, especialmente a escala do IPCA, identificam inequivocamente V13 como a base efetivamente usada nas tabelas finais.
 
-## Risco metodológico identificado
+## Reconciliação das tabelas fechada
 
-A dissertação não possui um único pipeline final plenamente consistente porque os modelos estático e dinâmico usam versões diferentes da base.
+A reprodução independente por transformação within e covariância HC1 clusterizada por banco reproduz os Apêndices D, E, F, G, J e K até o arredondamento impresso.
 
-Além disso:
+Achados:
 
-- dummies eleitorais são choques comuns no tempo;
-- efeitos fixos completos de trimestre absorvem o efeito principal dessas dummies;
-- o efeito agregado de eleição sem efeitos fixos completos de tempo é vulnerável a confundimento por choques macroeconômicos simultâneos;
-- a quantidade efetiva de variação do tratamento eleitoral é temporal, muito menor que as 3.072 observações banco-trimestre;
-- interações `eleição x banco público` permanecem identificáveis com efeitos fixos de banco e trimestre, mas o teste inicial foi nulo;
-- o modelo dinâmico within com variável dependente defasada exige discussão de viés de Nickell;
-- GMM não deve ser adotado automaticamente porque o painel possui N=32 e T=96.
+- Apêndice D: ROA estático 2000-2023, V13.
+- Apêndice E: ROE estático 2000-2023, V13.
+- Apêndice F: ROA dinâmico 2000-2023, V13.
+- Apêndice G: ROE dinâmico 2000-2023, V13.
+- Apêndice H: rotulado ROA estático 2012-2023, mas contém uma cópia integral do ROE.
+- Apêndice I: ROE estático 2012-2023, V13 correto.
+- Apêndice J: ROA dinâmico 2012-2023, V13.
+- Apêndice K: ROE dinâmico 2012-2023, V13.
 
-## Decisão de desenho para o artigo
+O verdadeiro ROA estático 2012-2023 foi reconstruído e salvo em `results/auditoria/modelo_estatico_roa_2012_2023_corrigido.csv`.
 
-A hipótese `banco público x eleição` deixa de ser a pergunta central provisória e passa a robustez secundária.
+## Erro na contagem dos modelos dinâmicos
 
-A pergunta prioritária agora é:
+Os scripts calculam `N` antes de criar a defasagem e executar `na.omit()`.
 
-**A associação positiva entre eleições gerais e ROA identificada na dissertação permanece quando a dimensão temporal e a inferência são tratadas de forma mais rigorosa?**
+Amostras efetivas:
 
-O paper será definido somente depois de:
+- 2000-2023: 3.040 observações, 32 bancos x 95 trimestres úteis, não 3.072.
+- 2012-2023: 1.504 observações, 32 bancos x 47 trimestres úteis, não 1.536.
 
-- reprodução histórica;
-- event study por trimestre efetivo da eleição;
-- placebos de calendário;
-- permutation/randomization inference;
-- inferência adequada à dependência temporal e transversal;
-- comparação entre ciclos eleitorais.
+Os graus de liberdade publicados confirmam as amostras efetivas.
 
-## Próximos passos operacionais
+## Ajuste necessário na variável ROA
+
+A comparação com `dataset_2024_3.csv` mostrou, em 2.852 observações banco-trimestre comuns:
+
+`ROA_V13 = 1 + ROA_antigo`
+
+com erro numérico máximo em torno de `4,44e-16`.
+
+A dissertação define ROA como `Lucro Líquido / Ativo Total`. Portanto, para o novo artigo:
+
+`ROA_limpo = ROA_V13 - 1`
+
+A soma de 1 não altera os coeficientes within dos modelos publicados, mas distorce as estatísticas descritivas de nível e a interpretação literal da variável.
+
+Regra de versionamento:
+
+- V13 fica preservada como base arquivística de replicação.
+- A base canônica do artigo será derivada por script e preservará `ROA_arquivistico` para rastreabilidade.
+
+Script: `scripts/preparacao/01_construir_base_canonica.py`.
+
+## Achado econométrico central: efeito marginal
+
+A especificação original contém simultaneamente:
+
+- `dummy_EG`;
+- `DPCDL x dummy_EG`;
+- `Endividamento x dummy_EG`;
+- `TipoControle x dummy_EG`.
+
+Logo, o coeficiente isolado de `dummy_EG` não é o efeito médio de uma eleição geral.
+
+No modelo estático:
+
+- coeficiente condicional `dummy_EG`: `0,028378`, p `0,0337`;
+- efeito marginal médio de eleição, considerando as interações: `0,001069`, SE `0,000675`, p `0,1135`.
+
+No modelo dinâmico:
+
+- coeficiente condicional: `0,022566`, p `0,0340`;
+- efeito marginal médio: `0,000952`, SE `0,000637`, p `0,1349`.
+
+O coeficiente condicional corresponde ao caso DPCDL=0, endividamento=0 e banco privado. O endividamento observado não chega a zero, de modo que esse ponto de referência não representa a observação típica da amostra.
+
+Também foi confirmado erro narrativo de notação científica: `2,837812e-02` corresponde a `0,02837812`, não a `2,8378`.
+
+Conclusão: a afirmação de que eleições gerais elevam o ROA em aproximadamente `0,0284` não é uma interpretação correta do modelo com interações.
+
+## Robustez temporal já executada
+
+### Inferência alternativa
+
+O coeficiente condicional permanece positivo e significativo ou limítrofe sob:
+
+- cluster por banco;
+- cluster por trimestre;
+- two-way cluster;
+- Driscoll-Kraay com lags 4 e 8.
+
+Portanto, o principal problema identificado não é apenas a matriz de covariância.
+
+### Leave-one-election-out
+
+A retirada individual das eleições de 2002, 2006, 2010, 2014, 2018 ou 2022 não altera o sinal do coeficiente condicional. A retirada de 2006 produz p-valor de aproximadamente `0,0546`; nos demais casos, o resultado permanece próximo do limiar de 5% ou abaixo dele.
+
+### Sazonalidade
+
+Média setorial de ROA limpo por trimestre:
+
+- T1: `0,002680`;
+- T2: `0,006109`;
+- T3: `0,003280`;
+- T4: `0,007582`.
+
+A diferença média `T4-T3` é `0,004735` em anos de eleição geral e `0,004158` nos demais anos. A diferença entre esses grupos não é estatisticamente relevante no teste simples, p aproximadamente `0,630`.
+
+### Sazonalidade e tendências na regressão
+
+Com efeitos fixos de trimestre do ano e tendências linear/quadrática:
+
+- o coeficiente condicional de `dummy_EG` permanece significativo;
+- o efeito marginal médio permanece perto de `0,001` e não significativo a 5%.
+
+### Trimestre efetivo da eleição
+
+Ao recodificar eleição geral como 1 apenas no T4 dos anos 2002, 2006, 2010, 2014, 2018 e 2022, com sazonalidade e tendência:
+
+- sem interações eleitorais: efeito em ROA não significativo;
+- com interações: coeficiente condicional significativo, mas efeito marginal médio não significativo.
+
+## Placebo de calendário
+
+Foi feito diagnóstico exploratório com 20.000 calendários artificiais de seis pseudo-anos eleitorais.
+
+- frequência bilateral aproximada para coeficientes tão extremos quanto o observado: `0,064`;
+- restringindo os pseudo-anos a anos não municipais: aproximadamente `0,089`.
+
+Não tratar isso como randomization inference formal, pois o calendário eleitoral não é aleatoriamente atribuído e a hipótese de permutabilidade é discutível.
+
+## Leitura científica provisória
+
+A auditoria separou dois resultados que a dissertação tratava como se fossem um só:
+
+1. existe um coeficiente condicional positivo e reproduzível para `dummy_EG` na especificação interagida;
+2. o efeito marginal médio implícito pela mesma especificação é muito menor e não é estatisticamente significativo a 5%.
+
+A pergunta do paper deve ser reformulada para avaliar se existe uma associação eleitoral economicamente relevante e temporalmente identificável, não para simplesmente confirmar o coeficiente condicional publicado.
+
+## Arquivos de referência
+
+- `docs/RECONCILIACAO_TABELAS_2026-08-21.md`
+- `docs/ACHADO_EFEITO_MARGINAL_ELEICAO_2026-08-21.md`
+- `docs/ROBUSTEZ_TEMPORAL_PRELIMINAR_2026-08-21.md`
+- `results/auditoria/reconciliacao_bases_tabelas.csv`
+- `results/auditoria/efeitos_marginais_eleicao_geral_roa.csv`
+- `results/auditoria/inferencia_alternativa_dummy_EG_roa.csv`
+- `results/auditoria/leave_one_election_out_roa_static.csv`
+- `results/auditoria/sensibilidade_sazonalidade_ame_roa.csv`
+- `results/auditoria/evento_trimestre_eleitoral_roa.csv`
+- `scripts/auditoria/02_reproduzir_modelos.py`
+- `scripts/preparacao/01_construir_base_canonica.py`
+- `data/DICIONARIO_DADOS.md`
+
+## Próximos passos
 
 ### Etapa A - fechar base canônica
 
-A proveniência da Selic e do IPCA foi substancialmente resolvida. A V13 é a candidata preferencial.
+1. gerar a base derivada limpa a partir de V13 pelo script versionado;
+2. validar fórmulas de DPCDL, MCAT, spread, CAPAT e CCAT contra as rubricas/fontes de origem;
+3. registrar manifesto e hashes da base derivada.
 
-Restam:
+### Etapa B - event study
 
-1. localizar, se possível, o script exato que materializou V12 e V13;
-2. reproduzir as regressões em R para confirmar que a escala e a transformação não alteram resultados fora do esperado;
-3. declarar formalmente a base canônica e incorporá-la ao pacote reprodutível.
+1. construir tempo relativo à eleição geral, janela inicial `k=-4...+4`;
+2. usar T-1 como referência;
+3. explicitar que os eventos são choques nacionais comuns e que não há grupo geográfico não tratado;
+4. testar pré-padrões e pós-padrões;
+5. comparar estimativas em painel e em séries agregadas por trimestre;
+6. aplicar inferência compatível com o baixo número efetivo de eventos.
 
-### Etapa B - reproduzir a dissertação
+### Etapa C - decidir o paper
 
-1. executar modelo estático com V11, V12 e V13;
-2. executar modelo dinâmico com V11, V12 e V13;
-3. comparar coeficientes, erros-padrão e p-valores;
-4. montar matriz `tabela publicada x script x base`;
-5. identificar a origem do erro de duplicação dos apêndices H/I;
-6. registrar resultados reproduzidos sem transcrição manual.
+Caminho preferencial, sujeito ao event study:
 
-### Etapa C - testar a robustez temporal
+**reavaliação empírica da associação entre ciclos eleitorais e rentabilidade bancária no Brasil, com foco em efeitos marginais, timing e inferência.**
 
-1. recodificar o trimestre efetivo das eleições gerais e municipais;
-2. event study `k=-4...+4`;
-3. placebos temporais;
-4. permutation/randomization inference;
-5. Driscoll-Kraay e alternativas justificadas;
-6. análise por ciclo eleitoral individual.
-
-### Etapa D - definir o paper
-
-1. se o efeito de ROA sobreviver, paper de evidência fortalecida de ciclo eleitoral;
-2. se desaparecer, paper de reassessment sobre sensibilidade da evidência à dimensão temporal;
-3. se surgir mecanismo consistente, reorientar para o mecanismo;
-4. atualizar literatura;
-5. redigir journal version;
-6. pacote reprodutível GitHub/Zenodo.
+Se aparecer dinâmica temporal consistente e economicamente relevante, o paper poderá sustentar evidência de ciclo eleitoral. Se não aparecer, o resultado será um reassessment da evidência original e das consequências de interpretação de modelos interagidos.
 
 ## Regra de continuidade
 

@@ -1,0 +1,68 @@
+name: Robustez CNPJ raiz Paper 1
+
+on:
+  push:
+    branches:
+      - research/dois-papers-robustez-2025
+    paths:
+      - '.github/workflows/robustez-cnpj-raiz-paper1.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/scripts/robustez_cnpj_raiz_paper1.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cnpj-root-robustness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+
+      - name: Run CNPJ-root robustness and persist log
+        shell: bash
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          set -o pipefail
+          mkdir -p results/robustez_cnpj_raiz_2025_06
+          {
+            echo "workflow=robustez-cnpj-raiz-paper1"
+            echo "run_id=${GITHUB_RUN_ID}"
+            echo "run_attempt=${GITHUB_RUN_ATTEMPT}"
+            echo "head_sha=${GITHUB_SHA}"
+            echo "executed_at_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            python scripts/robustez_cnpj_raiz_paper1.py
+          } 2>&1 | tee results/robustez_cnpj_raiz_2025_06/log_execucao.txt
+
+      - name: Show summary
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: cat results/robustez_cnpj_raiz_2025_06/resumo_robustez_cnpj_raiz.json
+
+      - name: Commit outputs and execution log
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- research/dependencia-fornecedores-compras-publicas/results/robustez_cnpj_raiz_2025_06
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Calcula robustez por CNPJ raiz do Paper 1 [skip ci]'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin HEAD:"${{ github.ref_name }}"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: robustez-cnpj-raiz-paper1
+          path: research/dependencia-fornecedores-compras-publicas/results/robustez_cnpj_raiz_2025_06

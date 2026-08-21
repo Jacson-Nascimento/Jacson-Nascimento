@@ -1,0 +1,158 @@
+workflow=robustez-cnpj-raiz-paper1
+run_id=32469782831
+run_attempt=1
+head_sha=cdd29a2e35b64d6169fc94b66d892f9faa4a383b
+executed_at_utc=2026-08-21T09:50:42Z
+{
+  "periodo": "publicacoes 2025-01-01 a 2025-06-30; instrumentos assinados em 2025",
+  "unidade_robustez": "CNPJ raiz = 8 primeiros digitos do CNPJ de fornecedor PJ",
+  "validacao_identificadores": {
+    "registros_economicos": 98438,
+    "cnpj_14_valido_n": 98407,
+    "cnpj_14_valido_pct": 99.9685080964668
+  },
+  "estrutura_fornecedores": {
+    "cnpjs_completos_rede_original": 20367,
+    "cnpj_raizes_rede": 20092,
+    "raizes_com_multiplos_estabelecimentos_n": 163,
+    "raizes_com_multiplos_estabelecimentos_pct": 0.8112681664344017,
+    "max_estabelecimentos_mesma_raiz": 22
+  },
+  "amostra_fixa_original": {
+    "n_compradores": 1347,
+    "compradores_que_ficam_abaixo_3_fornecedores_raiz_n": 0,
+    "medianas": {
+      "hhi_original": 0.2364654624362808,
+      "hhi_raiz": 0.2365211535446824,
+      "hhi_norm_original": 0.1563353735250954,
+      "hhi_norm_raiz": 0.15633537352509544,
+      "cr1_original": 0.3836777381422473,
+      "cr1_raiz": 0.3849598306756045,
+      "n_fornecedores_original": 14.0,
+      "n_fornecedores_raiz": 14.0,
+      "strength_loo_original": 0.2989370783836058,
+      "strength_loo_raiz": 0.30985683779357964,
+      "degree_loo_original": 0.2958174647827988,
+      "degree_loo_raiz": 0.30655898139790944
+    },
+    "correlacoes_original_raiz": {
+      "hhi_norm": {
+        "rho": 0.9991165101014807,
+        "p": 0.0,
+        "n": 1347
+      },
+      "cr1": {
+        "rho": 0.9987627910691874,
+        "p": 0.0,
+        "n": 1347
+      },
+      "n_fornecedores": {
+        "rho": 0.9996998197092136,
+        "p": 0.0,
+        "n": 1347
+      },
+      "strength_loo": {
+        "rho": 0.9877208420282075,
+        "p": 0.0,
+        "n": 1347
+      },
+      "degree_loo": {
+        "rho": 0.9880705648274597,
+        "p": 0.0,
+        "n": 1347
+      },
+      "strength_loo_raiz_vs_degree_loo_raiz": {
+        "rho": 0.9490519506630648,
+        "p": 0.0,
+        "n": 1347
+      },
+      "hhi_norm_raiz_vs_strength_loo_raiz": {
+        "rho": -0.008363647753874383,
+        "p": 0.7590878720504207,
+        "n": 1347
+      },
+      "hhi_norm_raiz_vs_degree_loo_raiz": {
+        "rho": -0.0681692963635247,
+        "p": 0.01233182166667853,
+        "n": 1347
+      }
+    },
+    "discordancia": {
+      "original_strength_loo": {
+        "name": "original_strength_loo",
+        "q75_hhi": 0.3819644194196913,
+        "q75_exposure": 0.6113316392096737,
+        "n": 221,
+        "pct": 16.406829992576093
+      },
+      "raiz_strength_loo": {
+        "name": "root_strength_loo",
+        "q75_hhi": 0.3825850889269371,
+        "q75_exposure": 0.628894981206326,
+        "n": 220,
+        "pct": 16.33259094283593
+      },
+      "retencao_original_para_raiz_strength": 0.9547511312217195,
+      "original_degree_loo": {
+        "name": "original_degree_loo",
+        "q75_hhi": 0.3819644194196913,
+        "q75_exposure": 0.5835264577764403,
+        "n": 237,
+        "pct": 17.59465478841871
+      },
+      "raiz_degree_loo": {
+        "name": "root_degree_loo",
+        "q75_hhi": 0.3825850889269371,
+        "q75_exposure": 0.6000442999779769,
+        "n": 234,
+        "pct": 17.37193763919822
+      },
+      "retencao_original_para_raiz_degree": 0.9662447257383966,
+      "sobreposicao_strength_degree_na_raiz": 0.8863636363636364
+    }
+  },
+  "elegibilidade_recalculada_raiz": {
+    "n_compradores": 1347,
+    "diferenca_vs_original": 0
+  },
+  "stress_test_raiz_amostra_fixa": [
+    {
+      "pct_fornecedores": 0.01,
+      "k": 201,
+      "massa_strength_topk": 0.5769139589367634,
+      "share_severos_target_50": 0.09131403118040089,
+      "weighted_random_share_severos_media": 0.056476614699331844,
+      "weighted_random_share_severos_p025": 0.04528582034149963,
+      "weighted_random_share_severos_p975": 0.06829992576095026,
+      "draws": 1000,
+      "seed": 20260821
+    },
+    {
+      "pct_fornecedores": 0.05,
+      "k": 1005,
+      "massa_strength_topk": 0.7963736426530075,
+      "share_severos_target_50": 0.3459539717891611,
+      "weighted_random_share_severos_media": 0.2336362286562732,
+      "weighted_random_share_severos_p025": 0.20935412026726058,
+      "weighted_random_share_severos_p975": 0.25616184112843354,
+      "draws": 1000,
+      "seed": 20260821
+    },
+    {
+      "pct_fornecedores": 0.1,
+      "k": 2010,
+      "massa_strength_topk": 0.8753624834116487,
+      "share_severos_target_50": 0.49072011878247956,
+      "weighted_random_share_severos_media": 0.39215738678544915,
+      "weighted_random_share_severos_p025": 0.3741648106904232,
+      "weighted_random_share_severos_p975": 0.40905716406829995,
+      "draws": 1000,
+      "seed": 20260821
+    }
+  ],
+  "interpretacao": [
+    "A comparacao em amostra fixa isola o efeito de agregar estabelecimentos pela raiz do CNPJ.",
+    "A elegibilidade recalculada mostra se a agregacao altera o criterio minimo de fornecedores.",
+    "CNPJ raiz nao equivale necessariamente a grupo economico; estruturas societarias com multiplas raizes permanecem separadas."
+  ]
+}

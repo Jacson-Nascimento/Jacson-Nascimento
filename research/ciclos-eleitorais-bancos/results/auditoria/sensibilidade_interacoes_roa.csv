@@ -1,0 +1,7 @@
+model,spec,estimate_election,se,p_value
+static,coeficiente_condicional_dummy_EG,0.0283781177156,0.0133560697874,0.0336897041027
+static,efeito_marginal_medio_com_interacoes,0.0010691752763,0.000675281013833,0.113456884638
+static,modelo_sem_interacoes_eleitorais,0.00111868157256,0.000776175874569,0.14961085241
+dynamic,coeficiente_condicional_dummy_EG,0.0225663010601,0.0106415452884,0.034038966588
+dynamic,efeito_marginal_medio_com_interacoes,0.000952449569819,0.000636860669038,0.134879667818
+dynamic,modelo_sem_interacoes_eleitorais,0.00101739240085,0.000694194789214,0.142869877528

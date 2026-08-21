@@ -1,0 +1,169 @@
+name: PNCP mensal restante 2025 - coleta e tratamento
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/pncp-mensal-restante-2025.yml'
+      - 'research/dependencia-fornecedores-compras-publicas/config/pncp_mes_alvo_2025.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect-consolidate-analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+
+    steps:
+      - name: Checkout target branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: pip install -r requirements.txt
+
+      - name: Configure git
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: Resolve target month
+        id: month
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          RAW="$(tr -d '[:space:]' < config/pncp_mes_alvo_2025.txt)"
+          M=$((10#$RAW))
+          if [ "$M" -lt 8 ] || [ "$M" -gt 12 ]; then
+            echo "Mês alvo inválido: $RAW. Esperado 08..12."
+            exit 1
+          fi
+          printf -v MM '%02d' "$M"
+          echo "month=$M" >> "$GITHUB_OUTPUT"
+          echo "mm=$MM" >> "$GITHUB_OUTPUT"
+          echo "Target month: 2025-$MM"
+
+      - name: Collect monthly partitions with immediate persistence
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        env:
+          M: ${{ steps.month.outputs.month }}
+          MM: ${{ steps.month.outputs.mm }}
+        run: |
+          set -euo pipefail
+          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
+          LAST_DAY="$(python - <<'PY'
+          import calendar, os
+          print(calendar.monthrange(2025, int(os.environ['M']))[1])
+          PY
+          )"
+
+          collect_one() {
+            START_DAY="$1"; END_DAY="$2"
+            printf -v SD '%02d' "$START_DAY"
+            printf -v ED '%02d' "$END_DAY"
+            LABEL="2025-${MM}-d${SD}-d${ED}"
+            START="2025${MM}${SD}"
+            END="2025${MM}${ED}"
+            DATA="data/processed/pncp_mensal/pncp_${LABEL}_municipal_pj.csv.gz"
+            SUMMARY="results/pncp_mensal/${LABEL}_resumo.json"
+
+            if [ -f "$DATA" ] && [ -f "$SUMMARY" ]; then
+              echo "$LABEL already present; skipping collection."
+              return 0
+            fi
+
+            ok=0
+            for attempt in 1 2; do
+              echo "Collecting $LABEL (attempt $attempt/2)"
+              if python scripts/coletar_pncp_periodo.py --start "$START" --end "$END" --label "$LABEL"; then
+                ok=1
+                break
+              fi
+              echo "$LABEL failed on attempt $attempt"
+              sleep 60
+            done
+            if [ "$ok" -ne 1 ]; then
+              echo "Collection failed after two attempts: $LABEL"
+              exit 1
+            fi
+
+            cd ../..
+            git add "research/dependencia-fornecedores-compras-publicas/$DATA"
+            git add "research/dependencia-fornecedores-compras-publicas/results/pncp_mensal/${LABEL}_"*
+            if ! git diff --cached --quiet; then
+              git commit -m "Coleta PNCP ${LABEL} [skip ci]"
+              git pull --rebase origin "$BRANCH"
+              git push origin HEAD:"$BRANCH"
+            fi
+            cd research/dependencia-fornecedores-compras-publicas
+          }
+
+          for START_DAY in 1 5 9 13 17 21 25 29; do
+            if [ "$START_DAY" -gt "$LAST_DAY" ]; then
+              break
+            fi
+            END_DAY=$((START_DAY + 3))
+            if [ "$END_DAY" -gt "$LAST_DAY" ]; then END_DAY="$LAST_DAY"; fi
+            collect_one "$START_DAY" "$END_DAY"
+          done
+
+      - name: Consolidate target month
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/consolidar_mes_pncp_2025.py --month ${{ steps.month.outputs.month }}
+
+      - name: Analyze accumulated 2025 with global network
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: python scripts/analisar_acumulado_2025_global.py --month ${{ steps.month.outputs.month }}
+
+      - name: Run longitudinal diagnostics versus previous month
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          PREV=$(( ${{ steps.month.outputs.month }} - 1 ))
+          python scripts/diagnosticos_longitudinais_generico.py --from-month "$PREV" --to-month ${{ steps.month.outputs.month }}
+
+      - name: Show validated summaries
+        working-directory: research/dependencia-fornecedores-compras-publicas
+        run: |
+          MM='${{ steps.month.outputs.mm }}'
+          M='${{ steps.month.outputs.month }}'
+          cat "results/pncp_2025_${MM}_consolidacao/resumo_consolidacao.json"
+          echo '--- ACUMULADO GLOBAL ---'
+          cat "results/carteira_acumulada_2025_${MM}_global/resumo.json"
+          echo '--- LONGITUDINAL ---'
+          find results -maxdepth 2 -type f -path "*${M}*" -name 'resumo*.json' -print | sort | tail -10
+
+      - name: Commit consolidated and analytical outputs
+        env:
+          M: ${{ steps.month.outputs.month }}
+          MM: ${{ steps.month.outputs.mm }}
+        run: |
+          set -euo pipefail
+          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
+          git add "research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_2025-${MM}_publicacoes_municipal_pj.csv.gz"
+          git add "research/dependencia-fornecedores-compras-publicas/results/pncp_2025_${MM}_consolidacao"
+          git add "research/dependencia-fornecedores-compras-publicas/results/carteira_acumulada_2025_${MM}_global"
+          git add research/dependencia-fornecedores-compras-publicas/results/diagnosticos_longitudinais_* || true
+          if git diff --cached --quiet; then
+            echo 'No consolidated changes.'
+          else
+            git commit -m "Consolida 2025-${MM} e recalcula acumulado global [skip ci]"
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH"
+          fi
+
+      - name: Upload monthly artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pncp-2025-${{ steps.month.outputs.mm }}-global
+          path: |
+            research/dependencia-fornecedores-compras-publicas/data/processed/pncp_mensal/pncp_2025-${{ steps.month.outputs.mm }}_publicacoes_municipal_pj.csv.gz
+            research/dependencia-fornecedores-compras-publicas/results/pncp_2025_${{ steps.month.outputs.mm }}_consolidacao
+            research/dependencia-fornecedores-compras-publicas/results/carteira_acumulada_2025_${{ steps.month.outputs.mm }}_global
+            research/dependencia-fornecedores-compras-publicas/results/diagnosticos_longitudinais_*

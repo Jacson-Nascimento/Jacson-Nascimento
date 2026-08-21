@@ -36,9 +36,35 @@ A comparação célula a célula mostrou:
 - V12 -> V13: apenas `Taxa_IPCA` foi alterada, em todas as 3.072 observações.
 - V11 -> V13: todas as demais variáveis, inclusive ROA, ROE, dummies eleitorais, tipo de controle e indicadores bancários, permanecem idênticas.
 
-No IPCA, a V13 corresponde a uma mudança de escala de percentual para proporção decimal. Exemplo: `0,97` passa a `0,0097`. Logo, a transformação é linear e afeta a escala do coeficiente, não o conteúdo informacional da série.
+### 4.1 IPCA
 
-Na Selic, a V12/V13 apresenta uma transformação mais substantiva em relação à V11. A correlação entre as duas séries é muito alta, mas não perfeita, aproximadamente 0,9916. A transformação deve ser documentada a partir do script ou da fonte original antes de definir a base canônica.
+Na V13, o IPCA foi convertido de percentual para proporção decimal. Exemplo: `0,97` passa a `0,0097`. Trata-se de mudança linear de escala. Ela altera numericamente o coeficiente estimado do IPCA, mas não altera a informação econômica da série nem a estatística t quando a única mudança é a unidade de medida.
+
+### 4.2 Selic
+
+A origem da mudança V11 -> V12 foi localizada. O arquivo final de apoio é:
+
+`TB_selic_4390_acum_mes_trim.xlsx`
+
+Ele utiliza a série 4390, **Taxa de juros - Selic acumulada no mês - % a.m.**, converte cada taxa mensal para decimal e calcula a taxa trimestral por composição:
+
+```text
+TaxaTrimestre = (1 + r_mes1) * (1 + r_mes2) * (1 + r_mes3) - 1
+```
+
+Exemplo documentado no arquivo para 3T2000:
+
+```text
+(1 + 0,0131) * (1 + 0,0141) * (1 + 0,0122) - 1
+= 0,039918803462...
+```
+
+Esse valor aparece na V12/V13. Portanto, a V12 corrige a operacionalização da Selic para uma taxa trimestral composta compatível com a frequência do painel. A V11 usava outra representação da Selic.
+
+Com isso, a proveniência das duas diferenças materiais entre V11, V12 e V13 está substancialmente esclarecida:
+
+- V12: correção da Selic para taxa trimestral composta;
+- V13: padronização do IPCA para proporção decimal.
 
 ## 5. Scripts finais localizados
 
@@ -61,7 +87,9 @@ Há uma inconsistência objetiva de versão da base:
 - `if_ols_estatico_2.R` lê `dataset_290624_11.csv`.
 - `if_ols_dinamico_2.R` lê `dataset_290624_13.csv`.
 
-Portanto, os modelos estático e dinâmico documentados na dissertação não partem exatamente da mesma versão das variáveis macroeconômicas.
+O arquivo `if_ols_estatico.R`, modificado em 06/08/2024, também aponta para V11.
+
+Portanto, os modelos estático e dinâmico arquivados não partem exatamente da mesma versão das variáveis macroeconômicas.
 
 Isso não significa, por si só, que os resultados centrais estejam errados. Entretanto, impede considerar o pipeline original plenamente reprodutível sem nova execução padronizada.
 
@@ -95,24 +123,62 @@ Uma estratégia mais defensável é explorar a heterogeneidade entre bancos púb
 
 Com efeitos fixos de banco e de trimestre, o componente eleitoral agregado é absorvido, mas a interação permanece identificável. A pergunta passa a ser se bancos públicos mudam seu desempenho de forma diferente dos privados em períodos eleitorais, controlando choques comuns a todos os bancos.
 
-## 9. Decisão provisória
+## 9. Reconstrução preliminar dos resultados
 
-Nenhuma das três bases será ainda declarada como base definitiva do artigo.
+Foi feita uma reconstrução independente em Python para verificar a sensibilidade das conclusões antes da reprodução exata em R.
 
-A V13 é a candidata natural por ser a versão mais recente e conter as correções de escala já incorporadas, mas a decisão só será fechada após:
+### 9.1 Especificação original aproximada, efeitos fixos de banco
 
-1. localizar a origem e regra de transformação da Selic;
-2. reproduzir os modelos estático e dinâmico com V11, V12 e V13;
-3. comparar os coeficientes eleitorais e interações;
-4. reconciliar os outputs com as tabelas da dissertação;
+O coeficiente de eleição geral no modelo estático de ROA fica próximo de `0,02838` nas três bases. A estimativa com V12/V13 reproduz, até as casas exibidas, o coeficiente `2,837812e-02` registrado na versão final da dissertação.
+
+Esse ponto cria uma nova pista de proveniência: embora o script estático arquivado aponte para V11, a tabela publicada parece ter sido produzida após a correção macroeconômica ou a partir de uma execução intermediária compatível com V12/V13. A conclusão deve ser confirmada por reprodução em R antes de ser tratada como definitiva.
+
+Nas reconstruções preliminares:
+
+- eleição geral permanece positiva e significativa para ROA na especificação original;
+- eleição municipal não apresenta resultado equivalente;
+- ROE não apresenta o mesmo padrão consistente;
+- as interações simples entre banco público e eleição geral/municipal não se mostram estatisticamente fortes.
+
+### 9.2 Two-way fixed effects, teste de desenho do novo artigo
+
+Foi testado um baseline com efeitos fixos de banco e de trimestre, controles bancários e interações `Public x Eleição Geral` e `Public x Eleição Municipal`, com erros agrupados por banco.
+
+Resultado preliminar:
+
+| Outcome | Interação | Coeficiente | p-valor aproximado |
+|---|---|---:|---:|
+| ROA | Público x Eleição Geral | -0,00146 | 0,235 |
+| ROA | Público x Eleição Municipal | 0,00113 | 0,302 |
+| ROE | Público x Eleição Geral | -0,00546 | 0,560 |
+| ROE | Público x Eleição Municipal | 0,00429 | 0,575 |
+
+Portanto, a hipótese inicialmente considerada para o novo paper, de uma heterogeneidade simples público x privado nos anos eleitorais, **não recebe apoio preliminar** nessa especificação.
+
+Esse resultado é útil porque evita construir o artigo em torno de uma hipótese que os dados, neste primeiro teste, não sustentam. O desenho do paper deve permanecer aberto até a reprodução completa e o event study.
+
+## 10. Decisão provisória sobre a base
+
+A V13 passa a ser a **candidata preferencial** para a base canônica porque incorpora:
+
+1. Selic trimestral composta a partir da série mensal 4390;
+2. IPCA em proporção decimal;
+3. o mesmo painel e as mesmas variáveis bancárias das versões anteriores.
+
+Ainda não será declarada definitiva antes de:
+
+1. reproduzir os modelos estático e dinâmico com V11, V12 e V13;
+2. comparar coeficientes, erros-padrão e p-valores;
+3. reconciliar os outputs com as tabelas da dissertação;
+4. identificar a origem do erro de duplicação dos apêndices H/I;
 5. definir um script único de preparação da base.
 
-## 10. Próximas entregas
+## 11. Próximas entregas
 
-- matriz de diferenças V11/V12/V13;
-- reprodução independente das tabelas principais;
+- reprodução exata em R das tabelas principais;
+- matriz final de reconciliação `tabela publicada x script x base`;
 - base canônica com dicionário de dados;
 - script único de preparação;
-- modelo baseline do artigo;
-- event study de heterogeneidade público x privado;
+- event study para investigar timing e pré-tendências;
+- teste de alternativas de artigo caso a heterogeneidade público x privado permaneça nula;
 - documentação para eventual depósito em Zenodo.

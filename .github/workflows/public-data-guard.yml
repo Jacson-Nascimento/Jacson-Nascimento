@@ -1,0 +1,43 @@
+name: public-data-guard
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  prevent-new-research-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verificar novos arquivos de dados no legado público
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+          else
+            BASE="${{ github.event.before }}"
+          fi
+
+          if [[ -z "$BASE" || "$BASE" =~ ^0+$ ]]; then
+            BASE="$(git rev-list --max-parents=0 HEAD | tail -1)"
+          fi
+
+          CHANGED="$(git diff --name-only --diff-filter=ACMRT "$BASE" "${{ github.sha }}")"
+
+          BLOCKED="$(printf '%s\n' "$CHANGED" | grep -E '^research/dependencia-fornecedores-compras-publicas/data/(raw|processed)/' | grep -Ev '/README\.md$' || true)"
+
+          if [[ -n "$BLOCKED" ]]; then
+            echo 'ERRO: novas bases de pesquisa não devem ser adicionadas ao repositório público de perfil.'
+            echo 'Arquivos bloqueados:'
+            printf '%s\n' "$BLOCKED"
+            echo 'Use o repositório canônico privado da pesquisa.'
+            exit 1
+          fi
+
+          echo 'OK: nenhuma nova base operacional foi adicionada aos diretórios históricos protegidos.'

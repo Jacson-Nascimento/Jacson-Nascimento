@@ -20,7 +20,7 @@ Auditor interno na CAIXA Econômica Federal, Mestre em Economia pela Universidad
 
 A separação dos projetos foi concluída em 23/08/2026 por migração não destrutiva com preservação do histórico. As cópias anteriormente mantidas neste repositório permanecem como registro histórico e de proveniência, mas a continuidade operacional ocorre nos repositórios dedicados acima.
 
-A política de organização e continuidade está documentada em `GOVERNANCE.md`. O índice histórico dos projetos mantidos em `research/` está em `research/README.md`.
+A política de organização e continuidade está documentada em [`GOVERNANCE.md`](GOVERNANCE.md). A política para dados no repositório público está em [`PUBLIC_DATA_POLICY.md`](PUBLIC_DATA_POLICY.md). A configuração administrativa alvo dos repositórios está registrada em [`REPOSITORY_SETTINGS.md`](REPOSITORY_SETTINGS.md). O índice histórico dos projetos mantidos em `research/` está em [`research/README.md`](research/README.md).
 
 ## Identidade acadêmica e profissional
 

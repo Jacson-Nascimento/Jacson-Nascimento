@@ -51,15 +51,29 @@ try {
         throw "A árvore de trabalho possui alterações locais. Faça commit ou preserve essas alterações antes da migração."
     }
 
+    $originalBranch = (& git branch --show-current).Trim()
+    if (-not $originalBranch) {
+        throw "Não foi possível identificar a branch atual."
+    }
+
+    $sourceHead = (& git rev-parse HEAD).Trim()
+    if ($LASTEXITCODE -ne 0 -or -not $sourceHead) {
+        throw "Não foi possível identificar o commit atual da origem."
+    }
+
+    $shortSourceHead = $sourceHead.Substring(0, 12)
+
     Write-Host "Migração não destrutiva de projetos" -ForegroundColor Cyan
+    Write-Host "Origem: $sourceHead"
     Write-Host "Nenhum arquivo, branch ou histórico do repositório de origem será removido."
-    Write-Host "Os repositórios de destino devem existir e estar vazios, sem README, licença ou .gitignore inicial."
+    Write-Host "Os destinos podem estar vazios ou conter apenas commits de inicialização e proveniência."
 
     foreach ($project in $projects) {
         $prefix = $project.Prefix
         $repo = $project.Repo
         $safeName = $repo -replace "[^A-Za-z0-9._-]", "-"
-        $splitBranch = "migration/$safeName-2026-08-23"
+        $splitBranch = "migration/$safeName-$shortSourceHead"
+        $mergeBranch = "migration-merge/$safeName-$shortSourceHead"
         $remoteName = "target-$safeName"
         $remoteUrl = "https://github.com/$GitHubUser/$repo.git"
 
@@ -71,16 +85,17 @@ try {
         Write-Host "Projeto: $repo" -ForegroundColor Yellow
         Write-Host "Origem:  $prefix"
         Write-Host "Destino: $remoteUrl"
-        Write-Host "Branch de preservação: $splitBranch"
+        Write-Host "Branch de histórico filtrado: $splitBranch"
+        Write-Host "Branch de integração: $mergeBranch"
 
         if ($DryRun) {
             Write-Host "DRY RUN: nenhuma alteração executada."
             continue
         }
 
-        $branchExists = & git show-ref --verify --quiet "refs/heads/$splitBranch"
+        $splitExists = & git show-ref --verify --quiet "refs/heads/$splitBranch"
         if ($LASTEXITCODE -eq 0) {
-            Write-Host "Branch de migração já existe. Ela será preservada e reutilizada."
+            Write-Host "Branch de histórico filtrado já existe. Ela será preservada e reutilizada."
         }
         else {
             Invoke-Git -Arguments @("subtree", "split", "--prefix=$prefix", "-b", $splitBranch)
@@ -99,10 +114,51 @@ try {
             throw "O repositório de destino não existe ou não está acessível: $remoteUrl"
         }
 
-        Invoke-Git -Arguments @("push", $remoteName, "$splitBranch`:refs/heads/main")
+        $remoteMain = & git ls-remote --heads $remoteUrl refs/heads/main
+        if ($LASTEXITCODE -ne 0) {
+            throw "Não foi possível consultar a branch main do destino: $remoteUrl"
+        }
 
-        Write-Host "Migração concluída para $repo. O histórico filtrado foi preservado no novo repositório." -ForegroundColor Green
+        if ($remoteMain) {
+            Invoke-Git -Arguments @("fetch", $remoteName, "main")
+
+            $mergeExists = & git show-ref --verify --quiet "refs/heads/$mergeBranch"
+            if ($LASTEXITCODE -eq 0) {
+                Write-Host "Branch de integração já existe. Ela será preservada e reutilizada."
+                Invoke-Git -Arguments @("switch", $mergeBranch)
+            }
+            else {
+                Invoke-Git -Arguments @("switch", "-c", $mergeBranch, $splitBranch)
+            }
+
+            $remoteMainSha = (& git rev-parse "$remoteName/main").Trim()
+            $remoteAlreadyMerged = & git merge-base --is-ancestor $remoteMainSha HEAD
+
+            if ($LASTEXITCODE -eq 0) {
+                Write-Host "O commit atual do destino já está incorporado à branch de integração."
+            }
+            else {
+                Invoke-Git -Arguments @(
+                    "merge",
+                    "--allow-unrelated-histories",
+                    "--no-ff",
+                    "$remoteName/main",
+                    "-m",
+                    "Migra histórico de $repo preservando inicialização do destino"
+                )
+            }
+
+            Invoke-Git -Arguments @("push", $remoteName, "$mergeBranch`:refs/heads/main")
+            Invoke-Git -Arguments @("switch", $originalBranch)
+        }
+        else {
+            Invoke-Git -Arguments @("push", $remoteName, "$splitBranch`:refs/heads/main")
+        }
+
+        Write-Host "Migração concluída para $repo. O histórico filtrado e os commits já existentes no destino foram preservados." -ForegroundColor Green
     }
+
+    Invoke-Git -Arguments @("switch", $originalBranch)
 
     Write-Host ""
     Write-Host "Processo concluído. O repositório de origem permanece intacto." -ForegroundColor Green

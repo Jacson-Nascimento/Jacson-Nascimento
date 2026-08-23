@@ -4,22 +4,24 @@ Este documento estabelece a organização dos projetos mantidos na conta `Jacson
 
 ## Princípios
 
-1. O repositório `Jacson-Nascimento/Jacson-Nascimento` tem função principal de perfil, índice e identidade acadêmica.
-2. Projetos científicos independentes devem, quando maduros, possuir repositório próprio.
+1. O repositório `Jacson-Nascimento/Jacson-Nascimento` tem função principal de perfil, índice, identidade acadêmica e registro histórico.
+2. Projetos científicos independentes possuem repositórios próprios quando atingem maturidade operacional suficiente.
 3. Pesquisas em elaboração podem permanecer privadas até a decisão de divulgação.
 4. Código, dados publicáveis, documentação metodológica, resultados e materiais de reprodução devem ser versionados de forma rastreável.
 5. Metadados de citação e integração com Zenodo devem pertencer ao projeto a que se referem.
 6. Nenhum conteúdo histórico deve ser removido como parte de reorganizações. Migrações devem preservar a origem, referências, commits e registros existentes.
 
-## Arquitetura alvo
+## Arquitetura vigente desde 23/08/2026
 
-- `Jacson-Nascimento/Jacson-Nascimento`: perfil e índice público.
+- `Jacson-Nascimento/Jacson-Nascimento`: perfil, índice e registro histórico público.
 - `Jacson-Nascimento/ciclos-eleitorais-bancos`: pesquisa privada e canônica sobre ciclos eleitorais e desempenho bancário.
-- `dependencia-fornecedores-compras-publicas`: candidato a repositório independente.
-- `dinamica-manada-organizacional`: candidato a repositório independente.
-- `modelo-axion-lotofacil`: candidato a repositório independente.
+- `Jacson-Nascimento/dependencia-fornecedores-compras-publicas`: repositório dedicado da pesquisa de dependência estrutural de fornecedores. Privado durante a continuidade do desenvolvimento e validação pós-migração.
+- `Jacson-Nascimento/dinamica-manada-organizacional`: repositório dedicado do pacote de reprodução do estudo de dinâmica de manada organizacional.
+- `Jacson-Nascimento/modelo-axion-lotofacil`: repositório público dedicado do Modelo Axion Lotofácil e de seus pacotes de reprodutibilidade.
 
-Enquanto os novos repositórios não forem criados, os diretórios existentes neste repositório permanecem como fontes canônicas dos respectivos projetos públicos.
+A separação dos três projetos anteriormente aninhados no repositório de perfil foi concluída em 23/08/2026 por migração não destrutiva com `git subtree split`. O histórico relevante foi preservado nos novos repositórios e as cópias de origem foram mantidas para rastreabilidade.
+
+Branches de trabalho relacionadas às PRs históricas #5, #56, #60, #61 e #62 também foram preservadas em branches equivalentes nos novos repositórios. As PRs antigas permanecem como registro histórico e não devem ser apagadas em razão da reorganização.
 
 ## Política de branches
 
@@ -29,13 +31,17 @@ Novos trabalhos devem preferir branches curtas e orientadas a uma finalidade cla
 - `analysis/...` para análises;
 - `data/...` para rotinas de coleta e tratamento;
 - `paper/...` para manuscritos e documentação editorial;
-- `governance/...` para organização e governança.
+- `release/...` para pacotes de reprodução e versões de publicação;
+- `governance/...` para organização e governança;
+- `legacy/...` para preservação explícita de trabalho histórico que não representa desenvolvimento corrente.
 
 Branches históricas já existentes são preservadas. A redução do conjunto de branches operacionais deve ocorrer apenas por política futura que não elimine evidências ou histórico necessário.
 
 ## Pull requests
 
 Mudanças relevantes de método, coleta, modelagem ou publicação devem continuar sendo registradas por pull request, com objetivo, alterações, validações, limitações e decisão de continuidade.
+
+Após a migração, novas PRs devem ser abertas no repositório canônico de cada projeto. PRs antigas do repositório de perfil funcionam como registro histórico de proveniência.
 
 ## Metadados científicos
 
@@ -49,6 +55,10 @@ Cada projeto independente deve manter, conforme aplicável:
 - referência ao Zenodo e DOI;
 - manifesto ou checksums quando houver artefatos de reprodução.
 
+Links de `repository-code` e documentação operacional devem apontar para o repositório canônico vigente. Links para releases históricas podem continuar apontando para o repositório de origem quando aquele release permanece materialmente hospedado lá.
+
 ## Privacidade
 
 A visibilidade do repositório deve refletir o estágio do trabalho e o conteúdo armazenado. Bases ou materiais com restrições de divulgação não devem ser publicados apenas para facilitar a reprodução.
+
+Projetos com DOI e pacote público de reprodução devem, quando não houver restrição de conteúdo, preferencialmente manter repositório público para coerência com a documentação científica.

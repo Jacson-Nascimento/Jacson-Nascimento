@@ -1,6 +1,6 @@
 {
-  "title": "Modelo Axion Lotofácil: série de relatórios técnicos nº 1–4",
-  "description": "Série documental do Modelo Axion Lotofácil, composta por quatro relatórios técnicos: testes de robustez e mineração de parâmetros; otimização multiobjetivo de carteiras; limites exatos para 11+, 12+ e 13+; e fronteira de orçamento e eficiência marginal. Versão 1.0, Brasília, 2026. Os documentos registram os ciclos experimentais 3 a 6 e não constituem recomendação financeira nem artigos revisados por pares.",
+  "title": "Jacson Cruz do Nascimento: perfil acadêmico e índice de projetos de pesquisa",
+  "description": "Repositório de perfil acadêmico-profissional, identidade e índice dos projetos mantidos por Jacson Cruz do Nascimento. Os projetos científicos independentes possuem repositórios canônicos próprios e devem utilizar seus respectivos metadados de citação, documentação de reprodutibilidade e identificadores persistentes.",
   "creators": [
     {
       "name": "Nascimento, Jacson Cruz do",
@@ -8,21 +8,16 @@
     }
   ],
   "keywords": [
-    "Lotofácil",
-    "combinatória",
-    "grafo de Johnson",
-    "otimização de carteiras",
-    "validação fora da amostra",
-    "Monte Carlo",
-    "mineração de parâmetros",
-    "reprodutibilidade"
+    "perfil acadêmico",
+    "pesquisa reprodutível",
+    "auditoria",
+    "economia aplicada",
+    "finanças públicas",
+    "análise de dados"
   ],
   "license": "CC-BY-4.0",
-  "upload_type": "publication",
-  "publication_type": "report",
+  "upload_type": "other",
   "access_right": "open",
-  "version": "1.0",
-  "publication_date": "2026-07-23",
   "language": "por",
-  "notes": "Relatórios técnicos não submetidos à revisão por pares. A edição permanente está vinculada à GitHub Release axion-relatorios-v1.0."
+  "notes": "Metadados da raiz limitados ao repositório de perfil e índice. Releases científicos devem ser gerados nos repositórios canônicos de cada projeto. Os metadados históricos do Modelo Axion Lotofácil v1.0 permanecem preservados em lotofacil_axion/CITATION.cff e lotofacil_axion/.zenodo.json."
 }

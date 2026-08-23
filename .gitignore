@@ -1,0 +1,4 @@
+research/dependencia-fornecedores-compras-publicas/data/raw/*
+research/dependencia-fornecedores-compras-publicas/data/processed/*
+!research/dependencia-fornecedores-compras-publicas/data/raw/README.md
+!research/dependencia-fornecedores-compras-publicas/data/processed/README.md

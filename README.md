@@ -11,6 +11,15 @@ Auditor interno na CAIXA Econômica Federal, Mestre em Economia pela Universidad
 - Auditoria baseada em dados, analytics e inteligência artificial aplicada
 - Reprodutibilidade, documentação técnica e pesquisa computacional
 
+## Projetos no GitHub
+
+- `ciclos-eleitorais-bancos`: repositório privado e canônico da continuidade da dissertação e da reanálise econométrica.
+- `research/dependencia-fornecedores-compras-publicas/`: pesquisa pública ativa sobre concentração, recorrência e exposição estrutural em compras públicas. Planejada para migração não destrutiva a repositório próprio.
+- `research/dinamica-manada-organizacional/`: pacote público de reprodução do estudo de dinâmica de manada organizacional. Planejado para migração não destrutiva a repositório próprio.
+- `lotofacil_axion/`: série técnico-computacional do Modelo Axion Lotofácil. Planejada para migração não destrutiva a repositório próprio.
+
+A política de organização e continuidade está documentada em `GOVERNANCE.md`. O índice dos projetos científicos atualmente mantidos neste repositório está em `research/README.md`.
+
 ## Identidade acadêmica e profissional
 
 - Site pessoal: https://www.jacsonnascimento.com.br/p/home-jacson-cruz-do-nascimento.html
@@ -26,7 +35,7 @@ Auditor interno na CAIXA Econômica Federal, Mestre em Economia pela Universidad
 
 ## Reprodutibilidade
 
-Este repositório reúne códigos, bases, documentação técnica e artefatos de pesquisa destinados a favorecer rastreabilidade e reprodução dos resultados publicados. Quando aplicável, versões de referência são preservadas no Zenodo e identificadas por DOI.
+Este repositório funciona principalmente como perfil, índice e ponto de entrada para os projetos públicos mantidos na conta. Alguns projetos ainda permanecem aqui por razões históricas e operacionais enquanto são preparados para separação em repositórios próprios. Quando aplicável, versões de referência são preservadas no Zenodo e identificadas por DOI.
 
 ## Nome para citação
 

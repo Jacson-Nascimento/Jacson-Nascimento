@@ -4,7 +4,7 @@
 **Repositório:** `Jacson-Nascimento/Jacson-Nascimento`  
 **Diretório do projeto:** `research/dependencia-fornecedores-compras-publicas`
 
-> **REGRA DE CONTINUIDADE:** este arquivo é a fonte de verdade para retomar o projeto em outro diálogo. Antes de alterar metodologia, métricas, chaves, scripts, recorte temporal ou interpretação, ler este handoff e os arquivos aqui referenciados. Não reinventar decisões já validadas.
+> **REGRA DE CONTINUIDADE:** este arquivo é a fonte de verdade para retomar o projeto em uma nova sessão de trabalho. Antes de alterar metodologia, métricas, chaves, scripts, recorte temporal ou interpretação, ler este handoff e os arquivos aqui referenciados. Não reinventar decisões já validadas.
 
 ---
 
@@ -12,7 +12,7 @@
 
 ## Trilha A — Artigo 1 / primeiro semestre de 2025
 
-Esta é a prioridade do próximo diálogo.
+Esta é a prioridade da próxima etapa de trabalho.
 
 **Branch:** `research/artigo-primeiro-semestre-2025`  
 **PR:** **#62 — Atualiza artigo semestral de dependência estrutural para v0.2 robusta**  
@@ -27,7 +27,7 @@ Esta é a prioridade do próximo diálogo.
 - julho em diante NÃO altera retrospectivamente os resultados semestrais;
 - publicações tardias de 2026 pertencem à extensão anual, não ao fechamento do Artigo 1.
 
-O novo diálogo deve continuar a **revisão científica, editorial e de publicação do Artigo 1**, usando exclusivamente o recorte semestral acima.
+A próxima etapa deve continuar a **revisão científica, editorial e de publicação do Artigo 1**, usando exclusivamente o recorte semestral acima.
 
 ## Trilha B — Extensão anual de 2025
 
@@ -649,9 +649,9 @@ Regra:
 
 ---
 
-# 20. O QUE FAZER NO NOVO DIÁLOGO — PRIORIDADE ARTIGO 1
+# 20. O QUE FAZER NA PRÓXIMA ETAPA DE TRABALHO — PRIORIDADE ARTIGO 1
 
-O próximo diálogo deve começar pela **Trilha A / Artigo 1**, salvo ordem expressa em contrário.
+A próxima etapa de trabalho deve começar pela **Trilha A / Artigo 1**, salvo ordem expressa em contrário.
 
 Sequência recomendada:
 
@@ -673,7 +673,7 @@ Sequência recomendada:
 
 # 21. PROIBIÇÕES DE CONTINUIDADE
 
-No novo diálogo, NÃO:
+Na próxima etapa de trabalho, NÃO:
 
 - redefinir comprador como município;
 - deduplicar por `numeroControlePNCPCompra`;
@@ -689,9 +689,9 @@ No novo diálogo, NÃO:
 
 ---
 
-# 22. PROMPT OPERACIONAL PARA O PRÓXIMO CHAT
+# 22. ROTEIRO OPERACIONAL PARA RETOMADA DO PROJETO
 
-Copiar e colar integralmente:
+Instruções de continuidade:
 
 > CONTINUE O PROJETO “DEPENDÊNCIA ESTRUTURAL DE FORNECEDORES NAS COMPRAS PÚBLICAS”.
 >
@@ -703,13 +703,13 @@ Copiar e colar integralmente:
 >
 > Esse arquivo é a fonte de verdade para a continuidade. Não reinvente metodologia, métricas, chaves, scripts, recorte temporal ou decisões já validadas.
 >
-> PRIORIDADE DESTE NOVO DIÁLOGO: continuar o **Artigo 1 — primeiro semestre de 2025**, atualmente na PR #62, branch `research/artigo-primeiro-semestre-2025`, arquivo `research/dependencia-fornecedores-compras-publicas/paper/ARTIGO_PRIMEIRO_SEMESTRE_2025_V0_2.md`.
+> PRIORIDADE DESTA ETAPA DE TRABALHO: continuar o **Artigo 1 — primeiro semestre de 2025**, atualmente na PR #62, branch `research/artigo-primeiro-semestre-2025`, arquivo `research/dependencia-fornecedores-compras-publicas/paper/ARTIGO_PRIMEIRO_SEMESTRE_2025_V0_2.md`.
 >
 > O recorte do Artigo 1 é CONGELADO: instrumentos assinados em 2025 e observados nas publicações PNCP de 01/01/2025 a 30/06/2025. Julho em diante pertence à extensão anual e não deve alterar os resultados do manuscrito semestral.
 >
 > Abra também `paper/README_V0_2.md` e `paper/PLANO_EDITORIAL_ARTIGO_SEMESTRAL_E_ANUAL.md`.
 >
-> Depois faça uma revisão crítica completa da v0.2 e continue a produção editorial/científica a partir do ponto exato documentado. Salve alterações técnicas no GitHub e materiais editoriais/de suporte na pasta dedicada do Google Drive. Não peça que eu repita contexto já registrado no handoff.
+> Depois faça uma revisão crítica completa da v0.2 e continue a produção editorial/científica a partir do ponto exato documentado. Salve alterações técnicas no GitHub e materiais editoriais/de suporte na pasta dedicada do Google Drive. Não repetir contexto já registrado no handoff.
 
 ---
 

@@ -13,12 +13,14 @@ Auditor interno na CAIXA Econômica Federal, Mestre em Economia pela Universidad
 
 ## Projetos no GitHub
 
-- `ciclos-eleitorais-bancos`: repositório privado e canônico da continuidade da dissertação e da reanálise econométrica.
-- `research/dependencia-fornecedores-compras-publicas/`: pesquisa pública ativa sobre concentração, recorrência e exposição estrutural em compras públicas. Planejada para migração não destrutiva a repositório próprio.
-- `research/dinamica-manada-organizacional/`: pacote público de reprodução do estudo de dinâmica de manada organizacional. Planejado para migração não destrutiva a repositório próprio.
-- `lotofacil_axion/`: série técnico-computacional do Modelo Axion Lotofácil. Planejada para migração não destrutiva a repositório próprio.
+- [`ciclos-eleitorais-bancos`](https://github.com/Jacson-Nascimento/ciclos-eleitorais-bancos): repositório privado e canônico da continuidade da dissertação e da reanálise econométrica.
+- [`dependencia-fornecedores-compras-publicas`](https://github.com/Jacson-Nascimento/dependencia-fornecedores-compras-publicas): repositório dedicado da pesquisa sobre concentração, recorrência e exposição estrutural em compras públicas. Atualmente privado durante a continuidade do desenvolvimento e validação pós-migração.
+- [`dinamica-manada-organizacional`](https://github.com/Jacson-Nascimento/dinamica-manada-organizacional): repositório dedicado do pacote de reprodução do estudo de dinâmica de manada organizacional. O preprint e os artefatos publicados permanecem referenciados pelo Zenodo e DOI.
+- [`modelo-axion-lotofacil`](https://github.com/Jacson-Nascimento/modelo-axion-lotofacil): repositório público dedicado da série técnico-computacional e dos pacotes de reprodutibilidade do Modelo Axion Lotofácil.
 
-A política de organização e continuidade está documentada em `GOVERNANCE.md`. O índice dos projetos científicos atualmente mantidos neste repositório está em `research/README.md`.
+A separação dos projetos foi concluída em 23/08/2026 por migração não destrutiva com preservação do histórico. As cópias anteriormente mantidas neste repositório permanecem como registro histórico e de proveniência, mas a continuidade operacional ocorre nos repositórios dedicados acima.
+
+A política de organização e continuidade está documentada em `GOVERNANCE.md`. O índice histórico dos projetos mantidos em `research/` está em `research/README.md`.
 
 ## Identidade acadêmica e profissional
 
@@ -35,7 +37,7 @@ A política de organização e continuidade está documentada em `GOVERNANCE.md`
 
 ## Reprodutibilidade
 
-Este repositório funciona principalmente como perfil, índice e ponto de entrada para os projetos públicos mantidos na conta. Alguns projetos ainda permanecem aqui por razões históricas e operacionais enquanto são preparados para separação em repositórios próprios. Quando aplicável, versões de referência são preservadas no Zenodo e identificadas por DOI.
+Este repositório funciona principalmente como perfil, índice, identidade acadêmica e registro histórico da organização anterior. Projetos científicos independentes possuem repositórios próprios. Quando aplicável, versões de referência são preservadas no Zenodo e identificadas por DOI.
 
 ## Nome para citação
 

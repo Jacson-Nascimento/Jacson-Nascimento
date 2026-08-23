@@ -1,26 +1,21 @@
 cff-version: 1.2.0
-message: "Cite esta série documental utilizando os dados abaixo."
-title: "Modelo Axion Lotofácil: série de relatórios técnicos nº 1–4"
-type: dataset
-version: "1.0"
-date-released: 2026-07-23
-doi: "10.5281/zenodo.21522330"
+message: "Este arquivo identifica o repositório de perfil e índice. Para citar um projeto científico específico, utilize o CITATION.cff do respectivo repositório canônico."
+title: "Jacson Cruz do Nascimento: perfil acadêmico e índice de projetos de pesquisa"
 authors:
   - family-names: "Nascimento"
     given-names: "Jacson Cruz do"
     orcid: "https://orcid.org/0009-0006-6535-9569"
 repository-code: "https://github.com/Jacson-Nascimento/Jacson-Nascimento"
-repository-artifact: "https://github.com/Jacson-Nascimento/Jacson-Nascimento/releases/tag/axion-relatorios-v1.0"
-url: "https://doi.org/10.5281/zenodo.21522330"
+url: "https://github.com/Jacson-Nascimento"
 abstract: >-
-  Série composta por quatro relatórios técnicos do Modelo Axion Lotofácil,
-  cobrindo testes de robustez e mineração de parâmetros, otimização
-  multiobjetivo, limites combinatórios exatos e fronteira de orçamento.
-  O DOI identifica a versão 1.0 arquivada no Zenodo.
+  Repositório de perfil acadêmico-profissional, identidade e índice dos projetos
+  mantidos por Jacson Cruz do Nascimento. Os projetos científicos independentes
+  possuem repositórios canônicos próprios, com seus respectivos metadados de
+  citação, documentação de reprodutibilidade e identificadores persistentes.
 keywords:
-  - Lotofácil
-  - combinatória
-  - grafo de Johnson
-  - otimização de carteiras
-  - validação fora da amostra
-license: CC-BY-4.0
+  - perfil acadêmico
+  - pesquisa reprodutível
+  - auditoria
+  - economia aplicada
+  - finanças públicas
+  - análise de dados

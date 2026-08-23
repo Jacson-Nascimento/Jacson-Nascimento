@@ -39,6 +39,8 @@ Novos trabalhos devem preferir branches curtas e orientadas a uma finalidade cla
 - `governance/...` para organização e governança;
 - `legacy/...` para preservação explícita de trabalho histórico que não representa desenvolvimento corrente.
 
+Nomes de branches, commits, arquivos e documentos operacionais devem descrever exclusivamente a finalidade técnica, científica, editorial ou de governança do artefato. A nomenclatura deve ser neutra quanto à ferramenta utilizada para produzir ou revisar o conteúdo.
+
 Branches históricas já existentes são preservadas. A redução do conjunto de branches operacionais deve ocorrer apenas por política futura que não elimine evidências ou histórico necessário.
 
 ## Pull requests

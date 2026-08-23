@@ -1,6 +1,8 @@
 # Jacson Cruz do Nascimento
 
-Auditor interno na CAIXA Econômica Federal, Mestre em Economia pela Universidade Católica de Brasília (UCB), pós-graduando em Contabilidade e Finanças Públicas Municipais pela Universidade de Brasília (UnB) e pesquisador nas interfaces entre auditoria, economia, contabilidade, finanças públicas, governança e análise de dados.
+Auditor Interno na CAIXA Econômica Federal e Mestre em Economia pela Universidade Católica de Brasília (UCB). Graduado em Ciências Contábeis e em Análise e Desenvolvimento de Sistemas, com especializações nas áreas de Controladoria, Contabilidade, Auditoria e Finanças Governamentais, Segurança da Informação, Analytics e Business Intelligence. Atualmente, complementa sua formação acadêmica na área de Contabilidade e Finanças Públicas Municipais pela Universidade de Brasília (UnB).
+
+Desenvolve estudos e produção técnico-científica nas interfaces entre auditoria, economia, contabilidade, finanças públicas, governança, controles internos, gestão de riscos e análise de dados.
 
 ## Pesquisa e interesses
 

@@ -4,17 +4,21 @@ Este runbook conclui a separação dos projetos atualmente mantidos no repositó
 
 ## Repositórios de destino
 
-Criar no GitHub, vazios e sem README, licença ou `.gitignore` inicial:
+Os três repositórios de destino já foram criados em 23/08/2026:
 
 1. `Jacson-Nascimento/dependencia-fornecedores-compras-publicas`
 2. `Jacson-Nascimento/dinamica-manada-organizacional`
 3. `Jacson-Nascimento/modelo-axion-lotofacil`
 
-Os três projetos já possuem conteúdo público no repositório de origem. A visibilidade pública preserva o estado atual de divulgação. Caso haja decisão editorial diferente antes da criação, a visibilidade pode ser ajustada no próprio GitHub sem alterar o procedimento de migração.
+No momento da preparação da migração, os dois primeiros estavam privados e o terceiro público. Essa visibilidade pode ser revista depois da validação dos conteúdos e metadados.
+
+Cada destino recebeu apenas `MIGRATION_PROVENANCE.md`, com a origem anterior e o commit de referência `1f14be405b948f7091e14ccd88e8136ef40ba255`.
 
 ## Objetivo técnico
 
 A migração usa `git subtree split` para reconstruir, em cada repositório de destino, o histórico de commits relacionado ao respectivo diretório. O repositório de origem permanece intacto.
+
+Como os destinos já possuem um commit de inicialização, o script integra esse commit ao histórico filtrado com `--allow-unrelated-histories` e cria um merge explícito. Dessa forma, tanto a proveniência do novo repositório quanto o histórico do projeto são preservados.
 
 Não são executados comandos de exclusão de arquivos, branches, tags ou diretórios.
 
@@ -22,8 +26,8 @@ Não são executados comandos de exclusão de arquivos, branches, tags ou diret�
 
 - Git instalado e disponível no PowerShell.
 - Clone local atualizado de `Jacson-Nascimento/Jacson-Nascimento`.
-- Credencial do GitHub configurada no Git Credential Manager, GitHub CLI ou mecanismo equivalente.
-- Repositórios de destino já criados e vazios.
+- Credencial do GitHub configurada no Git Credential Manager ou mecanismo equivalente.
+- Acesso de escrita aos três repositórios de destino.
 - Árvore de trabalho local sem alterações pendentes.
 
 ## Validação prévia
@@ -36,7 +40,7 @@ git pull --ff-only origin main
 .\tools\migrate_projects_to_repos.ps1 -DryRun
 ```
 
-O `DryRun` apenas lista os projetos e destinos. Não cria branches nem envia commits.
+O `DryRun` apenas lista os projetos, destinos e branches previstas. Não cria branches nem envia commits.
 
 ## Execução
 
@@ -48,20 +52,24 @@ O script:
 
 1. valida que está em um repositório Git;
 2. exige árvore de trabalho limpa;
-3. localiza cada diretório de projeto;
-4. cria uma branch de preservação `migration/...` por projeto usando `git subtree split`;
-5. registra um remote específico para cada novo repositório;
-6. verifica acesso ao destino;
-7. envia o histórico filtrado para a branch `main` do novo repositório;
-8. preserva integralmente o repositório de origem e as branches de migração.
+3. registra o commit atual da origem;
+4. localiza cada diretório de projeto;
+5. cria uma branch `migration/...` por projeto usando `git subtree split`;
+6. registra um remote específico para cada novo repositório;
+7. consulta a branch `main` do destino;
+8. quando o destino já possui commits, cria uma branch de integração e faz merge não destrutivo dos dois históricos;
+9. envia o resultado para `main` do novo repositório;
+10. preserva integralmente o repositório de origem e as branches de migração.
 
 ## Validação após a migração
 
 Em cada novo repositório, confirmar:
 
 - presença do `README.md` do projeto;
+- presença do `MIGRATION_PROVENANCE.md`;
 - presença dos scripts e dados publicáveis esperados;
 - histórico de commits anterior à migração;
+- presença de um merge de integração entre o histórico filtrado e a inicialização do destino;
 - execução dos scripts de reprodução;
 - metadados `CITATION.cff`, Zenodo e DOI quando aplicáveis;
 - workflows compatíveis com os novos caminhos de raiz.

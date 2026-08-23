@@ -39,6 +39,10 @@ A política de organização e continuidade está documentada em `GOVERNANCE.md`
 
 Este repositório funciona principalmente como perfil, índice, identidade acadêmica e registro histórico da organização anterior. Projetos científicos independentes possuem repositórios próprios. Quando aplicável, versões de referência são preservadas no Zenodo e identificadas por DOI.
 
+## Licenciamento
+
+Este repositório reúne conteúdo de naturezas diferentes e não utiliza uma licença única para todo o acervo. A política de licenciamento está documentada em [`LICENSE_POLICY.md`](LICENSE_POLICY.md). Nos projetos científicos, prevalecem as licenças e os metadados do respectivo repositório canônico e dos depósitos Zenodo.
+
 ## Nome para citação
 
 **Jacson Cruz do Nascimento**

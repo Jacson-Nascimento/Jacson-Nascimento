@@ -36,7 +36,7 @@ jobs:
 
       - name: Run full-history nested validation
         working-directory: lotofacil_axion
-        run: python run_full_cycle.py
+        run: python repair_runner.py
 
       - name: Verify prospective manifest
         working-directory: lotofacil_axion

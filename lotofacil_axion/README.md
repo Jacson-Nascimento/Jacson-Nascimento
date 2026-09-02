@@ -25,3 +25,7 @@ Os arquivos da versão 1.0 depositados no Zenodo são imutáveis e identificados
 ## Escopo
 
 O projeto não demonstra vantagem preditiva contra um sorteio justo e não constitui recomendação financeira ou garantia de premiação. Sua contribuição está na falsificação estatística, na auditoria de sobreajuste, na representação pelo grafo de Johnson e na otimização combinatória de cobertura.
+
+## Análises experimentais
+
+- [Mapeamento exato em quadrantes](quadrants/README.md): enumeração das 3.268.760 combinações, confronto com o histórico, testes de dependência temporal e validação walk-forward contra o baseline combinatório.

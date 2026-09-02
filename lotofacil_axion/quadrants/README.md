@@ -22,6 +22,32 @@ O histórico é confrontado com o espaço completo por:
 
 Um quadrante só pode ser tratado como sinal preditivo quando melhora simultaneamente log loss e Brier score fora da amostra, com o limite superior dos dois intervalos de 95% abaixo de zero.
 
+## Campo físico-espacial
+
+`statistical_physics_analysis.py` trata cada combinação como um estado de 15
+partículas em uma rede 5x5. Sete invariantes, momento dipolar, momento radial,
+quadrupolo, desequilíbrio de linhas, energia de fronteira, ocupação do
+perímetro e contatos diagonais, definem campos de Gibbs de máxima entropia.
+
+O coeficiente de sobreposição entre concursos é estimado separadamente no
+grafo de Johnson `J(25,15)`. A evidência é medida por ganho de
+log-probabilidade em blocos futuros, bootstrap em blocos e White reality check
+entre as famílias testadas. Um campo ajustado dentro da amostra não é chamado
+de preditivo sem passar por essas verificações.
+
+Exemplo:
+
+```bash
+python lotofacil_axion/quadrants/statistical_physics_analysis.py \
+  --history lotofacil_axion/data/lotofacil_history.csv \
+  --space-map /caminho/privado/full_combination_map.npz \
+  --output /caminho/privado/physics_next \
+  --prediction-contest "$NEXT_CONTEST"
+```
+
+O mapa completo e os rankings prospectivos devem permanecer em armazenamento
+privado, de acordo com `PUBLIC_DATA_POLICY.md`.
+
 ## Execução
 
 ```bash

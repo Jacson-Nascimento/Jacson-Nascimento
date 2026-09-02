@@ -79,8 +79,8 @@
   "final_manifest": {
     "model_version": "axion-lotofacil-0.3",
     "next_contest": 3778,
-    "generated_at_utc": "2026-09-02T17:22:59.123338+00:00",
-    "generated_at_america_araguaina": "2026-09-02T14:22:59.123732-03:00",
+    "generated_at_utc": "2026-09-02T17:53:48.865105+00:00",
+    "generated_at_america_araguaina": "2026-09-02T14:53:48.865527-03:00",
     "last_observed_contest": 3777,
     "last_observed_date": "2026-09-01",
     "selected_config": {
@@ -148,7 +148,7 @@
     "distance_minimum": 5,
     "universe_vertices_scored": 3268760,
     "seed": 20260723,
-    "manifest_sha256_without_self_hash": "49594f970c33a10f4369682ca80eddf20b1edd01d12f2b2437880be26e642ac4"
+    "manifest_sha256_without_self_hash": "755db6d1e338ddc5cf67b696b33ae958775226d6c23199a429bc8bad43e9ff81"
   },
   "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
   "numpy": "2.5.2",

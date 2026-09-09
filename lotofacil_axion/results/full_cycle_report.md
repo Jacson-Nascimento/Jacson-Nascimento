@@ -1,6 +1,6 @@
 # Modelo Axion Lotofácil 0.3, ciclo integral
 
-Execução: 2026-09-08T19:52:01.901899-03:00
+Execução: 2026-09-09T19:43:24.291072-03:00
 Histórico: concursos 1 a 3779, 3779 observações, de 2003-09-29 a 2026-09-03.
 Fonte principal: https://gist.githubusercontent.com/jovakf1/0efbe4f3cfde6d4308ade85178f23e1a/raw/lotofacil.txt.
 SHA-256 da fonte bruta: `bdf2d17e5cf1f641f50cf76c7dc8cacd9601137356e5c37c1bc9e3eaeb0ee64b`.
@@ -46,7 +46,7 @@ SHA-256 da fonte bruta: `bdf2d17e5cf1f641f50cf76c7dc8cacd9601137356e5c37c1bc9e3e
 - Configuração: `blend_w60_lw0.5`.
 - Jogo de maior escore: 02 03 04 05 09 10 11 13 14 15 17 20 21 24 25.
 - Manifesto: `results/prediction_3780_manifest.json`.
-- Hash interno: `4334c941796a4aa6ec7ff3b81b23671760c428087d75fd64dee0e17a4edec58b`.
+- Hash interno: `41b78ea9f835db0dcd0d10ed2e02076b0dbcea3d072d77f75895349a5e994f5a`.
 
 ## Conclusão metodológica
 

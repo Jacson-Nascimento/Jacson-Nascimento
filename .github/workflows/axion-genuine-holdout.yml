@@ -30,6 +30,14 @@ jobs:
       - name: Run genuine holdout validation
         run: python lotofacil_axion/scripts/nasa_layer/genuine_holdout_validation.py
 
+      - name: Archive genuine holdout outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: axion-genuine-holdout-post3435
+          path: lotofacil_axion/results/nasa_layer/genuine_holdout/
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Commit validation outputs
         run: |
           git config user.name 'github-actions[bot]'

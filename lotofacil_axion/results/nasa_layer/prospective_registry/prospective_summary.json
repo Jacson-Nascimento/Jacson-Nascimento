@@ -1,5 +1,6 @@
 {
   "protocol_version": "axion-prospective-v1",
+  "registry_engine_version": "1.1",
   "start_contest": 3780,
   "locked_horizons": [
     25,
@@ -8,6 +9,8 @@
     250
   ],
   "primary_endpoint": "single_game_hits",
+  "primary_null": "exact convolution of Hypergeometric(25,15,15)",
+  "benchmark_mean_hits": 9.0,
   "strategy_results": {},
   "locked_horizon_reviews": [],
   "n_evaluated_contests": 0,

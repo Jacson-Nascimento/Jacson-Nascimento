@@ -1,7 +1,10 @@
 {
+  "protocol_version": "axion-prospective-v1",
+  "registry_engine_version": "1.1",
   "last_observed_contest": 3779,
   "next_contest": 3780,
   "baseline_manifest_ready": true,
+  "pending_reason": null,
   "evaluated_contests": 0,
   "next_locked_horizon": 25
 }

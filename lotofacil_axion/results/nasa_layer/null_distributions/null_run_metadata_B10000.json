@@ -1,0 +1,15 @@
+{
+  "stage": "AXION NASA Signal Analysis Layer - Etapa 2",
+  "input": "data/lotofacil_history.csv",
+  "input_sha256": "ebe7f2b6058eb2a6a533516fb6f6ee2cd2f329bf94589f1fbbec9baea5aca271",
+  "n_contests": 3435,
+  "first_contest": 1,
+  "last_contest": 3435,
+  "first_date": "2003-09-29",
+  "last_date": "2025-07-05",
+  "simulations": 10000,
+  "batch_size": 50,
+  "seed": 20260910,
+  "generator": "uniform random 15-subset of 25 via random scores + argpartition",
+  "interpretation_rule": "Flags são apenas triagem. Integração ao AXION exige estabilidade temporal, correção por múltiplos testes e validação fora da amostra."
+}

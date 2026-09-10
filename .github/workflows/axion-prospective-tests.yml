@@ -1,0 +1,40 @@
+name: AXION prospective tests
+
+on:
+  push:
+    paths:
+      - 'lotofacil_axion/scripts/nasa_layer/prospective_registry.py'
+      - 'lotofacil_axion/tests/test_prospective_registry.py'
+      - 'lotofacil_axion/results/nasa_layer/prospective_registry/baseline_manifest_3780.json'
+      - '.github/workflows/axion-prospective-tests.yml'
+  pull_request:
+    paths:
+      - 'lotofacil_axion/scripts/nasa_layer/prospective_registry.py'
+      - 'lotofacil_axion/tests/test_prospective_registry.py'
+      - 'lotofacil_axion/results/nasa_layer/prospective_registry/baseline_manifest_3780.json'
+      - '.github/workflows/axion-prospective-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install numpy pandas scipy
+
+      - name: Compile prospective registry
+        run: python -m py_compile lotofacil_axion/scripts/nasa_layer/prospective_registry.py
+
+      - name: Run prospective registry tests
+        run: python -m unittest -v lotofacil_axion/tests/test_prospective_registry.py

@@ -1,0 +1,15 @@
+{
+  "protocol_version": "axion-prospective-v1",
+  "start_contest": 3780,
+  "locked_horizons": [
+    25,
+    50,
+    100,
+    250
+  ],
+  "primary_endpoint": "single_game_hits",
+  "strategy_results": {},
+  "locked_horizon_reviews": [],
+  "n_evaluated_contests": 0,
+  "next_locked_horizon": 25
+}

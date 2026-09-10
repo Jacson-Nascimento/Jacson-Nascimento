@@ -1,0 +1,160 @@
+{
+  "analysis": "AXION prospective locked-horizon power analysis",
+  "null": "Hypergeometric(25,15,15)",
+  "null_mean_hits": 9.0,
+  "null_variance_hits": 1.5,
+  "locked_horizons": [
+    25,
+    50,
+    100,
+    250
+  ],
+  "target_means": [
+    9.1,
+    9.2,
+    9.3,
+    9.4,
+    9.5,
+    9.75,
+    10.0
+  ],
+  "alpha_levels": {
+    "nominal_0.05": 0.05,
+    "conservative_4test_0.0125": 0.0125
+  },
+  "target_power": 0.8,
+  "alternative_family": "exponential tilt of the fair hypergeometric overlap distribution",
+  "interpretation": "Design sensitivity only. The tilted family is not asserted to be the true data-generating process. The 0.0125 threshold is a conservative four-test reference, not the exact Benjamini-Hochberg cutoff.",
+  "critical_values": [
+    {
+      "horizon": 25,
+      "alpha_label": "nominal_0.05",
+      "alpha_target": 0.05,
+      "critical_total_hits": 236,
+      "critical_mean_hits": 9.44,
+      "actual_null_tail_probability": 0.0432423789085602
+    },
+    {
+      "horizon": 25,
+      "alpha_label": "conservative_4test_0.0125",
+      "alpha_target": 0.0125,
+      "critical_total_hits": 240,
+      "critical_mean_hits": 9.6,
+      "actual_null_tail_probability": 0.008988303544205213
+    },
+    {
+      "horizon": 50,
+      "alpha_label": "nominal_0.05",
+      "alpha_target": 0.05,
+      "critical_total_hits": 465,
+      "critical_mean_hits": 9.3,
+      "actual_null_tail_probability": 0.04709369603345329
+    },
+    {
+      "horizon": 50,
+      "alpha_label": "conservative_4test_0.0125",
+      "alpha_target": 0.0125,
+      "critical_total_hits": 470,
+      "critical_mean_hits": 9.4,
+      "actual_null_tail_probability": 0.012226896593282589
+    },
+    {
+      "horizon": 100,
+      "alpha_label": "nominal_0.05",
+      "alpha_target": 0.05,
+      "critical_total_hits": 921,
+      "critical_mean_hits": 9.21,
+      "actual_null_tail_probability": 0.047143561531846116
+    },
+    {
+      "horizon": 100,
+      "alpha_label": "conservative_4test_0.0125",
+      "alpha_target": 0.0125,
+      "critical_total_hits": 928,
+      "critical_mean_hits": 9.28,
+      "actual_null_tail_probability": 0.012422563214527442
+    },
+    {
+      "horizon": 250,
+      "alpha_label": "nominal_0.05",
+      "alpha_target": 0.05,
+      "critical_total_hits": 2283,
+      "critical_mean_hits": 9.132,
+      "actual_null_tail_probability": 0.046693576158503
+    },
+    {
+      "horizon": 250,
+      "alpha_label": "conservative_4test_0.0125",
+      "alpha_target": 0.0125,
+      "critical_total_hits": 2294,
+      "critical_mean_hits": 9.176,
+      "actual_null_tail_probability": 0.01237930149544722
+    }
+  ],
+  "mde_80": [
+    {
+      "horizon": 25,
+      "alpha_label": "nominal_0.05",
+      "alpha_target": 0.05,
+      "target_power": 0.8,
+      "mean_hits_for_80pct_power": 9.6264545064487,
+      "increment_over_fair_mean": 0.6264545064487006
+    },
+    {
+      "horizon": 25,
+      "alpha_label": "conservative_4test_0.0125",
+      "alpha_target": 0.0125,
+      "target_power": 0.8,
+      "mean_hits_for_80pct_power": 9.786120915929846,
+      "increment_over_fair_mean": 0.7861209159298461
+    },
+    {
+      "horizon": 50,
+      "alpha_label": "nominal_0.05",
+      "alpha_target": 0.05,
+      "target_power": 0.8,
+      "mean_hits_for_80pct_power": 9.436162748189387,
+      "increment_over_fair_mean": 0.4361627481893873
+    },
+    {
+      "horizon": 50,
+      "alpha_label": "conservative_4test_0.0125",
+      "alpha_target": 0.0125,
+      "target_power": 0.8,
+      "mean_hits_for_80pct_power": 9.536123415863198,
+      "increment_over_fair_mean": 0.536123415863198
+    },
+    {
+      "horizon": 100,
+      "alpha_label": "nominal_0.05",
+      "alpha_target": 0.05,
+      "target_power": 0.8,
+      "mean_hits_for_80pct_power": 9.308354900656525,
+      "increment_over_fair_mean": 0.30835490065652493
+    },
+    {
+      "horizon": 100,
+      "alpha_label": "conservative_4test_0.0125",
+      "alpha_target": 0.0125,
+      "target_power": 0.8,
+      "mean_hits_for_80pct_power": 9.378370983195644,
+      "increment_over_fair_mean": 0.37837098319564433
+    },
+    {
+      "horizon": 250,
+      "alpha_label": "nominal_0.05",
+      "alpha_target": 0.05,
+      "target_power": 0.8,
+      "mean_hits_for_80pct_power": 9.19533267924696,
+      "increment_over_fair_mean": 0.19533267924695963
+    },
+    {
+      "horizon": 250,
+      "alpha_label": "conservative_4test_0.0125",
+      "alpha_target": 0.0125,
+      "target_power": 0.8,
+      "mean_hits_for_80pct_power": 9.239351772766387,
+      "increment_over_fair_mean": 0.23935177276638697
+    }
+  ]
+}

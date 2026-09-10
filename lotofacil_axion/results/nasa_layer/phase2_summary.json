@@ -1,0 +1,43 @@
+{
+  "date": "2026-09-10",
+  "base": {"contest_min": 1, "contest_max": 3435, "n_contests": 3435},
+  "AXION-BB": {
+    "status": "REPROVADO para integração preditiva",
+    "null_B": 20000,
+    "candidates_q_lt_0_05": 0,
+    "notable_nominal": {
+      "1": {"p": 0.0167991600419979, "q": 0.35341982900854957},
+      "20": {"p": 0.034298285085745714, "q": 0.35341982900854957},
+      "10": {"p": 0.048347582620868954, "q": 0.35341982900854957}
+    }
+  },
+  "AXION-DST": {
+    "status": "INCONCLUSIVO - manter em observação",
+    "train_n": 2748,
+    "holdout_n": 687,
+    "retained_components": 23,
+    "mean_distance_actual": 24.205124074513737,
+    "mean_distance_null": 23.373612300697406,
+    "p_mean": 0.03559288142371526,
+    "q_mean": 0.07118576284743051,
+    "ks_p": 0.019667184515812897,
+    "ks_q": 0.07118576284743051,
+    "tail_q95_q": 0.877624475104979,
+    "q99_exceedance_q": 0.877624475104979
+  },
+  "AXION-SE-MSE": {
+    "status": "REPROVADO para integração preditiva",
+    "null_B": 5000,
+    "scales": [1, 2, 3, 5, 10, 20],
+    "r_ratios": [0.15, 0.20],
+    "candidates_q_lt_0_05": 0,
+    "top_r_0_15": {
+      "7": {"p": 0.007998400319936013, "q": 0.16496700659868027},
+      "25": {"p": 0.013197360527894421, "q": 0.16496700659868027},
+      "20": {"p": 0.03419316136772645, "q": 0.21370725854829034},
+      "10": {"p": 0.05858828234353129, "q": 0.2929414117176564},
+      "16": {"p": 0.09598080383923216, "q": 0.39992001599680066}
+    }
+  },
+  "decision": "Nenhum dos três módulos foi autorizado a alterar a seleção de jogos. AXION-DST seguirá para replicação temporal; BB e SE/MSE ficam preservados como experimentos não aprovados."
+}

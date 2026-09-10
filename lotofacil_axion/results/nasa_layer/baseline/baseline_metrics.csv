@@ -1,0 +1,12 @@
+metric,value,reference
+n_contests,3435.0,
+freq_sd,44.96572768972683,uniform 15/25; validate via null simulation
+freq_range,182.0,uniform 15/25; validate via null simulation
+freq_chi2,23.544881125667153,uniform 15/25; validate via null simulation
+sum_mean,195.16710334788937,theoretical mean 195
+sum_sd,17.88776308931993,theoretical sd approx 18.0278
+even_mean,7.205822416302766,theoretical mean 7.2
+prime_mean,5.387190684133915,theoretical mean 5.4
+border_mean,9.633187772925764,theoretical mean 9.6
+consecutive_pairs_mean,8.371761280931587,validate via null simulation
+repeat_prev_mean,8.968841001747233,theoretical mean 9

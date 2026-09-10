@@ -1,0 +1,79 @@
+{
+  "module": "AXION genuine post-3435 holdout validation",
+  "freeze_contest": 3435,
+  "freeze_date": "2025-07-05",
+  "holdout_first_contest": 3436,
+  "holdout_last_contest": 3779,
+  "holdout_last_date": "2026-09-03",
+  "n_holdout": 344,
+  "fixed_top15": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    20,
+    22,
+    24,
+    25
+  ],
+  "fixed_top15_mean_hits": 9.087209302325581,
+  "fixed_top15_t_p_vs9": 0.19295652975228833,
+  "fixed_top15_mc_p_ge": 0.09740951295243523,
+  "fixed_probability_brier": 0.23997367944987716,
+  "fixed_probability_brier_p_vs_0_24": 0.8518340344452262,
+  "rolling1000_mean_hits": 9.020348837209303,
+  "rolling1000_t_p_vs9": 0.7582306660542742,
+  "rolling1000_mc_p_ge": 0.3874480627596862,
+  "bias_vector_pearson_r": 0.33465579259791844,
+  "bias_vector_pearson_p": 0.10201626782408073,
+  "bias_vector_spearman_rho": 0.2833753298881118,
+  "bias_vector_spearman_p": 0.1698553904199615,
+  "axion_outer_n": 344,
+  "axion_outer_missing_holdout_contests": [],
+  "axion_single_mean_hits": 9.017441860465116,
+  "axion_single_t_p_vs9": 0.7944321320378257,
+  "axion_single_mc_p_ge": 0.40243798781006096,
+  "axion_mean_brier": 0.24023141901802134,
+  "axion_brier_p_vs_0_24": 0.17899482740208197,
+  "axion_portfolio10_mean": 10.80232558139535,
+  "random_portfolio10_mean": 10.893488372093023,
+  "portfolio_paired_difference": -0.09116279069767465,
+  "portfolio_paired_t_p": 0.04491562566191065,
+  "multiple_test_control": [
+    {
+      "test": "fixed_top15_hits",
+      "p": 0.09740951295243523,
+      "q_bh": 0.17002711304013454
+    },
+    {
+      "test": "rolling1000_top15_hits",
+      "p": 0.3874480627596862,
+      "q_bh": 0.40243798781006096
+    },
+    {
+      "test": "bias_vector_pearson",
+      "p": 0.10201626782408073,
+      "q_bh": 0.17002711304013454
+    },
+    {
+      "test": "axion_single_hits",
+      "p": 0.40243798781006096,
+      "q_bh": 0.40243798781006096
+    },
+    {
+      "test": "axion_portfolio_vs_random",
+      "p": 0.04491562566191065,
+      "q_bh": 0.17002711304013454
+    }
+  ],
+  "mc_replicates_per_hits_test": 200000,
+  "seed": 20260915,
+  "decision_rule": "A pre-freeze signal is considered replicated only if it remains directionally consistent in the post-3435 holdout and survives multiplicity control. No result is converted automatically into a betting rule."
+}

@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-10",
+  "base": {"contest_min": 1, "contest_max": 3435, "n_contests": 3435},
+  "frequency_stability": {
+    "status": "ANOMALIA AGREGADA CONFIRMADA EM PARTE DOS RECORTES",
+    "null_B": 100000,
+    "full_history": {
+      "freq_sd": {"actual": 44.96572768972683, "q": 0.002609973900260997},
+      "freq_range": {"actual": 182.0, "q": 0.027356393102735636},
+      "freq_chi2": {"actual": 23.544881125667153, "q": 0.002609973900260997}
+    },
+    "strongest_window": {"start": 2001, "end": 3000, "size": 1000, "freq_chi2": 24.263333333333335, "q": 0.002609973900260997}
+  },
+  "dst_rolling": {
+    "status": "NAO APROVADO - SINAL INICIAL NAO REPLICADO",
+    "splits": 5,
+    "mean_significant_after_bh": 0,
+    "ks_significant_after_bh": 0,
+    "last_split_p_mean": 0.04031989336887704,
+    "last_split_q_mean": 0.1916027990669777
+  },
+  "AXION-COMP": {
+    "status": "REPROVADO PARA INTEGRACAO",
+    "tests": 16,
+    "significant_after_bh": 0,
+    "best_nominal": {"window_size": 3435, "layout": "column_major", "algorithm": "bz2", "p": 0.030969030969030968, "q": 0.4955044955044955}
+  },
+  "decision": "A dispersao de frequencias permanece como hipotese de auditoria estatistica. BB, DST, SE/MSE e COMP nao foram autorizados a alterar geracao ou exclusao de jogos.",
+  "next_gate": "AXION-MC sensitivity/ablation deve usar exatamente a configuracao canonica do runner atual; nao reconstruir filtros a partir de documentacao antiga."
+}

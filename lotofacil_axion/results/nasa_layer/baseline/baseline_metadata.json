@@ -1,0 +1,24 @@
+{
+  "stage": "AXION NASA Signal Analysis Layer - Etapas 0 e 1",
+  "input": "data/lotofacil_history.csv",
+  "input_sha256": "ebe7f2b6058eb2a6a533516fb6f6ee2cd2f329bf94589f1fbbec9baea5aca271",
+  "n_contests": 3435,
+  "first_contest": 1,
+  "last_contest": 3435,
+  "first_date": "2003-09-29",
+  "last_date": "2025-07-05",
+  "data_quality": {
+    "n_concursos": 3435,
+    "concurso_min": 1,
+    "concurso_max": 3435,
+    "concursos_unicos": 3435,
+    "lacunas_na_sequencia_concursos": 0,
+    "linhas_com_dezenas_duplicadas": 0,
+    "linhas_com_dezenas_fora_1_25": 0,
+    "linhas_nao_ordenadas": 0
+  },
+  "notes": [
+    "Baseline descritivo; não implica previsibilidade.",
+    "Testes individuais de frequência são triagem e exigem validação temporal e modelo nulo."
+  ]
+}

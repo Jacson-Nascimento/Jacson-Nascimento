@@ -1,0 +1,43 @@
+name: AXION genuine holdout validation
+
+on:
+  push:
+    paths:
+      - 'lotofacil_axion/scripts/nasa_layer/genuine_holdout_validation.py'
+      - '.github/workflows/axion-genuine-holdout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install numpy pandas scipy
+
+      - name: Run genuine holdout validation
+        run: python lotofacil_axion/scripts/nasa_layer/genuine_holdout_validation.py
+
+      - name: Commit validation outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add lotofacil_axion/results/nasa_layer/genuine_holdout/
+          if git diff --cached --quiet; then
+            echo 'No output changes to commit.'
+          else
+            git commit -m 'Register AXION genuine post-3435 holdout validation'
+            git push
+          fi

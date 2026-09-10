@@ -34,9 +34,127 @@ jobs:
       - name: Install dependencies
         run: pip install -r lotofacil_axion/requirements.txt
 
+      - name: Snapshot immutable prospective manifests
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          import shutil
+          from pathlib import Path
+
+          snapshot = Path(os.environ['RUNNER_TEMP']) / 'axion-manifest-snapshot'
+          snapshot.mkdir(parents=True, exist_ok=True)
+          patterns = [
+              'lotofacil_axion/results/prediction_*_manifest.json',
+              'lotofacil_axion/results/nasa_layer/prospective_registry/baseline_manifest_*.json',
+          ]
+          index = {}
+          for pattern in patterns:
+              for path in sorted(Path('.').glob(pattern)):
+                  rel = path.as_posix()
+                  raw = path.read_bytes()
+                  index[rel] = {
+                      'sha256': hashlib.sha256(raw).hexdigest(),
+                      'kind': 'prediction' if path.name.startswith('prediction_') else 'baseline',
+                  }
+                  target = snapshot / rel
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copy2(path, target)
+
+          (snapshot / 'index.json').write_text(
+              json.dumps(index, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          print(f'Snapshotted {len(index)} immutable manifest(s).')
+          PY
+
       - name: Run full-history nested validation
         working-directory: lotofacil_axion
         run: python repair_runner.py
+
+      - name: Enforce immutable prospective manifests
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          import shutil
+          import sys
+          from pathlib import Path
+
+          snapshot = Path(os.environ['RUNNER_TEMP']) / 'axion-manifest-snapshot'
+          index = json.loads((snapshot / 'index.json').read_text(encoding='utf-8'))
+          violations = []
+          restored_metadata_only = []
+
+          locked_prediction_fields = [
+              'model_version',
+              'next_contest',
+              'last_observed_contest',
+              'last_observed_date',
+              'selected_config',
+              'top_game',
+              'portfolio',
+              'distance_minimum',
+              'universe_vertices_scored',
+              'seed',
+          ]
+
+          for rel, meta in index.items():
+              current = Path(rel)
+              frozen = snapshot / rel
+              frozen_raw = frozen.read_bytes()
+
+              if not current.exists():
+                  current.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copy2(frozen, current)
+                  violations.append(f'{rel}: existing immutable manifest was deleted')
+                  continue
+
+              current_raw = current.read_bytes()
+              current_sha = hashlib.sha256(current_raw).hexdigest()
+              if current_sha == meta['sha256']:
+                  continue
+
+              if meta['kind'] == 'prediction':
+                  try:
+                      old = json.loads(frozen_raw.decode('utf-8'))
+                      new = json.loads(current_raw.decode('utf-8'))
+                      changed_locked = [
+                          key for key in locked_prediction_fields
+                          if old.get(key) != new.get(key)
+                      ]
+                  except Exception as exc:
+                      changed_locked = [f'JSON parse failure: {exc}']
+
+                  shutil.copy2(frozen, current)
+                  if changed_locked:
+                      violations.append(
+                          f"{rel}: attempted semantic rewrite of locked fields: "
+                          + ', '.join(changed_locked)
+                      )
+                  else:
+                      restored_metadata_only.append(rel)
+              else:
+                  shutil.copy2(frozen, current)
+                  violations.append(f'{rel}: attempted rewrite of frozen baseline manifest')
+
+              restored_sha = hashlib.sha256(current.read_bytes()).hexdigest()
+              if restored_sha != meta['sha256']:
+                  violations.append(f'{rel}: failed to restore frozen SHA-256')
+
+          for rel in restored_metadata_only:
+              print(f'Restored metadata-only regeneration of frozen manifest: {rel}')
+
+          if violations:
+              print('Immutable manifest guard failed:', file=sys.stderr)
+              for item in violations:
+                  print(f'  - {item}', file=sys.stderr)
+              sys.exit(1)
+
+          print('Immutable manifest guard passed.')
+          PY
 
       - name: Verify prospective manifest
         working-directory: lotofacil_axion
@@ -54,29 +172,100 @@ jobs:
           print(json.dumps(m, ensure_ascii=False, indent=2))
           PY
 
-      - name: Commit immutable results
+      - name: Preserve complete run outputs
+        if: always()
         run: |
+          out="$RUNNER_TEMP/lotofacil-axion-output"
+          rm -rf "$out"
+          mkdir -p "$out"
+          test ! -d lotofacil_axion/data || cp -a lotofacil_axion/data "$out/"
+          test ! -d lotofacil_axion/results || cp -a lotofacil_axion/results "$out/"
+
+      - name: Commit only a new prospective contest
+        run: |
+          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add lotofacil_axion/data lotofacil_axion/results
-          if git diff --cached --quiet; then
-            echo 'No new result to commit.'
-          else
-            contest=$(python - <<'PY'
-          import glob, json
-          p=sorted(glob.glob('lotofacil_axion/results/prediction_*_manifest.json'))[-1]
-          print(json.load(open(p))['next_contest'])
+
+          new_contest="$(python - <<'PY'
+          import glob
+          import json
+          import os
+          from pathlib import Path
+
+          snapshot = Path(os.environ['RUNNER_TEMP']) / 'axion-manifest-snapshot'
+          index = json.loads((snapshot / 'index.json').read_text(encoding='utf-8'))
+          frozen = {p for p, meta in index.items() if meta['kind'] == 'prediction'}
+          current = set(glob.glob('lotofacil_axion/results/prediction_*_manifest.json'))
+          new_paths = sorted(current - frozen)
+          if new_paths:
+              with open(new_paths[-1], encoding='utf-8') as f:
+                  print(json.load(f)['next_contest'])
           PY
-          )
-            git commit -m "Register Lotofacil prediction ${contest}"
-            git push
+          )"
+
+          if [ -z "$new_contest" ]; then
+            echo 'No new prospective contest was created. Generated rerun outputs will not be committed.'
+            exit 0
           fi
 
+          git add lotofacil_axion/data lotofacil_axion/results
+          if git diff --cached --quiet; then
+            echo 'No repository changes to commit.'
+            exit 0
+          fi
+
+          git commit -m "Register Lotofacil prediction ${new_contest}"
+
+          verify_frozen_hashes() {
+            python - <<'PY'
+          import hashlib
+          import json
+          import os
+          import sys
+          from pathlib import Path
+
+          snapshot = Path(os.environ['RUNNER_TEMP']) / 'axion-manifest-snapshot'
+          index = json.loads((snapshot / 'index.json').read_text(encoding='utf-8'))
+          bad = []
+          for rel, meta in index.items():
+              path = Path(rel)
+              if not path.exists():
+                  bad.append(f'{rel}: missing after rebase')
+                  continue
+              sha = hashlib.sha256(path.read_bytes()).hexdigest()
+              if sha != meta['sha256']:
+                  bad.append(f'{rel}: frozen SHA-256 changed after rebase')
+          if bad:
+              for item in bad:
+                  print(item, file=sys.stderr)
+              sys.exit(1)
+          print('Frozen manifest hashes preserved after synchronization.')
+          PY
+          }
+
+          for attempt in 1 2 3 4; do
+            echo "Push attempt ${attempt}/4"
+            git fetch origin main
+            if ! git merge-base --is-ancestor origin/main HEAD; then
+              echo 'Remote main advanced during computation; rebasing safely.'
+              git rebase origin/main
+              verify_frozen_hashes
+            fi
+            if git push origin HEAD:main; then
+              echo 'Push completed.'
+              exit 0
+            fi
+            sleep $((attempt * 3))
+          done
+
+          echo 'Unable to publish after four synchronized attempts.' >&2
+          exit 1
+
       - name: Upload complete outputs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: lotofacil-axion-results
-          path: |
-            lotofacil_axion/data
-            lotofacil_axion/results
+          path: ${{ runner.temp }}/lotofacil-axion-output
           retention-days: 90

@@ -12,6 +12,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: axion-prospective-registry
+  cancel-in-progress: false
+
 jobs:
   register:
     runs-on: ubuntu-latest
@@ -29,8 +33,21 @@ jobs:
       - name: Install dependencies
         run: pip install numpy pandas scipy
 
+      - name: Compile registry script
+        run: python -m py_compile lotofacil_axion/scripts/nasa_layer/prospective_registry.py
+
       - name: Rebuild prospective ledger and preregister next contest
         run: python lotofacil_axion/scripts/nasa_layer/prospective_registry.py
+
+      - name: Verify immutable manifests were not rewritten
+        run: git diff --exit-code -- 'lotofacil_axion/results/nasa_layer/prospective_registry/baseline_manifest_*.json'
+
+      - name: Archive prospective registry outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: axion-prospective-registry
+          path: lotofacil_axion/results/nasa_layer/prospective_registry/
+          retention-days: 90
 
       - name: Commit prospective registry
         run: |
@@ -41,5 +58,6 @@ jobs:
             echo 'No prospective registry changes to commit.'
           else
             git commit -m 'Update AXION prospective validation registry'
+            git pull --rebase origin main
             git push
           fi

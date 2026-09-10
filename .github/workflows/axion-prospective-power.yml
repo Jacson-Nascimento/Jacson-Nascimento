@@ -1,0 +1,58 @@
+name: AXION prospective power analysis
+
+on:
+  push:
+    paths:
+      - 'lotofacil_axion/scripts/nasa_layer/prospective_power_analysis.py'
+      - '.github/workflows/axion-prospective-power.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: axion-prospective-power
+  cancel-in-progress: false
+
+jobs:
+  power:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      - name: Compile power analysis
+        run: python -m py_compile lotofacil_axion/scripts/nasa_layer/prospective_power_analysis.py
+
+      - name: Run prospective power analysis
+        run: python lotofacil_axion/scripts/nasa_layer/prospective_power_analysis.py
+
+      - name: Archive power outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: axion-prospective-power
+          path: lotofacil_axion/results/nasa_layer/prospective_power/
+          retention-days: 90
+
+      - name: Commit power outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add lotofacil_axion/results/nasa_layer/prospective_power/
+          if git diff --cached --quiet; then
+            echo 'No prospective power changes to commit.'
+          else
+            git commit -m 'Register AXION prospective power analysis'
+            git pull --rebase origin main
+            git push
+          fi

@@ -61,3 +61,13 @@ O protocolo-base permanece `axion-prospective-v1`. O mecanismo computacional de 
 O manifest já criado para o concurso 3780 não será alterado para inserir esse novo campo. Sua ausência será interpretada no índice como mecanismo 1.0. Essa decisão preserva a imutabilidade do primeiro registro.
 
 Novos aperfeiçoamentos inferenciais depois de observado o concurso 3780 deverão ser avaliados com maior restrição. Qualquer alteração que mude endpoint, estratégias, horizontes ou critérios de decisão exigirá nova versão formal do protocolo, sem reescrever os registros já existentes.
+
+## 6. Testes automatizados e CI
+
+Foi adicionada uma suíte de testes automatizados específica para o registro prospectivo. Ela verifica a distribuição nula hipergeométrica, esperança e variância teóricas, monotonicidade dos p-valores de cauda, reprodutibilidade do controle aleatório, integridade e hash do manifest 3780, vínculo com o manifest AXION de origem, rejeição de jogos inválidos, comportamento fail-closed quando a previsão futura não existe e propriedades básicas da correção Benjamini-Hochberg.
+
+O workflow `AXION prospective tests` foi executado no GitHub Actions após a criação da suíte. Compilação e testes concluíram com sucesso.
+
+Hash SHA-256 congelado de `baseline_manifest_3780.json`:
+
+`b326eb0238b1d26ba2bdcc871992dd5b77f9a6233abf346d4dede74b1471dc36`

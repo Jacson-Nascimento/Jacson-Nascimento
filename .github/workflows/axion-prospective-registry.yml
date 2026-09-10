@@ -1,0 +1,45 @@
+name: AXION prospective registry
+
+on:
+  push:
+    paths:
+      - 'lotofacil_axion/data/lotofacil_history.csv'
+      - 'lotofacil_axion/results/prediction_*_manifest.json'
+      - 'lotofacil_axion/scripts/nasa_layer/prospective_registry.py'
+      - '.github/workflows/axion-prospective-registry.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install numpy pandas scipy
+
+      - name: Rebuild prospective ledger and preregister next contest
+        run: python lotofacil_axion/scripts/nasa_layer/prospective_registry.py
+
+      - name: Commit prospective registry
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add lotofacil_axion/results/nasa_layer/prospective_registry/
+          if git diff --cached --quiet; then
+            echo 'No prospective registry changes to commit.'
+          else
+            git commit -m 'Update AXION prospective validation registry'
+            git push
+          fi

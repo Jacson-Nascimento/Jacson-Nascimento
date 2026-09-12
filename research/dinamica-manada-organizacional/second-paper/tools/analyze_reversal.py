@@ -8,6 +8,7 @@ import gzip
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+import networkx as nx
 
 THIS = Path(__file__).resolve()
 SECOND = THIS.parents[1]
@@ -120,6 +121,26 @@ def write_csv(path: Path, fieldnames, rows):
         w.writeheader()
         for row in rows:
             w.writerow(row)
+
+def exact_seed_probability(pi: np.ndarray, sigma: np.ndarray, theta: float = THETA):
+    sd = math.sqrt(float(np.sum((pi * sigma) ** 2)))
+    p = 0.5 * math.erfc(abs(theta) / (sd * math.sqrt(2.0)))
+    return p, sd
+
+def summarize_structure_distribution(rows, label):
+    arr = np.asarray(rows, dtype=float)
+    return {
+        "design": label,
+        "n_structures": int(arr.shape[0]),
+        "P_seed_mean": fmt(arr[:, 0].mean()),
+        "P_seed_median": fmt(np.median(arr[:, 0])),
+        "P_seed_p025": fmt(np.quantile(arr[:, 0], 0.025)),
+        "P_seed_p975": fmt(np.quantile(arr[:, 0], 0.975)),
+        "n_eff_mean": fmt(arr[:, 1].mean()),
+        "n_eff_median": fmt(np.median(arr[:, 1])),
+        "executive_weight_mean": fmt(arr[:, 2].mean()),
+        "executive_weight_median": fmt(np.median(arr[:, 2])),
+    }
 
 def fmt(x):
     if isinstance(x, (int, np.integer)):
@@ -240,6 +261,96 @@ def main(validate=False):
         })
     write_csv(OUT / "kappa_counterfactual.csv", list(kappa_rows[0].keys()), kappa_rows)
 
+    # Closed-form probability of a wrong structural seed under independent Gaussian evidence.
+    # Because Z = pi'e is Gaussian with mean theta and variance sum_i (pi_i sigma_i)^2,
+    # P(sign(Z) != sign(theta)) = Phi(-|theta| / sd_Z).
+    analytic_rows = []
+    for kappa in range(6):
+        multiplier = np.exp(kappa * h)
+        Wk = A * multiplier[np.newaxis, :]
+        Wk = Wk / Wk.sum(axis=1, keepdims=True)
+        pik = stationary_pi(Wk)
+        Sk = np.sign(E @ pik) != np.sign(THETA)
+        p_exact, sd_z = exact_seed_probability(pik, sigma)
+        analytic_rows.append({
+            "kappa": kappa,
+            "P_seed_mc_fixed_realization": fmt(Sk.mean()),
+            "P_seed_exact_gaussian": fmt(p_exact),
+            "sd_structural_aggregate": fmt(sd_z),
+            "n_eff": fmt(1 / np.sum(pik ** 2)),
+            "executive_weight": fmt(pik[np.argmax(h)]),
+            "top6_weight": fmt(pik[h >= 0.65].sum()),
+        })
+    write_csv(OUT / "analytic_kappa.csv", list(analytic_rows[0].keys()), analytic_rows)
+
+    # Structural robustness 1: new Watts-Strogatz realizations, fixed role assignment.
+    network_rows = []
+    network_full = []
+    for b in range(500):
+        network_seed = 20260912 + b
+        graph = nx.watts_strogatz_graph(N, 6, 0.12, seed=network_seed)
+        Ab = nx.to_numpy_array(graph, nodelist=range(N), dtype=float)
+        np.fill_diagonal(Ab, 1.0)
+        multiplier = np.exp(5.0 * h)
+        Wb = Ab * multiplier[np.newaxis, :]
+        Wb = Wb / Wb.sum(axis=1, keepdims=True)
+        pib = stationary_pi(Wb)
+        p_exact, _ = exact_seed_probability(pib, sigma)
+        neff = 1 / np.sum(pib ** 2)
+        exec_weight = pib[np.argmax(h)]
+        network_rows.append((p_exact, neff, exec_weight))
+        network_full.append({
+            "network_seed": network_seed,
+            "P_seed_exact": fmt(p_exact),
+            "n_eff": fmt(neff),
+            "executive_weight": fmt(exec_weight),
+        })
+    write_csv(OUT / "network_ensemble_robustness.csv", list(network_full[0].keys()), network_full)
+
+    # Structural robustness 2: preserve the published network but randomize where the
+    # hierarchical roles (and their role-specific signal precision) sit in that network.
+    placement_rng = np.random.default_rng(20260912)
+    placement_rows = []
+    placement_full = []
+    for b in range(1000):
+        perm = placement_rng.permutation(N)
+        hb = h[perm]
+        sigmab = sigma[perm]
+        multiplier = np.exp(5.0 * hb)
+        Wb = A * multiplier[np.newaxis, :]
+        Wb = Wb / Wb.sum(axis=1, keepdims=True)
+        pib = stationary_pi(Wb)
+        p_exact, _ = exact_seed_probability(pib, sigmab)
+        neff = 1 / np.sum(pib ** 2)
+        exec_weight = pib[np.argmax(hb)]
+        placement_rows.append((p_exact, neff, exec_weight))
+        placement_full.append({
+            "permutation_id": b + 1,
+            "P_seed_exact": fmt(p_exact),
+            "n_eff": fmt(neff),
+            "executive_weight": fmt(exec_weight),
+        })
+    write_csv(OUT / "role_placement_robustness.csv", list(placement_full[0].keys()), placement_full)
+
+    structural_summary = [
+        summarize_structure_distribution(network_rows, "network_ensemble_fixed_roles"),
+        summarize_structure_distribution(placement_rows, "fixed_network_random_roles"),
+    ]
+    write_csv(OUT / "structural_robustness_summary.csv", list(structural_summary[0].keys()), structural_summary)
+
+    threshold_rows = []
+    frac_wrong_7090, _ = herd_outcome(E, W, 0.70, 0.90)
+    frac_wrong_7595, _ = herd_outcome(E, W, 0.75, 0.95)
+    for tau in (0.70, 0.75, 0.80, 0.85, 0.90):
+        threshold_rows.append({
+            "tau": fmt(tau),
+            "P_H_given_S_b070_c090": fmt((frac_wrong_7090[seed_wrong] >= tau).mean()),
+            "P_H_given_S_b075_c095": fmt((frac_wrong_7595[seed_wrong] >= tau).mean()),
+            "P_H_total_b070_c090": fmt((frac_wrong_7090 >= tau).mean()),
+            "P_H_total_b075_c095": fmt((frac_wrong_7595 >= tau).mean()),
+        })
+    write_csv(OUT / "herd_threshold_sensitivity.csv", list(threshold_rows[0].keys()), threshold_rows)
+
     edges = np.quantile(margin, np.linspace(0, 1, 6), method="linear")
     quintile = np.digitize(margin, edges[1:-1], right=True) + 1
     margin_rows = []
@@ -317,6 +428,9 @@ def main(validate=False):
         validate_csv(OUT / "kappa_counterfactual.csv", EXPECTED / "kappa_counterfactual.csv", key_cols=1)
         validate_csv(OUT / "margin_quintiles.csv", EXPECTED / "margin_quintiles.csv", key_cols=2)
         validate_csv(OUT / "logistic_diagnostic.csv", EXPECTED / "logistic_diagnostic.csv", key_cols=1, tol=1e-7)
+        validate_csv(OUT / "analytic_kappa.csv", EXPECTED / "analytic_kappa.csv", key_cols=1)
+        validate_csv(OUT / "structural_robustness_summary.csv", EXPECTED / "structural_robustness_summary.csv", key_cols=2, tol=1e-8)
+        validate_csv(OUT / "herd_threshold_sensitivity.csv", EXPECTED / "herd_threshold_sensitivity.csv", key_cols=1)
         print("All complementary-analysis controls reproduced successfully.")
 
 if __name__ == "__main__":

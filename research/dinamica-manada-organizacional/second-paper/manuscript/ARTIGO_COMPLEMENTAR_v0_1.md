@@ -98,7 +98,7 @@ Entre as sementes incorretas, 97,69% ocorreram com executivo errado. Isso não i
 
 Quando o executivo estava errado, P(S) aumentou com o número de gestores também errados:
 
-| Gestores errados | N | P(S | executivo errado) |
+| Gestores errados | N | P(S dado executivo errado) |
 |---:|---:|---:|
 | 0 | 677 | 34,42% |
 | 1 | 1.200 | 51,25% |
@@ -132,7 +132,7 @@ Os valores não definem limiar universal. Eles demonstram uma propriedade mecân
 
 ### 4.6 A semente incorreta possui intensidade
 
-| Quintil | Margem média | P(H|S), beta=0,70 c=0,90 | P(H|S), beta=0,75 c=0,95 |
+| Quintil | Margem média | P(H dado S), beta=0,70 c=0,90 | P(H dado S), beta=0,75 c=0,95 |
 |---:|---:|---:|---:|
 | Q1 | 0,076 | 0,00% | 55,49% |
 | Q2 | 0,233 | 19,94% | 100,00% |

@@ -280,6 +280,7 @@ def main(validate=False):
     plt.title("Informational reversal under increasing hierarchical concentration")
     plt.tight_layout()
     plt.savefig(FIG / "figure1_kappa_seed_wrong.png", dpi=200)
+    plt.savefig(FIG / "figure1_kappa_seed_wrong.svg")
     plt.close()
 
     plt.figure(figsize=(8, 5))
@@ -289,6 +290,7 @@ def main(validate=False):
     plt.title("Effective informational diversity")
     plt.tight_layout()
     plt.savefig(FIG / "figure2_kappa_neff.png", dpi=200)
+    plt.savefig(FIG / "figure2_kappa_neff.svg")
     plt.close()
 
     qx = np.arange(1, 6)
@@ -305,6 +307,7 @@ def main(validate=False):
     plt.legend()
     plt.tight_layout()
     plt.savefig(FIG / "figure3_margin_herd.png", dpi=200)
+    plt.savefig(FIG / "figure3_margin_herd.svg")
     plt.close()
 
     if validate:

@@ -1,10 +1,10 @@
 {
   "source": {
     "primary": "https://gist.githubusercontent.com/jovakf1/0efbe4f3cfde6d4308ade85178f23e1a/raw/lotofacil.txt",
-    "raw_sha256": "70fd6d94d77524397d05fe82b709ce1f2cc59d42838c33e2011967841cb82500",
+    "raw_sha256": "919dc0404f913b1581e3786670f89795a089e499bf26c8ade6515094a737d55d",
     "first_contest": 1,
-    "last_contest": 3785,
-    "n_contests": 3785,
+    "last_contest": 3786,
+    "n_contests": 3786,
     "official_crosscheck_count": 21
   },
   "change_points": {
@@ -16,43 +16,43 @@
     ]
   },
   "nested_summary": {
-    "n_outer_predictions": 3285,
+    "n_outer_predictions": 3286,
     "n_outer_folds": 9,
     "single": {
-      "mean": 9.043835616438356,
+      "mean": 9.043517954960437,
       "ci95": [
-        9.001514459665144,
-        9.085540334855404
+        9.002731284236154,
+        9.085209981740718
       ],
-      "mean_minus_random9": 0.043835616438356165,
-      "one_sample_t_p": 0.04156299000171787,
+      "mean_minus_random9": 0.04351795496043822,
+      "one_sample_t_p": 0.043021009476942096,
       "ge11": 371,
       "ge12": 58,
       "ge13": 7,
       "max": 13,
-      "mean_brier": 0.24016494267773147
+      "mean_brier": 0.24016497451724858
     },
     "repeat_previous": {
-      "mean": 8.970776255707763,
+      "mean": 8.970785149117468,
       "ci95": [
-        8.929368340943682,
-        9.012176560121766
+        8.929397443700548,
+        9.013085818624468
       ],
-      "one_sample_t_p": 0.17141008282676998
+      "one_sample_t_p": 0.17141007162459054
     },
     "portfolio10": {
-      "mean": 10.80517503805175,
+      "mean": 10.804930006086428,
       "ci95": [
-        10.77716894977169,
-        10.83318112633181
+        10.777236762020694,
+        10.832630858186244
       ],
-      "random_diversified_mean": 10.884627092846271,
-      "paired_difference": -0.07945205479452072,
+      "random_diversified_mean": 10.884637857577601,
+      "paired_difference": -0.07970785149117485,
       "paired_ci95": [
-        -0.10743957382039589,
-        -0.05053242009132436
+        -0.10861959829580053,
+        -0.05131984175289122
       ],
-      "paired_t_p": 4.7083928080223665e-08,
+      "paired_t_p": 4.2458885698259534e-08,
       "ge11": 2118,
       "ge12": 593,
       "ge13": 52,
@@ -78,11 +78,11 @@
   },
   "final_manifest": {
     "model_version": "axion-lotofacil-0.3",
-    "next_contest": 3786,
-    "generated_at_utc": "2026-09-22T23:05:40.495716+00:00",
-    "generated_at_america_araguaina": "2026-09-22T20:05:40.502988-03:00",
-    "last_observed_contest": 3785,
-    "last_observed_date": "2026-09-21",
+    "next_contest": 3787,
+    "generated_at_utc": "2026-09-23T23:03:59.840970+00:00",
+    "generated_at_america_araguaina": "2026-09-23T20:03:59.849127-03:00",
+    "last_observed_contest": 3786,
+    "last_observed_date": "2026-09-22",
     "selected_config": {
       "name": "blend_w60_lw0.5",
       "window": 60,
@@ -97,12 +97,12 @@
       3,
       4,
       5,
+      9,
       11,
       12,
       13,
       14,
       15,
-      17,
       21,
       22,
       23,
@@ -115,12 +115,12 @@
         3,
         4,
         5,
+        9,
         11,
         12,
         13,
         14,
         15,
-        17,
         21,
         22,
         23,
@@ -133,12 +133,12 @@
         3,
         4,
         5,
-        9,
-        10,
         11,
         12,
+        13,
         15,
         16,
+        17,
         19,
         20,
         24,
@@ -148,7 +148,7 @@
     "distance_minimum": 5,
     "universe_vertices_scored": 3268760,
     "seed": 20260723,
-    "manifest_sha256_without_self_hash": "e95a9d81276f903b03e36cc822310e07b7e5008142f425d1966b6dd9b711c5f9"
+    "manifest_sha256_without_self_hash": "8a2d367e43b1db37c549d86fbe346f4c82ad187ed9eeac85af96abe13a56e14f"
   },
   "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
   "numpy": "2.5.3",

@@ -1,0 +1,13 @@
+indicador,valor,observacao
+inscritos_tecnologia_inovacao,994,total oficial da enfase
+candidatos_ampla_concorrencia,868,contagem linha a linha validada
+candidatos_demais_modalidades,126,diferenca entre total e ampla concorrencia
+participacao_ampla_concorrencia_pct,87.3239,868 dividido por 994
+vagas_totais,20,distribuicao oficial por enfase
+vagas_ampla_concorrencia,10,distribuicao oficial por modalidade
+candidatos_por_vaga_ampla_concorrencia,86.8,868 dividido por 10
+probabilidade_simples_sorteio_ac_pct,1.1521,10 dividido por 868
+probabilidade_simples_nao_selecao_ac_pct,98.8479,1 menos 10 dividido por 868
+candidatos_por_vaga_total,49.7,994 dividido por 20
+relacao_vagas_inscritos_total_pct,2.0121,20 dividido por 994
+posicao_alfabetica_jacson_na_ac,377,nao representa classificacao

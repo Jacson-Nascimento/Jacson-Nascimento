@@ -1,9 +1,9 @@
 # Modelo Axion Lotofácil 0.3, ciclo integral
 
-Execução: 2026-10-02T20:57:20.201611-03:00
-Histórico: concursos 1 a 3794, 3794 observações, de 2003-09-29 a 2026-10-01.
+Execução: 2026-10-03T20:15:04.494204-03:00
+Histórico: concursos 1 a 3795, 3795 observações, de 2003-09-29 a 2026-10-02.
 Fonte principal: https://gist.githubusercontent.com/jovakf1/0efbe4f3cfde6d4308ade85178f23e1a/raw/lotofacil.txt.
-SHA-256 da fonte bruta: `514533c899a3bdac95cf176255fdbc35524d40e56ca69d9821c334f29cbacfec`.
+SHA-256 da fonte bruta: `3f485ab7899a34a491d811998848166c59e22c0563854f15747e155412f2cd81`.
 
 ## Desenho da validação
 
@@ -14,12 +14,12 @@ SHA-256 da fonte bruta: `514533c899a3bdac95cf176255fdbc35524d40e56ca69d9821c334f
 
 ## Resultados agregados fora da amostra
 
-- Previsões externas: 3294 em 9 blocos.
-- Aposta única: média 9.0437, IC95% [9.000303582270796, 9.085306618093503], p contra 9 = 0.04164.
-- Repetição do concurso anterior: média 8.9702, p contra 9 = 0.1631.
-- Carteira de 10: melhor jogo médio 10.8063.
+- Previsões externas: 3295 em 9 blocos.
+- Aposta única: média 9.0434, IC95% [9.000902883156298, 9.085895295902883], p contra 9 = 0.0431.
+- Repetição do concurso anterior: média 8.9712, p contra 9 = 0.1767.
+- Carteira de 10: melhor jogo médio 10.8061.
 - Benchmark aleatório diversificado: 10.8845.
-- Diferença pareada modelo menos benchmark: -0.0782, IC95% [-0.10657225258044947, -0.05010139647844586], p = 7.356e-08.
+- Diferença pareada modelo menos benchmark: -0.0784, IC95% [-0.10702427921092582, -0.050779059180576826], p = 6.672e-08.
 
 ## Configurações selecionadas por bloco
 
@@ -31,7 +31,7 @@ SHA-256 da fonte bruta: `514533c899a3bdac95cf176255fdbc35524d40e56ca69d9821c334f
 - Bloco 6: concursos 2501 a 2900, `marg_w500_hlNone_pr100.0`, single 9.070, carteira 10.870, aleatória 10.886.
 - Bloco 7: concursos 2901 a 3300, `marg_w500_hlNone_pr100.0`, single 9.107, carteira 10.860, aleatória 10.884.
 - Bloco 8: concursos 3301 a 3700, `marg_w500_hlNone_pr100.0`, single 8.985, carteira 10.818, aleatória 10.888.
-- Bloco 9: concursos 3701 a 3794, `marg_w60_hl30.0_pr100.0`, single 8.926, carteira 10.787, aleatória 10.880.
+- Bloco 9: concursos 3701 a 3795, `marg_w60_hl30.0_pr100.0`, single 8.916, carteira 10.779, aleatória 10.880.
 
 ## Regimes e mudanças detectadas
 
@@ -41,12 +41,12 @@ SHA-256 da fonte bruta: `514533c899a3bdac95cf176255fdbc35524d40e56ca69d9821c334f
 
 ## Previsão prospectiva registrada
 
-- Próximo concurso: 3795.
-- Último concurso observado: 3794.
+- Próximo concurso: 3796.
+- Último concurso observado: 3795.
 - Configuração: `blend_w60_lw0.5`.
-- Jogo de maior escore: 01 03 04 05 08 09 11 12 13 14 15 21 23 24 25.
-- Manifesto: `results/prediction_3795_manifest.json`.
-- Hash interno: `fcbe1d4687c65c82e55fe818fa78aee6443c89933081297340b4b63cd6fbf6c9`.
+- Jogo de maior escore: 01 03 04 05 08 09 11 12 13 14 15 19 21 24 25.
+- Manifesto: `results/prediction_3796_manifest.json`.
+- Hash interno: `088053bfaeb18e176812490d9fc3c6ddfccb1e20c2e090d2d9ae802dd9ae17a7`.
 
 ## Conclusão metodológica
 

@@ -1,0 +1,6 @@
+reference_date,employees,source_id,evidence_grade,source_status,notes
+2017-12-31,87654,S002,A,official,"Total oficial de empregados da CAIXA no Relatório de Sustentabilidade 2017; usado apenas para checagem histórica, não para rateio por UF."
+2024-12-31,83307,S003,A,official,"Total de Empregados CAIXA em 2024 na apresentação pública de resultados 2025."
+2025-12-31,84394,S003,A,official,"Total de Empregados CAIXA em 2025 na apresentação pública de resultados."
+2026-03-31,84363,S004,B,public_secondary,"Total divulgado por fonte sindical pública com base no balanço da CAIXA."
+2026-06-30,84136,S004,B,public_secondary,"Denominador corrente escolhido para a modelagem territorial inicial."

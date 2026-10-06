@@ -1,0 +1,5 @@
+scenario_id,scope,basis,rate,min_value,max_value,union_share,federation_share,confederation_share,central_share,source_id,evidence_grade,notes
+TST2026_SALARY,tst_sentence_reported,"salário-básico + gratificação de função/caixa/compensador + anuênios",0.015,63.00,310.00,0.70,0.15,0.10,0.05,S005,A,"Cenário principal. Confirmado também por S006; direito de oposição previsto."
+TST2026_PLR,tst_sentence_reported,"PLR por pagamento",0.015,0.00,262.30,0.70,0.15,0.10,0.05,S005,A,"Tratado separadamente da incidência salarial."
+CCT2026_SALARY_REFERENCE,cct_reference,"salário de setembro - referência divulgada da CCT",0.015,62.46,312.25,0.70,0.15,0.10,0.05,S007,B,"Mantido apenas para análise de sensibilidade devido à divergência frente aos valores atribuídos à sentença normativa da CAIXA."
+CCT2026_PLR_REFERENCE,cct_reference,"PLR - referência divulgada da CCT",0.015,0.00,262.30,0.70,0.15,0.10,0.05,S007,B,"Referência de CCT; não deve ser fundida silenciosamente com o cenário do dissídio."

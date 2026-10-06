@@ -10,6 +10,8 @@ Conforme `PUBLIC_DATA_POLICY.md`, as bases brutas, bases processadas, scripts op
 
 Construir, exclusivamente a partir de fontes públicas, uma estimativa reprodutível da distribuição de empregados da Caixa Econômica Federal por UF e, quando houver evidência suficiente, por base territorial de sindicatos dos bancários, para avaliar cenários da contribuição negocial de 2026.
 
+O estudo também examinará, de forma neutra, a literatura sobre financiamento sindical, ação coletiva, free riding, liberdade de associação, direito de oposição, densidade sindical e capacidade de barganha. O objetivo não é defender contribuição ou oposição, mas mensurar possíveis efeitos financeiros das escolhas institucionais e discutir os mecanismos sugeridos pela literatura sem extrapolar causalidade.
+
 ## Regra de dados
 
 - somente fontes publicamente acessíveis;
@@ -34,15 +36,19 @@ Se um número for conhecido por qualquer outro meio, mas não puder ser sustenta
 
 Os códigos M1 e M2 identificam resultados derivados. Eles não transformam estimativas em dados observados.
 
-## Documentação metodológica
+## Documentação metodológica e bibliográfica
 
 - [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md): regras de admissibilidade, hierarquia das fontes, modelos M2 e M3, tratamento das bases sindicais e fórmulas financeiras.
 - [`docs/DECISOES_METODOLOGICAS.md`](docs/DECISOES_METODOLOGICAS.md): decisões que alteraram ou restringiram estimativas preliminares.
 - [`docs/LIMITACOES_E_PENDENCIAS.md`](docs/LIMITACOES_E_PENDENCIAS.md): lacunas que precisam ser tratadas antes da redação do artigo.
+- [`docs/REVISAO_LITERATURA.md`](docs/REVISAO_LITERATURA.md): revisão crítica preliminar da literatura brasileira e internacional, marco jurisprudencial e lacuna de pesquisa.
+- [`docs/MATRIZ_REFERENCIAS.md`](docs/MATRIZ_REFERENCIAS.md): método, achado, posição predominante, uso permitido e limitação de cada referência central.
 
 ## Situação em 06/10/2026
 
 A infraestrutura metodológica e o conjunto inicial de fontes foram preparados e validados fora deste repositório de perfil. O pacote de trabalho possui controles de reconciliação, reconstrução de denominadores, intervalos e cenários financeiros.
+
+A revisão bibliográfica preliminar identificou literatura suficiente para sustentar as duas posições relevantes ao problema: necessidade de financiamento da representação coletiva e proteção da autonomia individual pelo direito de oposição. Não foi localizado, até esta etapa, estudo brasileiro publicado que mensure de forma reprodutível a exposição financeira das entidades sindicais ao exercício da oposição por base territorial dentro de um grande empregador nacional. Essa formulação será tratada como lacuna provisória, sujeita a atualização.
 
 Nesta fase, os pontos prioritários são:
 
@@ -50,7 +56,8 @@ Nesta fase, os pontos prioritários são:
 2. confirmar o quadro nacional de empregados em fonte pública primária da CAIXA;
 3. ampliar os denominadores públicos das maiores bases sindicais;
 4. construir o mapa territorial das bases representativas;
-5. manter como `NA` qualquer lacuna sem evidência pública suficiente.
+5. atualizar a situação do Tema 935 e do IRDR Tema 02 antes do fechamento do artigo;
+6. manter como `NA` qualquer lacuna sem evidência pública suficiente.
 
 ## Repositório canônico
 

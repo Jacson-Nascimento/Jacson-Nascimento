@@ -16,7 +16,7 @@ A prioridade é:
 4. reconstruções aritméticas, M1;
 5. modelos de alocação, M2.
 
-Quando duas fontes divergem, não é permitido escolher silenciosamente a que produz o resultado desejado. A divergência deve ser registrada e, se material, submetida a análise de sensibilidade.
+Quando duas fontes divergem, não é permitido escolher silenciosamente a que produz o resultado desejado. A divergência deve ser registrada e, se material, submetida a análise de sensibilidade ou resolvida por fonte de nível superior.
 
 ## 3. Âncora nacional
 
@@ -81,27 +81,24 @@ Percentuais de aprovação ou rejeição sem contagem de votos ou taxa de partic
 
 ## 6. Contribuição negocial
 
-As fontes sindicais públicas consultadas após a sentença normativa de 2026 convergem quanto ao percentual de 1,5%, ao direito de oposição e à destinação de 70% ao sindicato local. Há, entretanto, divergência material nos valores mínimos e máximos reproduzidos publicamente.
+A consulta pública ao processo `DCG-1000975-72.2026.5.00.0000` no PJe/TST localizou o acórdão da Seção Especializada em Dissídios Coletivos, julgado em 29/09/2026, documento `26092812223902200000207743324`.
 
-Nesta etapa são mantidos dois conjuntos provisórios:
+A fonte primária confirma, para a contribuição incidente sobre a remuneração fixa:
 
-### Cenário A
+- alíquota de 1,5%;
+- incidência sobre salário-básico, gratificação de função, gratificação de caixa, gratificação de compensador de cheques e anuênios, quando pagos no mês;
+- mínimo de R$ 63,00;
+- máximo de R$ 310,00;
+- 70% destinados ao sindicato respectivo;
+- 15% à federação respectiva;
+- 15% à confederação respectiva, que permanece com 10% e repassa 5% à central sindical à qual o sindicato estiver filiado;
+- direito de oposição ao desconto.
 
-- 1,5% sobre a base remuneratória definida na decisão;
-- mínimo de R$ 63,00 e máximo de R$ 310,00 para a contribuição sobre remuneração fixa;
-- sobre a PLR, 1,5%, sem mínimo, limitada a R$ 262,30 por pagamento;
-- 70% destinados ao sindicato da base;
-- 15% à federação;
-- 10% à confederação;
-- 5% à central sindical.
+A publicação de Campinas que menciona mínimo de R$ 65,33 e máximo de R$ 326,61 permanece no projeto somente para rastreabilidade da divergência documental. Após a confirmação P1, esses valores não são utilizados como parâmetros normativos da sentença da CAIXA.
 
-Esse conjunto é reproduzido por múltiplas entidades sindicais, entre elas fontes do Ceará e Sergipe.
+### Contribuição associada à PLR
 
-### Cenário B
-
-Uma publicação do Sindicato dos Bancários de Campinas e Região informa 1,5%, mínimo de R$ 65,33 e máximo de R$ 326,61. Esse conjunto é mantido como divergência documental pública e não substitui o cenário A até reconciliação com a fonte normativa primária.
-
-Os dois cenários são instrumentos de verificação e sensibilidade. Nenhum deles deve ser apresentado no artigo como parâmetro definitivo enquanto o texto final primário da decisão do TST não estiver incorporado ao conjunto documental ou enquanto a divergência não puder ser explicada por instrumentos coletivos distintos.
+Publicações sindicais reproduzem cobrança de 1,5% sobre PLR, sem mínimo e com teto de R$ 262,30 por pagamento. Essa regra específica não foi identificada na cláusula de contribuição extraída do acórdão primário consultado. Por isso, permanece classificada como P2 e não será tratada como parâmetro definitivo enquanto não for localizada a previsão primária correspondente.
 
 ## 7. Fórmulas de receita potencial
 
@@ -109,7 +106,7 @@ Para um universo elegível `E`, taxa de oposição hipotética `o`, valor indivi
 
 `receita_sindicato = E * (1 - o) * c * s`
 
-Enquanto existir conflito normativo, os resultados financeiros devem ser apresentados separadamente para os cenários A e B quando ambos forem aplicáveis.
+Para a contribuição sobre remuneração fixa, os cenários de piso e teto passam a utilizar R$ 63,00 e R$ 310,00 como parâmetros normativos confirmados P1.
 
 O valor médio de R$ 235,54 utilizado na exploração inicial permanece classificado como cenário preliminar não observado e não deve ser tratado como arrecadação esperada.
 

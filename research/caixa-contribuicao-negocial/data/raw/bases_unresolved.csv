@@ -1,0 +1,11 @@
+base_id,uf,base_name,evidence_grade,status,reason,next_public_source_to_check
+DF_BRASILIA,DF,"Brasília",D,unresolved,"Há percentuais de votação públicos, mas não foi localizado denominador de aptos verificável.","resultados de assembleias 2026; editais; publicações do Sindicato dos Bancários de Brasília"
+MG_BELO_HORIZONTE,MG,"Belo Horizonte e Região",D,unresolved,"Resultado percentual localizado sem quantitativo de aptos/votantes suficiente.","publicações 2026 do Sindicato dos Bancários de BH e Região"
+RS_PORTO_ALEGRE,RS,"Porto Alegre e Região",D,unresolved,"Sem denominador público validado nesta rodada.","resultados de assembleias 2026 e publicações do SindBancários Porto Alegre"
+PR_CURITIBA,PR,"Curitiba e Região",D,unresolved,"Sem denominador público validado nesta rodada.","resultados de assembleias 2026 e publicações do Sindicato de Curitiba e Região"
+PE_RECIFE,PE,"Recife e Região",D,unresolved,"Sem denominador público validado nesta rodada.","resultados de assembleias 2026 e publicações do Sindicato dos Bancários de Pernambuco"
+GO_GOIANIA,GO,"Goiânia e base territorial",D,unresolved,"Edital público confirma elegibilidade por lista enviada ao sistema de votação, mas não publica quantidade.","resultado/apuração de assembleia 2026 do Sindicato dos Bancários de Goiás"
+RJ_RIO,RJ,"Rio de Janeiro",D,unresolved,"Há números de participação divulgados em fontes públicas, mas o denominador ainda precisa ser validado em fonte primária da entidade.","resultado oficial de assembleia 2026 do Sindicato dos Bancários do Rio"
+CE_CEARA,CE,"Fortaleza/Ceará - base sindical principal",D,unresolved,"Sem denominador público validado nesta rodada.","resultados de assembleias 2026 do Sindicato dos Bancários do Ceará"
+SC_FLORIANOPOLIS,SC,"Florianópolis e Região",D,unresolved,"Sem denominador público validado nesta rodada.","resultados de assembleias 2026 da base sindical"
+ES_ESPIRITO_SANTO,ES,"Espírito Santo",D,unresolved,"Existe quantitativo histórico público por UF, mas não foi validado denominador contemporâneo da base sindical para 2026.","resultados de assembleias 2026 do Sindibancários/ES"

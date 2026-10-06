@@ -2,19 +2,26 @@
 
 ## Prioridade alta
 
-1. Localizar fonte pública primária do TST para a sentença normativa do dissídio 2026 e conferir literalmente base de incidência, pisos, tetos, PLR, oposição e repartição.
-2. Reconciliar a divergência pública entre os limites R$ 63,00/R$ 310,00 e R$ 65,33/R$ 326,61 antes de tratar qualquer cenário financeiro como parâmetro definitivo.
-3. Localizar fonte pública primária ou demonstração financeira da CAIXA que confirme os 84.136 empregados em junho de 2026.
-4. Obter denominadores públicos das grandes bases ainda abertas, com prioridade para Brasília, Belo Horizonte, Curitiba, Porto Alegre, Pernambuco/Recife, Goiás/Goiânia e Campinas.
-5. Construir mapa completo das bases territoriais sindicais. A menção a aproximadamente 140 bases é estrutural, mas ainda não há no projeto uma tabela canônica com todas as entidades e seus municípios.
+1. Localizar a previsão primária específica, se existente, da contribuição incidente sobre PLR e conferir o teto de R$ 262,30 reproduzido em fontes sindicais.
+2. Localizar fonte pública primária ou demonstração financeira da CAIXA que confirme os 84.136 empregados em junho de 2026.
+3. Obter denominadores públicos das grandes bases ainda abertas, com prioridade para Brasília, Belo Horizonte, Curitiba, Porto Alegre, Pernambuco/Recife, Goiás/Goiânia e Campinas.
+4. Construir mapa completo das bases territoriais sindicais. A menção a aproximadamente 140 bases é estrutural, mas ainda não há no projeto uma tabela canônica com todas as entidades e seus municípios.
+
+## Pendência normativa resolvida em 06/10/2026
+
+A consulta pública ao processo `DCG-1000975-72.2026.5.00.0000` no PJe/TST localizou o acórdão da Seção Especializada em Dissídios Coletivos, documento `26092812223902200000207743324`, julgado em 29/09/2026.
+
+A fonte P1 confirma para a contribuição sobre remuneração fixa: alíquota de 1,5%, mínimo de R$ 63,00, máximo de R$ 310,00, rateio de 70% ao sindicato, 15% à federação e 15% à confederação, com 10% retidos e 5% repassados à central, além do direito de oposição.
+
+A publicação de Campinas com R$ 65,33/R$ 326,61 permanece apenas como divergência documental de fonte secundária direta e não será usada como parâmetro da sentença da CAIXA.
 
 ## Prioridade média
 
-6. Expandir a coleta de assembleias de setembro de 2026 para demais sindicatos, priorizando páginas que publiquem aptos e votantes.
-7. Verificar se os sistemas públicos de votação preservaram resultados acessíveis após o encerramento das assembleias.
-8. Identificar situações em que uma entidade tem base estadual e situações em que o estado é dividido entre vários sindicatos.
-9. Verificar duplicidades ou diferenças entre bases filiadas a estruturas sindicais distintas.
-10. Atualizar o estado do Tema 935 do STF e do IRDR Tema 02 do TST imediatamente antes do fechamento do artigo.
+5. Expandir a coleta de assembleias de setembro de 2026 para demais sindicatos, priorizando páginas que publiquem aptos e votantes.
+6. Verificar se os sistemas públicos de votação preservaram resultados acessíveis após o encerramento das assembleias.
+7. Identificar situações em que uma entidade tem base estadual e situações em que o estado é dividido entre vários sindicatos.
+8. Verificar duplicidades ou diferenças entre bases filiadas a estruturas sindicais distintas.
+9. Atualizar o estado do Tema 935 do STF e do IRDR Tema 02 do TST imediatamente antes do fechamento do artigo.
 
 ## Limitações do modelo estadual
 
@@ -35,7 +42,7 @@
 ## Limitações do modelo financeiro
 
 - Não existe, na versão atual, distribuição pública da base remuneratória individual por sindicato.
-- Os limites normativos apresentam divergência documental pública ainda não reconciliada.
+- Os parâmetros de R$ 63,00/R$ 310,00 estão confirmados para a remuneração fixa, mas a regra específica de contribuição sobre PLR permanece pendente de confirmação primária.
 - O cenário de R$ 235,54 é preliminar e não observado.
 - A taxa real de oposição ainda não é conhecida de forma pública e consolidada.
 - O desconto efetivo pode depender de condições individuais e da aplicação administrativa da sentença.
@@ -52,7 +59,7 @@
 
 A redação analítica de resultados deve começar somente quando:
 
-- a regra normativa estiver confirmada em fonte primária ou em conjunto documental público suficientemente forte;
+- os parâmetros normativos usados em cada cálculo estiverem classificados quanto ao nível de evidência;
 - a âncora nacional estiver confirmada ou mantida como P3 com justificativa explícita;
 - as maiores bases sindicais tiverem denominadores observados, intervalos defensáveis ou forem explicitamente classificadas como não estimáveis;
 - a cobertura conhecida representar parcela substancial do quadro nacional ou houver estratégia de estimação territorial validada;

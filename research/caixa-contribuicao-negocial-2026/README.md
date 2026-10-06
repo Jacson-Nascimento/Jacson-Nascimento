@@ -43,7 +43,7 @@ Os códigos M1 e M2 identificam resultados derivados. Eles não transformam esti
 - [`docs/LIMITACOES_E_PENDENCIAS.md`](docs/LIMITACOES_E_PENDENCIAS.md): lacunas que precisam ser tratadas antes da redação do artigo.
 - [`docs/REVISAO_LITERATURA.md`](docs/REVISAO_LITERATURA.md): revisão crítica preliminar da literatura brasileira e internacional, marco jurisprudencial e lacuna de pesquisa.
 - [`docs/MATRIZ_REFERENCIAS.md`](docs/MATRIZ_REFERENCIAS.md): método, achado, posição predominante, uso permitido e limitação de cada referência central.
-- [`docs/ESTRUTURA_TABELA_NACIONAL.md`](docs/ESTRUTURA_TABELA_NACIONAL.md): unidade de observação, campos, mecanismos de oposição/restituição, regras para universos, tratamento de conflitos normativos e condições de uso da matriz nacional.
+- [`docs/ESTRUTURA_TABELA_NACIONAL.md`](docs/ESTRUTURA_TABELA_NACIONAL.md): unidade de observação, campos, mecanismos de oposição/restituição, regras para universos, parâmetros confirmados e condições de uso da matriz nacional.
 
 ## Situação em 06/10/2026
 
@@ -51,11 +51,15 @@ A infraestrutura metodológica e o conjunto inicial de fontes foram preparados e
 
 A revisão bibliográfica preliminar identificou literatura suficiente para sustentar as duas posições relevantes ao problema: necessidade de financiamento da representação coletiva e proteção da autonomia individual pelo direito de oposição. Não foi localizado, até esta etapa, estudo brasileiro publicado que mensure de forma reprodutível a exposição financeira das entidades sindicais ao exercício da oposição por base territorial dentro de um grande empregador nacional. Essa formulação será tratada como lacuna provisória, sujeita a atualização.
 
-A coleta empírica passou a distinguir explicitamente procedimentos de oposição pré-desconto, devolução da parcela local e mecanismos em duas etapas. Divergências entre reproduções públicas dos parâmetros financeiros permanecem registradas como conflito documental até confirmação por fonte normativa primária.
+A consulta pública ao processo `DCG-1000975-72.2026.5.00.0000` no PJe/TST localizou o acórdão da SDC, julgado em 29/09/2026, documento `26092812223902200000207743324`. A fonte P1 confirma, para a contribuição sobre remuneração fixa, alíquota de 1,5%, mínimo de R$ 63,00, máximo de R$ 310,00, rateio vertical e direito de oposição. A divergência local R$ 65,33/R$ 326,61 permanece apenas como registro documental e não como cenário normativo alternativo da sentença da CAIXA.
+
+A regra específica de contribuição associada à PLR, reproduzida por algumas entidades com teto de R$ 262,30 por pagamento, ainda permanece pendente de confirmação em fonte primária incorporada ao projeto.
+
+A coleta empírica distingue explicitamente procedimentos de oposição pré-desconto, devolução da parcela local e mecanismos em duas etapas.
 
 Nesta fase, os pontos prioritários são:
 
-1. confirmar o dissídio em fonte pública primária do TST;
+1. confirmar em fonte primária a regra específica de contribuição associada à PLR, se aplicável;
 2. confirmar o quadro nacional de empregados em fonte pública primária da CAIXA;
 3. ampliar os denominadores públicos das maiores bases sindicais;
 4. construir o mapa territorial das bases representativas;

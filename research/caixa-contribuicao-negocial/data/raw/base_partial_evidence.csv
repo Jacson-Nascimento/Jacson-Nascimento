@@ -1,6 +1,8 @@
 base_id,uf,base_name,participants,participation_relation,participation_pct,aptos_lower_bound,aptos_upper_bound,source_id,evidence_grade,notes
 RJ_RIO,RJ,"Rio de Janeiro",2711,greater_than,78.00,2711,3475,S017,D,"A fonte informa que 2.711 participantes equivaleram a mais de 78% da base. Logo, o total de aptos é inteiro entre 2.711 e 3.475, mas não há valor pontual identificável."
-DF_BRASILIA,DF,"Brasília",,reported_result_only,,, ,S018,D,"A fonte publica 58,68% de rejeição entre participantes, sem informar participantes nem aptos."
-PR_FEEB_AGGREGATE,PR,"Nove bases FEEB-PR agregadas",,reported_result_only,,, ,S019,D,"Percentuais agregados de rejeição/aprovação sem número absoluto de participantes ou aptos."
+DF_BRASILIA,DF,"Brasília",,reported_result_only,,,,S018,D,"A fonte publica 58,68% de rejeição entre participantes, sem informar participantes nem aptos."
+PR_FEEB_AGGREGATE,PR,"Nove bases FEEB-PR agregadas",,reported_result_only,,,,S019,D,"Percentuais agregados de rejeição/aprovação sem número absoluto de participantes ou aptos."
 SC_JOINVILLE,SC,"Joinville e Região",266,participants_only,,266,,S020,D,"A fonte publica 266 participantes, mas não o total de aptos. 266 é apenas limite inferior do universo elegível."
 CE_CEARA,CE,"Ceará - base estadual publicada",,participation_only,81.33,,,S021,D,"A fonte publica participação de 81,33% da base e resultado percentual, sem quantidade absoluta de votantes ou aptos."
+ES_ESPIRITO_SANTO,ES,"Espírito Santo",1352,participants_only,,1352,,S022,D,"A fonte publica 1.352 participantes e a decomposição dos votos, mas não o total de aptos. 1.352 é apenas limite inferior."
+MG_PONTE_NOVA,MG,"Ponte Nova e Região",64,participants_only,,64,,S023,D,"A fonte publica 64 votantes, sem total de aptos. 64 é apenas limite inferior."

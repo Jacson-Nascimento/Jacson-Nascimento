@@ -2,9 +2,9 @@
 
 Status: projeto de pesquisa em desenvolvimento.
 
-Este diretório funciona apenas como **registro e índice do projeto** no repositório público de perfil.
+Este diretório funciona apenas como **registro, índice e documentação metodológica** do projeto no repositório público de perfil.
 
-Conforme `PUBLIC_DATA_POLICY.md`, as bases brutas, processadas, scripts operacionais e outputs deste estudo não serão armazenados neste repositório. O projeto deverá ter repositório canônico próprio antes do versionamento dos dados.
+Conforme `PUBLIC_DATA_POLICY.md`, as bases brutas, bases processadas, scripts operacionais, testes e outputs analíticos deste estudo não serão armazenados neste repositório. Esses artefatos deverão ser versionados em repositório canônico próprio.
 
 ## Escopo
 
@@ -16,13 +16,44 @@ Construir, exclusivamente a partir de fontes públicas, uma estimativa reprodut�
 - nenhum dado de intranet, sistema interno, relatório restrito ou acesso funcional à CAIXA;
 - nenhuma lista interna de empregados, lotações ou matrículas;
 - nenhum dado pessoal identificável;
+- nenhuma informação obtida por canal privado ou documento vazado;
 - toda estimativa deve registrar fonte, fórmula, hipótese e nível de evidência;
 - lacunas permanecem como não estimadas quando não houver base pública defensável.
 
+Se um número for conhecido por qualquer outro meio, mas não puder ser sustentado por fonte pública acessível a terceiros, ele não entra na base nem no artigo.
+
+## Classificação de evidência
+
+| Código | Significado |
+|---|---|
+| P1 | fonte pública institucional primária, como CAIXA, TST ou MTE |
+| P2 | publicação pública direta de sindicato, federação, confederação ou entidade representativa |
+| P3 | fonte pública secundária que reproduz dado institucional, pendente de confirmação primária quando possível |
+| M1 | reconstrução aritmética feita somente a partir de números públicos |
+| M2 | estimativa modelada combinando fontes públicas de anos ou níveis territoriais diferentes |
+
+Os códigos M1 e M2 identificam resultados derivados. Eles não transformam estimativas em dados observados.
+
+## Documentação metodológica
+
+- [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md): regras de admissibilidade, hierarquia das fontes, modelos M2 e M3, tratamento das bases sindicais e fórmulas financeiras.
+- [`docs/DECISOES_METODOLOGICAS.md`](docs/DECISOES_METODOLOGICAS.md): decisões que alteraram ou restringiram estimativas preliminares.
+- [`docs/LIMITACOES_E_PENDENCIAS.md`](docs/LIMITACOES_E_PENDENCIAS.md): lacunas que precisam ser tratadas antes da redação do artigo.
+
 ## Situação em 06/10/2026
 
-A infraestrutura metodológica e o conjunto inicial de fontes foram preparados e validados localmente. Há testes automatizados de reconciliação, reconstrução de denominadores, intervalos e cenários financeiros.
+A infraestrutura metodológica e o conjunto inicial de fontes foram preparados e validados fora deste repositório de perfil. O pacote de trabalho possui controles de reconciliação, reconstrução de denominadores, intervalos e cenários financeiros.
 
-Antes do artigo, permanecem prioritários: confirmar o dissídio em fonte primária do TST, confirmar o quadro nacional em fonte primária da CAIXA e ampliar a cobertura pública dos denominadores das maiores bases sindicais.
+Nesta fase, os pontos prioritários são:
 
-Nome sugerido para o repositório canônico: `caixa-contribuicao-negocial-2026`.
+1. confirmar o dissídio em fonte pública primária do TST;
+2. confirmar o quadro nacional de empregados em fonte pública primária da CAIXA;
+3. ampliar os denominadores públicos das maiores bases sindicais;
+4. construir o mapa territorial das bases representativas;
+5. manter como `NA` qualquer lacuna sem evidência pública suficiente.
+
+## Repositório canônico
+
+Nome planejado: `caixa-contribuicao-negocial-2026`.
+
+O repositório canônico ainda não está disponível entre os repositórios acessíveis pela integração utilizada nesta etapa. Até sua criação, este diretório não receberá bases, scripts ou resultados operacionais.

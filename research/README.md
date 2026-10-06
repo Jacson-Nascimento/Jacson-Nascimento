@@ -1,8 +1,8 @@
 # Projetos de pesquisa
 
-Este diretório preserva cópias históricas de projetos científicos que antes eram desenvolvidos diretamente no repositório de perfil.
+Este diretório preserva cópias históricas de projetos científicos e, quando necessário, índices metodológicos de projetos que ainda aguardam repositório canônico próprio.
 
-A migração não destrutiva para repositórios dedicados foi concluída em 23/08/2026. Os diretórios abaixo permanecem neste repositório para proveniência, rastreabilidade e preservação do histórico, mas não são mais a fonte operacional canônica.
+A migração não destrutiva para repositórios dedicados foi concluída em 23/08/2026. Os diretórios históricos permanecem neste repositório para proveniência, rastreabilidade e preservação do histórico, mas não são mais a fonte operacional canônica.
 
 ## Repositórios canônicos
 
@@ -28,6 +28,16 @@ Repositório canônico: `Jacson-Nascimento/ciclos-eleitorais-bancos`
 
 Status: privado. A continuidade da reanálise econométrica ocorre exclusivamente no repositório dedicado. A PR #1 foi encerrada sem merge como etapa sucedida pela PR #2, que permanece como referência científica corrente.
 
+## Projeto em preparação de repositório canônico
+
+### CAIXA 2026: contribuição negocial por base sindical
+
+Índice metodológico: `research/caixa-contribuicao-negocial-2026/`
+
+Repositório canônico planejado: `Jacson-Nascimento/caixa-contribuicao-negocial-2026`
+
+Status: pesquisa em desenvolvimento. O diretório deste repositório contém somente documentação metodológica e de governança. Bases, scripts, testes e outputs não devem ser adicionados aqui. O estudo usa exclusivamente fontes públicas e rejeita qualquer informação obtida por acesso funcional, sistema interno ou canal privado da CAIXA.
+
 ## Projeto fora de `research/`
 
 ### Modelo Axion Lotofácil
@@ -42,4 +52,6 @@ Status: público. A PR #1 do repositório dedicado é a continuidade canônica d
 
 A partir de 23/08/2026, novos commits de pesquisa devem ocorrer nos repositórios canônicos dedicados. As cópias históricas mantidas neste repositório não devem ser utilizadas como origem de novas linhas de desenvolvimento.
 
-Novas bases brutas ou processadas do projeto de dependência de fornecedores não devem ser adicionadas ao repositório público de perfil. Consulte `../PUBLIC_DATA_POLICY.md` para a política de dados públicos e `../GOVERNANCE.md` para a política geral de organização dos repositórios.
+Enquanto um novo projeto ainda não tiver repositório canônico, o repositório de perfil pode manter somente índice e documentação metodológica, sem bases brutas, bases processadas, scripts operacionais ou outputs analíticos.
+
+Consulte `../PUBLIC_DATA_POLICY.md` para a política de dados públicos e `../GOVERNANCE.md` para a política geral de organização dos repositórios.

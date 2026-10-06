@@ -34,13 +34,21 @@ Bases com resultados percentuais públicos, mas sem número de votantes, aptos o
 
 O valor médio de R$ 235,54 utilizado na exploração inicial não corresponde a dado observado de contribuição individual. Foi reclassificado como `scenario_preliminary_not_observed` e não deve ser apresentado como arrecadação esperada.
 
-## 2026-10-06, conflito público nos limites da contribuição
+## 2026-10-06, conflito dos limites da contribuição resolvido pela fonte primária
 
-A coleta identificou reproduções públicas divergentes dos limites aplicáveis à contribuição sobre remuneração fixa.
+A coleta havia identificado reproduções públicas divergentes: múltiplas entidades publicaram mínimo de R$ 63,00 e máximo de R$ 310,00, enquanto Campinas publicou R$ 65,33 e R$ 326,61.
 
-Múltiplas entidades reproduzem 1,5%, mínimo de R$ 63,00 e máximo de R$ 310,00, além de teto de R$ 262,30 por pagamento de PLR. Em sentido distinto, o Sindicato dos Bancários de Campinas e Região publicou mínimo de R$ 65,33 e máximo de R$ 326,61.
+Posteriormente, a consulta pública ao processo `DCG-1000975-72.2026.5.00.0000` no PJe/TST localizou o acórdão da SDC, julgado em 29/09/2026, documento `26092812223902200000207743324`. A fonte primária confirma 1,5%, mínimo de R$ 63,00 e máximo de R$ 310,00 para a contribuição sobre a remuneração fixa.
 
-A divergência não será resolvida por escolha discricionária. O projeto passa a registrar cenário A e cenário B até que o texto final primário da decisão do TST ou outro documento público suficiente permita explicar a diferença.
+A divergência de Campinas permanece registrada apenas para rastreabilidade da coleta, mas deixa de ser tratada como cenário normativo alternativo para a sentença da CAIXA.
+
+## 2026-10-06, rateio vertical confirmado na fonte primária
+
+O acórdão público confirma 70% para o sindicato, 15% para a federação e 15% para a confederação, que permanece com 10% e repassa 5% à central sindical. Há regra específica para sindicatos não filiados às confederações suscitadas, que deverá ser aplicada apenas quando a hipótese institucional correspondente estiver presente.
+
+## 2026-10-06, regra específica de contribuição sobre PLR permanece pendente
+
+O teto de R$ 262,30 por pagamento de PLR aparece em publicações sindicais, mas não foi identificado na cláusula de contribuição extraída do acórdão primário consultado. O valor permanece P2 e não será tratado como definitivo enquanto a previsão primária correspondente não for localizada.
 
 ## 2026-10-06, mecanismos de oposição não são tratados como equivalentes
 

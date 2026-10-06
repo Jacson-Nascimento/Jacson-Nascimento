@@ -24,12 +24,32 @@ O projeto passa a registrar apenas o intervalo compatível com a informação p�
 
 ## 2026-10-06, votantes não são automaticamente aptos
 
-Espírito Santo e Joinville publicaram números de participantes, mas não taxa de participação. Esses valores são registrados somente como limites inferiores para o universo elegível.
+Quando uma fonte informa apenas o número de votantes ou participantes, sem taxa de participação, o valor é registrado somente como limite inferior do universo elegível. Não é convertido automaticamente em total de empregados.
 
 ## 2026-10-06, percentuais sem denominador
 
-Brasília, Belo Horizonte, Pernambuco e Porto Alegre têm resultados percentuais públicos localizados, mas sem número de votantes ou aptos nas páginas encontradas. Permanecem sem ponto estimado.
+Bases com resultados percentuais públicos, mas sem número de votantes, aptos ou taxa de participação, permanecem sem ponto estimado. A ausência de denominador deve ser preservada como dado ausente.
 
 ## 2026-10-06, cenário de R$ 235,54 rebaixado
 
-O valor médio de R$ 235,54 utilizado na exploração inicial não corresponde a dado observado de contribuição individual. Foi reclassificado como `scenario_preliminary_not_observed` e não deve ser apresentado como arrecadação esperada. O artigo deve privilegiar limites normativos e, se houver base pública adequada, construir posteriormente um cenário central validado.
+O valor médio de R$ 235,54 utilizado na exploração inicial não corresponde a dado observado de contribuição individual. Foi reclassificado como `scenario_preliminary_not_observed` e não deve ser apresentado como arrecadação esperada.
+
+## 2026-10-06, conflito público nos limites da contribuição
+
+A coleta identificou reproduções públicas divergentes dos limites aplicáveis à contribuição sobre remuneração fixa.
+
+Múltiplas entidades reproduzem 1,5%, mínimo de R$ 63,00 e máximo de R$ 310,00, além de teto de R$ 262,30 por pagamento de PLR. Em sentido distinto, o Sindicato dos Bancários de Campinas e Região publicou mínimo de R$ 65,33 e máximo de R$ 326,61.
+
+A divergência não será resolvida por escolha discricionária. O projeto passa a registrar cenário A e cenário B até que o texto final primário da decisão do TST ou outro documento público suficiente permita explicar a diferença.
+
+## 2026-10-06, mecanismos de oposição não são tratados como equivalentes
+
+A coleta mostrou ao menos três desenhos operacionais distintos: oposição antes do desconto, restituição posterior apenas da parcela local e procedimentos em duas etapas.
+
+A análise financeira deve respeitar essa diferença. Uma devolução de 70% da contribuição não é economicamente idêntica a impedir previamente o desconto integral, especialmente quando os 30% restantes já foram destinados a outras entidades.
+
+## 2026-10-06, fricção procedimental permanece desagregada
+
+Presencialidade, e-mail, formulário eletrônico, AR, exigência de documento manuscrito, assinatura digital e reconhecimento de firma serão codificados separadamente. Não será criado nesta fase um índice único de fricção por simples soma de requisitos.
+
+Qualquer índice agregado futuro exigirá regra de codificação previamente documentada e análise de sensibilidade. Diferenças procedimentais não serão interpretadas como prova de restrição deliberada nem como causa de maior ou menor oposição sem desenho empírico adequado.

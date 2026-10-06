@@ -90,18 +90,25 @@ Um eventual índice de custo procedimental somente poderá ser criado após regr
 
 Resultados derivados devem preservar a classificação da fonte que lhes deu origem e acrescentar a classificação metodológica correspondente.
 
-## Parâmetros financeiros e conflitos normativos
+## Parâmetros financeiros confirmados
 
-Parâmetros normativos não serão escolhidos silenciosamente quando fontes públicas divergirem.
+A consulta pública ao processo `DCG-1000975-72.2026.5.00.0000` no PJe/TST localizou o acórdão da Seção Especializada em Dissídios Coletivos, julgado em 29/09/2026, documento `26092812223902200000207743324`.
 
-Na coleta de 06/10/2026 foram identificadas, entre outras, duas reproduções públicas distintas para limites da contribuição sobre remuneração fixa:
+Para a contribuição sobre remuneração fixa, a fonte P1 confirma:
 
-- cenário A: 1,5%, mínimo de R$ 63,00 e máximo de R$ 310,00;
-- cenário B: 1,5%, mínimo de R$ 65,33 e máximo de R$ 326,61.
+- alíquota de 1,5%;
+- mínimo de R$ 63,00;
+- máximo de R$ 310,00;
+- 70% destinados ao sindicato local;
+- 15% à federação;
+- 15% à confederação, sendo 10% retidos e 5% repassados à central sindical;
+- direito de oposição ao desconto.
 
-Enquanto o texto final primário da decisão do TST não for incorporado ao projeto, os dois conjuntos permanecem registrados como cenários de reconciliação documental, e não como parâmetros definitivos do artigo.
+A publicação local de Campinas com R$ 65,33/R$ 326,61 permanece registrada somente como divergência documental de fonte P2 e não será utilizada como parâmetro normativo da sentença da CAIXA.
 
-A estrutura de rateio de 70% para o sindicato local, 15% para federação e 15% restantes para confederação e central aparece de modo consistente nas fontes públicas consultadas. Algumas entidades detalham os 15% finais em 10% para confederação e 5% para central. Essa compatibilidade deve ser confirmada na fonte normativa primária antes da redação final.
+### Regra específica associada à PLR
+
+O valor de 1,5% sobre PLR, sem mínimo e com teto de R$ 262,30 por pagamento, aparece em publicações sindicais, mas ainda não foi localizado em previsão primária incorporada ao projeto. Permanece P2 e não deve ser tratado como definitivo até reconciliação documental.
 
 ## Fórmula de sensibilidade
 
@@ -110,6 +117,8 @@ Para universo elegível `E`, contribuição individual `c`, parcela local `s` e 
 `repasse_potencial = E * c * s`
 
 `repasse_com_oposicao = E * (1 - o) * c * s`
+
+Para a contribuição sobre remuneração fixa, os cálculos usam R$ 63,00 e R$ 310,00 como parâmetros normativos P1.
 
 A taxa de oposição utilizada em cenários é hipotética até que haja dado público observado. Cenários não devem ser apresentados como previsão.
 
@@ -121,7 +130,7 @@ Campos sem evidência pública suficiente permanecem ausentes. É vedado preench
 
 A tabela poderá sustentar resultados do artigo somente após:
 
-1. reconciliação dos parâmetros normativos com fonte primária ou conjunto documental público suficientemente forte;
+1. classificação do nível de evidência de todos os parâmetros normativos usados em cada cálculo;
 2. confirmação da âncora nacional de empregados em fonte pública primária ou justificativa explícita para manutenção como P3;
 3. cobertura adequada das maiores bases sindicais;
 4. registro de todas as fontes públicas e datas de acesso;

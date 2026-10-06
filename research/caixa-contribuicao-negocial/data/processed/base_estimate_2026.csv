@@ -1,0 +1,9 @@
+base_id,uf,base_name,aptos,evidence_grade,is_approximate,source_id,gross_salary_contribution_min,gross_salary_contribution_max,union_share_min,union_share_max
+SP_SAO_PAULO_OSASCO,SP,"São Paulo, Osasco e Região",11000,A,true,S008,693000.00,3410000.00,485100.00,2387000.00
+BA_SBBA,BA,Sindicato dos Bancários da Bahia - SBBA,1881,A,false,S015,118503.00,583110.00,82952.10,408177.00
+MG_JUIZ_FORA,MG,SINTRAF Juiz de Fora e Região,516,A,false,S009,32508.00,159960.00,22755.60,111972.00
+PR_LONDRINA,PR,Londrina e Região,457,A,false,S010,28791.00,141670.00,20153.70,99169.00
+MG_PATOS_MINAS,MG,Patos de Minas e Região,132,A,false,S011,8316.00,40920.00,5821.20,28644.00
+SC_CRICIUMA,SC,Criciúma e Região,206,B,false,S012,12978.00,63860.00,9084.60,44702.00
+PB_CAMPINA_GRANDE,PB,Campina Grande e Região,198,B,false,S013,12474.00,61380.00,8731.80,42966.00
+RS_PELOTAS,RS,Pelotas e Região,230,A,true,S014,14490.00,71300.00,10143.00,49910.00

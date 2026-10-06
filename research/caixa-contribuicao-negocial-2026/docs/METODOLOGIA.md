@@ -20,7 +20,7 @@ Quando duas fontes divergem, não é permitido escolher silenciosamente a que pr
 
 ## 3. Âncora nacional
 
-A versão preliminar usa 84.136 empregados em junho de 2026, valor divulgado publicamente em fonte secundária que reproduz resultados da CAIXA. Como a fonte primária correspondente ainda não foi incorporada ao projeto, esse parâmetro permanece classificado como P3.
+A versão preliminar usa 84.136 empregados em junho de 2026, valor divulgado publicamente em fontes secundárias que reproduzem os resultados da CAIXA. A CAIXA confirma publicamente a divulgação oficial do 2T26 em agosto de 2026, mas o quantitativo de 84.136 ainda não foi localizado em documento primário incorporado ao projeto. Por isso, esse parâmetro permanece classificado como P3.
 
 ## 4. Distribuição por UF
 
@@ -81,18 +81,27 @@ Percentuais de aprovação ou rejeição sem contagem de votos ou taxa de partic
 
 ## 6. Contribuição negocial
 
-A versão preliminar registra a regra publicamente reproduzida pelas entidades sindicais após a sentença normativa de 2026:
+As fontes sindicais públicas consultadas após a sentença normativa de 2026 convergem quanto ao percentual de 1,5%, ao direito de oposição e à destinação de 70% ao sindicato local. Há, entretanto, divergência material nos valores mínimos e máximos reproduzidos publicamente.
+
+Nesta etapa são mantidos dois conjuntos provisórios:
+
+### Cenário A
 
 - 1,5% sobre a base remuneratória definida na decisão;
-- piso de R$ 63 e teto de R$ 310 para a contribuição sobre remuneração fixa;
-- sobre a PLR, 1,5%, sem piso, limitada a R$ 262,30 por pagamento;
+- mínimo de R$ 63,00 e máximo de R$ 310,00 para a contribuição sobre remuneração fixa;
+- sobre a PLR, 1,5%, sem mínimo, limitada a R$ 262,30 por pagamento;
 - 70% destinados ao sindicato da base;
 - 15% à federação;
 - 10% à confederação;
-- 5% à central sindical;
-- direito de oposição conforme regras divulgadas.
+- 5% à central sindical.
 
-Antes do artigo final, deve ser incorporada ao projeto canônico uma fonte pública primária do processo no TST, se tecnicamente acessível, para substituir ou confirmar as reproduções sindicais.
+Esse conjunto é reproduzido por múltiplas entidades sindicais, entre elas fontes do Ceará e Sergipe.
+
+### Cenário B
+
+Uma publicação do Sindicato dos Bancários de Campinas e Região informa 1,5%, mínimo de R$ 65,33 e máximo de R$ 326,61. Esse conjunto é mantido como divergência documental pública e não substitui o cenário A até reconciliação com a fonte normativa primária.
+
+Os dois cenários são instrumentos de verificação e sensibilidade. Nenhum deles deve ser apresentado no artigo como parâmetro definitivo enquanto o texto final primário da decisão do TST não estiver incorporado ao conjunto documental ou enquanto a divergência não puder ser explicada por instrumentos coletivos distintos.
 
 ## 7. Fórmulas de receita potencial
 
@@ -100,16 +109,24 @@ Para um universo elegível `E`, taxa de oposição hipotética `o`, valor indivi
 
 `receita_sindicato = E * (1 - o) * c * s`
 
-A análise nacional deve publicar cenários para:
+Enquanto existir conflito normativo, os resultados financeiros devem ser apresentados separadamente para os cenários A e B quando ambos forem aplicáveis.
 
-- piso normativo, R$ 63;
-- cenário de referência preliminar, R$ 235,54, sempre rotulado como não observado;
-- teto da remuneração fixa, R$ 310;
-- teto de PLR por pagamento, R$ 262,30.
+O valor médio de R$ 235,54 utilizado na exploração inicial permanece classificado como cenário preliminar não observado e não deve ser tratado como arrecadação esperada.
 
-A taxa real de oposição não é presumida. São apresentados apenas cenários hipotéticos.
+A taxa real de oposição não é presumida. São apresentados apenas cenários hipotéticos até que existam dados públicos observados.
 
-## 8. O que os resultados não medem
+## 8. Procedimentos de oposição e restituição
+
+A coleta distingue mecanismos diferentes:
+
+- oposição apresentada antes do desconto;
+- devolução da parcela posteriormente creditada ao sindicato local;
+- procedimentos em duas etapas, com janela preventiva e restituição posterior;
+- procedimento ainda não suficientemente documentado.
+
+Os componentes operacionais, como formulário eletrônico, e-mail, presença física, AR, documento manuscrito, assinatura digital e reconhecimento de firma, são registrados separadamente. Nesta fase, não é calculado índice agregado de fricção.
+
+## 9. O que os resultados não medem
 
 Os cálculos não são:
 
@@ -118,8 +135,9 @@ Os cálculos não são:
 - quadro oficial de empregados da CAIXA por UF em 2026;
 - número oficial de empregados por base sindical, salvo quando a própria fonte pública fornece o denominador;
 - demonstração de filiação sindical;
-- apuração de valores individuais de empregados.
+- apuração de valores individuais de empregados;
+- evidência causal de que determinado procedimento aumenta ou reduz a oposição.
 
-## 9. RAIS
+## 10. RAIS
 
 Os microdados públicos de RAIS e CAGED são tratados apenas dentro das condições de acesso e identificação formalmente publicadas pelo MTE. O projeto não presume que seja possível isolar a CAIXA como empregador quando a versão pública disponibilizada não permitir identificação direta. Bases sujeitas a acordo de acesso ou restrição não atendem à regra deste estudo e não serão utilizadas.

@@ -43,9 +43,9 @@ Os códigos M1 e M2 identificam resultados derivados. Eles não transformam esti
 - [`docs/LIMITACOES_E_PENDENCIAS.md`](docs/LIMITACOES_E_PENDENCIAS.md): lacunas que precisam ser tratadas antes da redação do artigo.
 - [`docs/REVISAO_LITERATURA.md`](docs/REVISAO_LITERATURA.md): revisão crítica preliminar da literatura brasileira e internacional, marco jurisprudencial e lacuna de pesquisa.
 - [`docs/MATRIZ_REFERENCIAS.md`](docs/MATRIZ_REFERENCIAS.md): método, achado, posição predominante, uso permitido e limitação de cada referência central.
-- [`docs/ESTRUTURA_TABELA_NACIONAL.md`](docs/ESTRUTURA_TABELA_NACIONAL.md): unidade de observação, campos, mecanismos de oposição/restituição, regras para universos, parâmetros confirmados e condições de uso da matriz nacional.
+- [`docs/ESTRUTURA_TABELA_NACIONAL.md`](docs/ESTRUTURA_TABELA_NACIONAL.md): unidade de observação, campos, mecanismos de oposição/restituição, regras para universos, parâmetros confirmados e condições de uso da matriz nacional.\n- [`docs/MATRIZ_EMPIRICA.md`](docs/MATRIZ_EMPIRICA.md): estado da coleta por base sindical, denominadores observados/reconstruídos, procedimentos e lacunas.
 
-## Situação em 06/10/2026
+## Situação em 07/10/2026
 
 A infraestrutura metodológica e o conjunto inicial de fontes foram preparados e validados fora deste repositório de perfil. O pacote de trabalho possui controles de reconciliação, reconstrução de denominadores, intervalos e cenários financeiros.
 
@@ -55,7 +55,7 @@ A consulta pública ao processo `DCG-1000975-72.2026.5.00.0000` no PJe/TST local
 
 A regra específica de contribuição associada à PLR, reproduzida por algumas entidades com teto de R$ 262,30 por pagamento, ainda permanece pendente de confirmação em fonte primária incorporada ao projeto.
 
-A coleta empírica distingue explicitamente procedimentos de oposição pré-desconto, devolução da parcela local e mecanismos em duas etapas.
+A coleta empírica distingue explicitamente procedimentos de oposição pré-desconto, devolução da parcela local e mecanismos em duas etapas. Em 07/10/2026, a matriz registra 25 bases territoriais, 21 com procedimento público localizado total ou parcialmente, 8 com universo pontual defensável e 3 com intervalo ou limite inferior. Pelotas passou a ter universo elegível reconstruído em 227 empregados, com validação externa de ordem de grandeza por fonte pública secundária.
 
 Nesta fase, os pontos prioritários são:
 

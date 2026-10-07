@@ -55,7 +55,7 @@ A consulta pública ao processo `DCG-1000975-72.2026.5.00.0000` no PJe/TST local
 
 A regra específica de contribuição associada à PLR, reproduzida por algumas entidades com teto de R$ 262,30 por pagamento, ainda permanece pendente de confirmação em fonte primária incorporada ao projeto.
 
-A coleta empírica distingue explicitamente procedimentos de oposição pré-desconto, devolução da parcela local e mecanismos em duas etapas. Em 07/10/2026, a matriz registra 25 bases territoriais, 21 com procedimento público localizado total ou parcialmente, 8 com universo pontual defensável e 3 com intervalo ou limite inferior. Pelotas passou a ter universo elegível reconstruído em 227 empregados, com validação externa de ordem de grandeza por fonte pública secundária.
+A coleta empírica distingue explicitamente procedimentos de oposição pré-desconto, devolução da parcela local e mecanismos em duas etapas. Em 07/10/2026, a matriz registra 27 bases territoriais, 22 com procedimento público localizado total ou parcialmente, 10 com universo pontual defensável e 3 com intervalo ou limite inferior. Pelotas passou a ter universo elegível reconstruído em 227 empregados, com validação externa de ordem de grandeza por fonte pública secundária. Ponta Porã e Teresópolis também passaram a ter denominadores reconstruídos a partir de percentuais públicos consistentes.
 
 Nesta fase, os pontos prioritários são:
 

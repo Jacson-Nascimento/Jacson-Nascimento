@@ -22,9 +22,9 @@ Não se preenche denominador por aproximação demográfica, quantidade de munic
 
 ## Cobertura em 07/10/2026
 
-- 25 bases territoriais cadastradas;
-- 21 bases com procedimento público de oposição/restituição localizado total ou parcialmente;
-- 8 bases com universo pontual defensável;
+- 27 bases territoriais cadastradas;
+- 22 bases com procedimento público de oposição/restituição localizado total ou parcialmente;
+- 10 bases com universo pontual defensável;
 - 3 bases com intervalo ou limite inferior;
 - 7 grandes bases ainda sem denominador público: Brasília, Belo Horizonte, Pernambuco, Goiás, Campinas, Curitiba e Porto Alegre.
 
@@ -40,6 +40,8 @@ Não se preenche denominador por aproximação demográfica, quantidade de munic
 | Campina Grande e região | 198 | P2+M1 | 180 votantes e 90,91% de participação |
 | Patos de Minas e região | 132 | P2 | aptos publicados |
 | Criciúma e região | 206 | P2+M1 | 161 votos e 78,16% de participação |
+| Ponta Porã e região | 29 | P2+M1 | 25 votantes e 86,21% de participação; 68%/32% reproduzidos exatamente |
+| Teresópolis | 39 | P3+M1 | 33 votantes e 84,62% de participação; fonte do resultado é jornalística secundária |
 
 ### Checagem de Pelotas
 
@@ -88,7 +90,9 @@ Exemplos:
 - Espírito Santo: 1.352 votantes;
 - Pelotas: participação de 72,25% com percentuais de voto que permitem reconstrução;
 - Campina Grande: 180 votos e participação de 90,91%;
-- Patos de Minas: 132 aptos e 99 votantes.
+- Patos de Minas: 132 aptos e 99 votantes;
+- Ponta Porã: 25 votantes e 86,21% de participação, reconstrução de 29 aptos;
+- Teresópolis: 33 votantes e 84,62% de participação, reconstrução de 39 aptos em fonte secundária.
 
 Percentuais isolados, como os publicados em Belo Horizonte, Pernambuco, Campinas e Curitiba, não são convertidos em quantidade de empregados.
 

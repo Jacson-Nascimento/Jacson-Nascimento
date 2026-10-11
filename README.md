@@ -26,16 +26,18 @@ A política de organização e continuidade está documentada em [`GOVERNANCE.md
 
 ## Identidade acadêmica e profissional
 
-- Site pessoal: https://www.jacsonnascimento.com.br/p/home-jacson-cruz-do-nascimento.html
-- ORCID: https://orcid.org/0009-0006-6535-9569
-- ISNI: https://isni.org/isni/0000000530529869
-- Google Scholar: https://scholar.google.com/citations?user=F-4Sql4AAAAJ
-- Currículo Lattes: http://lattes.cnpq.br/7111149229990007
-- LinkedIn: https://www.linkedin.com/in/jacson-nascimento-auditor/
-- GitHub: https://github.com/Jacson-Nascimento
-- Zenodo: https://zenodo.org/records/21985858
-- Auditossauros: https://www.auditossauros.com.br/
-- Publicações e DOI: https://www.auditossauros.com.br/p/artigos-com-doi-em-auditoria-governanca.html
+- **Site pessoal:** https://www.jacsonnascimento.com.br/p/home-jacson-cruz-do-nascimento.html
+- **ORCID:** https://orcid.org/0009-0006-6535-9569
+- **ISNI:** https://isni.org/isni/0000000530529869
+- **Google Scholar:** https://scholar.google.com/citations?user=F-4Sql4AAAAJ
+- **Currículo Lattes:** http://lattes.cnpq.br/7111149229990007
+- **ResearchGate:** https://www.researchgate.net/profile/Jacson-Nascimento
+- **LinkedIn:** https://www.linkedin.com/in/jacson-nascimento-auditor/
+- **GitHub:** https://github.com/Jacson-Nascimento
+- **Zenodo:** https://zenodo.org/records/21985858
+- **Site de perícia contábil:** https://jacsonpericia.com.br/
+- **Auditossauros:** https://www.auditossauros.com.br/
+- **Publicações e DOI:** https://www.auditossauros.com.br/p/artigos-com-doi-em-auditoria-governanca.html
 
 ## Reprodutibilidade
 

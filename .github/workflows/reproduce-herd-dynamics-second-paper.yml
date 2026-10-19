@@ -1,0 +1,48 @@
+name: Reproduce herd dynamics second paper
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'research/dinamica-manada-organizacional/second-paper/**'
+      - 'research/dinamica-manada-organizacional/tools/generate_reference_data.py'
+  pull_request:
+    paths:
+      - 'research/dinamica-manada-organizacional/second-paper/**'
+      - 'research/dinamica-manada-organizacional/tools/generate_reference_data.py'
+
+jobs:
+  reproduce-second-paper:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: research/dinamica-manada-organizacional
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install base generator dependencies
+        run: pip install -r environment/python-requirements.txt
+
+      - name: Generate reference realization
+        run: python tools/generate_reference_data.py
+
+      - name: Install second-paper dependencies
+        run: pip install -r second-paper/environment/python-requirements.txt
+
+      - name: Reproduce and validate complementary analysis
+        run: python second-paper/tools/analyze_reversal.py --validate
+
+      - name: Upload tables and figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: herd-dynamics-second-paper
+          path: |
+            research/dinamica-manada-organizacional/second-paper/outputs/generated
+            research/dinamica-manada-organizacional/second-paper/figures/generated

@@ -1,10 +1,10 @@
 {
   "source": {
     "primary": "https://gist.githubusercontent.com/jovakf1/0efbe4f3cfde6d4308ade85178f23e1a/raw/lotofacil.txt",
-    "raw_sha256": "fdf7b385bb14c5678cc7e0f096cb496fb41ad4e403c9c5d27ea071854e50c89f",
+    "raw_sha256": "1ee477f04e2dfa0ef21f3fd17db2a7f5a13928d7e566f702e02dd206008750ec",
     "first_contest": 1,
-    "last_contest": 3807,
-    "n_contests": 3807,
+    "last_contest": 3808,
+    "n_contests": 3808,
     "official_crosscheck_count": 21
   },
   "change_points": {
@@ -16,44 +16,44 @@
     ]
   },
   "nested_summary": {
-    "n_outer_predictions": 3307,
+    "n_outer_predictions": 3308,
     "n_outer_folds": 9,
     "single": {
-      "mean": 9.044451164197158,
+      "mean": 9.043833131801692,
       "ci95": [
-        9.003628666465074,
-        9.086490777139401
+        9.001813784764208,
+        9.086759371221282
       ],
-      "mean_minus_random9": 0.04445116419715754,
-      "one_sample_t_p": 0.03789503430641533,
+      "mean_minus_random9": 0.04383313180169287,
+      "one_sample_t_p": 0.04066704222700504,
       "ge11": 373,
       "ge12": 58,
       "ge13": 7,
       "max": 13,
-      "mean_brier": 0.24015698837390423
+      "mean_brier": 0.24015810495935527
     },
     "repeat_previous": {
-      "mean": 8.973389779256124,
+      "mean": 8.973700120918984,
       "ci95": [
-        8.931055337163592,
-        9.015127003326278
+        8.9319830713422,
+        9.01602176541717
       ],
-      "one_sample_t_p": 0.21171024027946067
+      "one_sample_t_p": 0.21699537638487051
     },
     "portfolio10": {
-      "mean": 10.807075899606895,
+      "mean": 10.807134220072552,
       "ci95": [
-        10.779248563652859,
-        10.83489567583913
+        10.779617593712212,
+        10.835550181378476
       ],
-      "random_diversified_mean": 10.884705170849713,
-      "paired_difference": -0.07762927124281843,
+      "random_diversified_mean": 10.884703748488512,
+      "paired_difference": -0.07756952841596147,
       "paired_ci95": [
-        -0.10547444814030858,
-        -0.04818808587843986
+        -0.10543047158403887,
+        -0.04962484885126981
       ],
-      "paired_t_p": 8.942610403032815e-08,
-      "ge11": 2134,
+      "paired_t_p": 9.068413012708226e-08,
+      "ge11": 2135,
       "ge12": 601,
       "ge13": 53,
       "ge14": 4,
@@ -78,11 +78,11 @@
   },
   "final_manifest": {
     "model_version": "axion-lotofacil-0.3",
-    "next_contest": 3808,
-    "generated_at_utc": "2026-10-19T23:51:53.691675+00:00",
-    "generated_at_america_araguaina": "2026-10-19T20:51:53.697206-03:00",
-    "last_observed_contest": 3807,
-    "last_observed_date": "2026-10-18",
+    "next_contest": 3809,
+    "generated_at_utc": "2026-10-20T23:19:43.292848+00:00",
+    "generated_at_america_araguaina": "2026-10-20T20:19:43.293422-03:00",
+    "last_observed_contest": 3808,
+    "last_observed_date": "2026-10-19",
     "selected_config": {
       "name": "blend_w60_lw0.5",
       "window": 60,
@@ -99,13 +99,13 @@
       5,
       7,
       8,
+      10,
       11,
       12,
       13,
       15,
       19,
       20,
-      23,
       24,
       25
     ],
@@ -117,13 +117,13 @@
         5,
         7,
         8,
+        10,
         11,
         12,
         13,
         15,
         19,
         20,
-        23,
         24,
         25
       ],
@@ -133,29 +133,12 @@
         6,
         7,
         9,
-        10,
         11,
         12,
         13,
         14,
         15,
         19,
-        21,
-        24,
-        25
-      ],
-      [
-        1,
-        3,
-        5,
-        6,
-        8,
-        9,
-        10,
-        11,
-        14,
-        19,
-        20,
         21,
         23,
         24,
@@ -165,7 +148,7 @@
     "distance_minimum": 5,
     "universe_vertices_scored": 3268760,
     "seed": 20260723,
-    "manifest_sha256_without_self_hash": "49806487b595434c50afe98d97b4e79a06e720121a6bc52469d9eef4a5f61f84"
+    "manifest_sha256_without_self_hash": "ed01c7e8ce9f5dba98950ad5f54057cf47933877632018161d95eb3227f0e1b7"
   },
   "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]",
   "numpy": "2.5.4",

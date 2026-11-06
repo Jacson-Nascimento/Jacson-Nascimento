@@ -1,10 +1,10 @@
 {
   "source": {
     "primary": "https://gist.githubusercontent.com/jovakf1/0efbe4f3cfde6d4308ade85178f23e1a/raw/lotofacil.txt",
-    "raw_sha256": "04b390bbebadad5075a472b95e2efcd945f6aeda2ea1c2833d0b720d6aded534",
+    "raw_sha256": "7881a5675926196d366c5636e662761434f48f44366c1ab6c219e5028ded2e05",
     "first_contest": 1,
-    "last_contest": 3821,
-    "n_contests": 3821,
+    "last_contest": 3822,
+    "n_contests": 3822,
     "official_crosscheck_count": 20
   },
   "change_points": {
@@ -16,44 +16,44 @@
     ]
   },
   "nested_summary": {
-    "n_outer_predictions": 3321,
+    "n_outer_predictions": 3322,
     "n_outer_folds": 9,
     "single": {
-      "mean": 9.046070460704607,
+      "mean": 9.045153521974713,
       "ci95": [
-        9.00391448358928,
-        9.088527551942185
+        9.003905779650813,
+        9.086092715231787
       ],
-      "mean_minus_random9": 0.04607046070460705,
-      "one_sample_t_p": 0.031347440152853095,
+      "mean_minus_random9": 0.04515352197471403,
+      "one_sample_t_p": 0.034986138548973554,
       "ge11": 378,
       "ge12": 58,
       "ge13": 7,
       "max": 13,
-      "mean_brier": 0.2401538791103222
+      "mean_brier": 0.24015591964800992
     },
     "repeat_previous": {
-      "mean": 8.97289972899729,
+      "mean": 8.973208910295003,
       "ci95": [
-        8.930442637759711,
-        9.013550135501355
+        8.931667670078266,
+        9.015051173991571
       ],
-      "one_sample_t_p": 0.20232427770144396
+      "one_sample_t_p": 0.207430863163317
     },
     "portfolio10": {
-      "mean": 10.806684733514002,
+      "mean": 10.806742925948225,
       "ci95": [
-        10.778681120144535,
-        10.834695874736525
+        10.779048765803733,
+        10.834437086092715
       ],
-      "random_diversified_mean": 10.884757603131586,
-      "paired_difference": -0.07807286961758522,
+      "random_diversified_mean": 10.88469596628537,
+      "paired_difference": -0.07795304033714646,
       "paired_ci95": [
-        -0.1057994579945801,
-        -0.04951219512195142
+        -0.10636995785671301,
+        -0.049727874774232586
       ],
-      "paired_t_p": 6.772405366352045e-08,
-      "ge11": 2144,
+      "paired_t_p": 7.034260960248827e-08,
+      "ge11": 2145,
       "ge12": 601,
       "ge13": 53,
       "ge14": 4,
@@ -78,11 +78,11 @@
   },
   "final_manifest": {
     "model_version": "axion-lotofacil-0.3",
-    "next_contest": 3822,
-    "generated_at_utc": "2026-11-05T01:01:40.992548+00:00",
-    "generated_at_america_araguaina": "2026-11-04T22:01:40.998175-03:00",
-    "last_observed_contest": 3821,
-    "last_observed_date": "2026-11-04",
+    "next_contest": 3823,
+    "generated_at_utc": "2026-11-06T01:04:36.776989+00:00",
+    "generated_at_america_araguaina": "2026-11-05T22:04:36.784239-03:00",
+    "last_observed_contest": 3822,
+    "last_observed_date": "2026-11-05",
     "selected_config": {
       "name": "marg_w30_hlNone_pr100.0",
       "window": 30,
@@ -96,13 +96,13 @@
       3,
       5,
       6,
+      7,
       8,
       10,
       11,
       12,
       13,
       15,
-      16,
       19,
       20,
       23,
@@ -114,13 +114,13 @@
         3,
         5,
         6,
+        7,
         8,
         10,
         11,
         12,
         13,
         15,
-        16,
         19,
         20,
         23,
@@ -130,15 +130,15 @@
       [
         1,
         4,
+        5,
         6,
-        7,
         8,
         10,
-        11,
         12,
         13,
         14,
         15,
+        16,
         19,
         21,
         23,
@@ -148,9 +148,9 @@
     "distance_minimum": 5,
     "universe_vertices_scored": 3268760,
     "seed": 20260723,
-    "manifest_sha256_without_self_hash": "a9ebbbff2648ff2efeb38d9d835eb17ff7def2f838e779c5d57eb2154067472b"
+    "manifest_sha256_without_self_hash": "2313eabac7deaecbc8d3a93d51294e32b2cfa4b51e12c834552a965f36a96d15"
   },
-  "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]",
+  "python": "3.12.16 (main, Oct 26 2026, 02:50:49) [GCC 13.3.0]",
   "numpy": "2.5.4",
   "pandas": "2.3.3",
   "scipy": "1.18.1"

@@ -1,10 +1,10 @@
 {
   "source": {
     "primary": "https://gist.githubusercontent.com/jovakf1/0efbe4f3cfde6d4308ade85178f23e1a/raw/lotofacil.txt",
-    "raw_sha256": "58e50c5558387cafff41b54db7fd318876ab1688983e7b1728ffbbc096007a4b",
+    "raw_sha256": "29d0e7d7ca455090468fcbddac664668fcc4cd154f349376a5b2135b461b0761",
     "first_contest": 1,
-    "last_contest": 3827,
-    "n_contests": 3827,
+    "last_contest": 3829,
+    "n_contests": 3829,
     "official_crosscheck_count": 20
   },
   "change_points": {
@@ -16,44 +16,44 @@
     ]
   },
   "nested_summary": {
-    "n_outer_predictions": 3327,
+    "n_outer_predictions": 3329,
     "n_outer_folds": 9,
     "single": {
-      "mean": 9.045085662759243,
+      "mean": 9.045058576148994,
       "ci95": [
-        9.00299819657349,
-        9.08746618575293
+        9.0030039050766,
+        9.086512466206068
       ],
-      "mean_minus_random9": 0.04508566275924256,
-      "one_sample_t_p": 0.03509425920926717,
+      "mean_minus_random9": 0.04505857614899369,
+      "one_sample_t_p": 0.035130321892815834,
       "ge11": 378,
       "ge12": 58,
       "ge13": 7,
       "max": 13,
-      "mean_brier": 0.24015829958790974
+      "mean_brier": 0.2401578110092221
     },
     "repeat_previous": {
-      "mean": 8.971445746919146,
+      "mean": 8.970862120756983,
       "ci95": [
-        8.929065223925459,
-        9.01292455665765
+        8.93000901171523,
+        9.012323520576748
       ],
-      "one_sample_t_p": 0.17884368776370507
+      "one_sample_t_p": 0.17003736518132895
     },
     "portfolio10": {
-      "mean": 10.805831079050195,
+      "mean": 10.805647341544008,
       "ci95": [
-        10.778178539224527,
-        10.83468590321611
+        10.77830429558426,
+        10.832990387503754
       ],
-      "random_diversified_mean": 10.88467688608356,
-      "paired_difference": -0.07884580703336357,
+      "random_diversified_mean": 10.88467407629919,
+      "paired_difference": -0.07902673475518189,
       "paired_ci95": [
-        -0.1075939284640819,
-        -0.050916140667267976
+        -0.10733553619705632,
+        -0.05081345749474335
       ],
-      "paired_t_p": 4.8384837075544874e-08,
-      "ge11": 2146,
+      "paired_t_p": 4.4501413147405456e-08,
+      "ge11": 2147,
       "ge12": 601,
       "ge13": 53,
       "ge14": 4,
@@ -78,11 +78,11 @@
   },
   "final_manifest": {
     "model_version": "axion-lotofacil-0.3",
-    "next_contest": 3828,
-    "generated_at_utc": "2026-11-12T01:59:13.318490+00:00",
-    "generated_at_america_araguaina": "2026-11-11T22:59:13.325819-03:00",
-    "last_observed_contest": 3827,
-    "last_observed_date": "2026-11-11",
+    "next_contest": 3830,
+    "generated_at_utc": "2026-11-14T01:00:47.333213+00:00",
+    "generated_at_america_araguaina": "2026-11-13T22:00:47.342020-03:00",
+    "last_observed_contest": 3829,
+    "last_observed_date": "2026-11-13",
     "selected_config": {
       "name": "blend_w60_lw0.5",
       "window": 60,
@@ -97,12 +97,12 @@
       3,
       5,
       6,
-      8,
       10,
       11,
       12,
       13,
       15,
+      18,
       19,
       20,
       23,
@@ -115,12 +115,12 @@
         3,
         5,
         6,
-        8,
         10,
         11,
         12,
         13,
         15,
+        18,
         19,
         20,
         23,
@@ -132,15 +132,15 @@
         4,
         6,
         7,
+        8,
         11,
-        12,
         13,
         14,
         15,
-        17,
-        18,
         19,
         20,
+        22,
+        23,
         24,
         25
       ]
@@ -148,9 +148,9 @@
     "distance_minimum": 5,
     "universe_vertices_scored": 3268760,
     "seed": 20260723,
-    "manifest_sha256_without_self_hash": "8ee770e748ce881bd04b0ce58a215e7cb8948c913733e3247c1165708b4c67e0"
+    "manifest_sha256_without_self_hash": "997219e0ce90d64857be3cc95c7d9b6ae468cff0699f8670823fe43ef26d5819"
   },
-  "python": "3.12.16 (main, Oct 26 2026, 02:50:49) [GCC 13.3.0]",
+  "python": "3.12.16 (main, Oct 26 2026, 02:48:44) [GCC 15.2.0]",
   "numpy": "2.5.4",
   "pandas": "2.3.3",
   "scipy": "1.18.1"
